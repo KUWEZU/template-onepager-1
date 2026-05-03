@@ -65,7 +65,7 @@ export function Hero() {
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
           <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" aria-hidden="true" />
           <span className="text-brand-primary text-sm font-medium">
-            Ihre Kfz-Werkstatt in [Stadt]
+            Ihre {client.branche ?? "Werkstatt"} in {client.ort}
           </span>
         </div>
 
