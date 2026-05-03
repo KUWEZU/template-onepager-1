@@ -19,7 +19,7 @@ export function Karriere() {
             <span className="text-brand-primary text-xs font-semibold uppercase tracking-wider">Karriere</span>
           </div>
           <h2 id="karriere-heading" className="text-3xl sm:text-4xl font-black text-brand-text mb-4">Werde Teil unseres Teams</h2>
-          <p className="max-w-xl mx-auto text-brand-text/55 text-lg">
+          <p className="max-w-xl mx-auto text-brand-muted text-lg">
             Wir suchen motivierte Fachkräfte, die mit uns gemeinsam wachsen wollen.
           </p>
         </div>
@@ -29,12 +29,12 @@ export function Karriere() {
             <h3 className="text-xl font-bold text-brand-text mb-6">Warum zu uns?</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {BENEFITS.map(({ icon: Icon, title, text }) => (
-                <div key={title} className="bg-brand-secondary border border-brand-text/[0.08] rounded-xl p-5 hover:border-brand-primary/20 transition-all">
+                <div key={title} className="bg-brand-surface border border-brand-border rounded-xl p-5 shadow-sm hover:border-brand-primary/20 transition-all">
                   <div className="w-9 h-9 rounded-lg bg-brand-primary/10 flex items-center justify-center mb-3">
                     <Icon className="w-4 h-4 text-brand-primary" aria-hidden="true" />
                   </div>
                   <p className="text-sm font-semibold text-brand-text mb-1">{title}</p>
-                  <p className="text-xs text-brand-text/45 leading-relaxed">{text}</p>
+                  <p className="text-xs text-brand-muted leading-relaxed">{text}</p>
                 </div>
               ))}
             </div>
@@ -46,18 +46,17 @@ export function Karriere() {
               {jobs.map((job) => (
                 <li key={job.title}>
                   <a href="#kontakt"
-                    className="flex items-center justify-between gap-4 bg-brand-secondary border border-brand-text/[0.08] rounded-xl p-4 hover:border-brand-primary/25 transition-all group"
-                    aria-label={`Stelle: ${job.title}`}
-                  >
+                    className="flex items-center justify-between gap-4 bg-brand-surface border border-brand-border rounded-xl p-4 shadow-sm hover:border-brand-primary/25 transition-all group"
+                    aria-label={`Stelle: ${job.title}`}>
                     <div>
                       <p className="text-sm font-semibold text-brand-text group-hover:text-brand-primary transition-colors">{job.title}</p>
                       <div className="flex items-center gap-3 mt-1">
-                        <span className="text-xs text-brand-text/40">{job.type}</span>
-                        <span className="w-1 h-1 rounded-full bg-brand-text/20" aria-hidden="true" />
-                        <span className="text-xs text-brand-text/40">{job.experience}</span>
+                        <span className="text-xs text-brand-muted">{job.type}</span>
+                        <span className="w-1 h-1 rounded-full bg-brand-border" aria-hidden="true" />
+                        <span className="text-xs text-brand-muted">{job.experience}</span>
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-brand-text/25 group-hover:text-brand-primary shrink-0 transition-colors" aria-hidden="true" />
+                    <ArrowRight className="w-4 h-4 text-brand-muted group-hover:text-brand-primary shrink-0 transition-colors" aria-hidden="true" />
                   </a>
                 </li>
               ))}
