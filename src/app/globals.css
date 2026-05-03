@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ── Brand Design Tokens ────────────────────────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-brand-bg:        #0d0f1a;
+  --color-brand-secondary: #13162b;
+  --color-brand-surface:   #1a1e35;
+  --color-brand-primary:   #c9a84c;
+  --color-brand-primary-hover: #b8963e;
+  --color-brand-muted:     #8b9bbf;
+  --color-brand-text:      #ffffff;
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ────────────────────────────────────────────────────────────────────── */
+:root {
+  --background: #0d0f1a;
+  --foreground: #ffffff;
 }
 
-body {
-  background: var(--background);
+html, body {
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* ── Smooth scroll offset for fixed nav ─────────────────────────────────────── */
+[id] {
+  scroll-margin-top: 80px;
+}
+
+/* ── Focus visible ring ──────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #c9a84c;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Skip-to-content link ────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 999;
+  background: #c9a84c;
+  color: #0d0f1a;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 6px 6px;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── Accessibility Modes ─────────────────────────────────────────────────────── */
+
+/* High Contrast */
+html.a11y-contrast {
+  filter: invert(1) hue-rotate(180deg);
+}
+html.a11y-contrast img,
+html.a11y-contrast video {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* No Animations */
+html.a11y-no-motion *,
+html.a11y-no-motion *::before,
+html.a11y-no-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Underline Links */
+html.a11y-underline-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* Readable Font (Arial) */
+html.a11y-readable-font,
+html.a11y-readable-font * {
+  font-family: Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0.01em;
 }
