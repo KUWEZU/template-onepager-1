@@ -1,9 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react";
-
-const LEISTUNGEN_LINKS = [
-  "Lackierung", "Karosserie", "Reifenwechsel", "Inspektion",
-  "HU / AU", "Autoglas", "Smart Repair", "Klimaservice",
-];
+import { client } from "@/data/client";
 
 const SOCIAL = [
   {
@@ -48,13 +44,17 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center">
-                <span className="text-[#0d0f1a] font-black text-sm tracking-tight">KW</span>
-              </div>
-              <span className="text-white font-bold text-lg tracking-tight">KUWEZU</span>
+              {client.logo ? (
+                <img src={client.logo} alt={client.name} className="h-9 w-auto" />
+              ) : (
+                <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center">
+                  <span className="text-[#0d0f1a] font-black text-sm tracking-tight">{client.name.slice(0, 2).toUpperCase()}</span>
+                </div>
+              )}
+              <span className="text-white font-bold text-lg tracking-tight">{client.name}</span>
             </div>
             <p className="text-sm text-white/45 leading-relaxed mb-5">
-              Ihre professionelle Kfz-Werkstatt in [Stadt]. Qualität, Transparenz und
+              Ihre professionelle Kfz-Werkstatt in {client.ort}. Qualität, Transparenz und
               schneller Service seit über 20 Jahren.
             </p>
             <div className="flex items-center gap-3">
@@ -75,13 +75,13 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-white mb-4">Leistungen</h3>
             <ul className="space-y-2" role="list">
-              {LEISTUNGEN_LINKS.map((item) => (
-                <li key={item}>
+              {client.leistungen.map((l) => (
+                <li key={l.title}>
                   <a
                     href="#leistungen"
                     className="text-sm text-white/45 hover:text-white transition-colors"
                   >
-                    {item}
+                    {l.title}
                   </a>
                 </li>
               ))}
@@ -118,26 +118,26 @@ export function Footer() {
             <ul className="space-y-3" role="list">
               <li>
                 <a
-                  href="tel:+491234567890"
+                  href={`tel:${client.telefon}`}
                   className="flex items-center gap-2.5 text-sm text-white/45 hover:text-white transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-brand-primary shrink-0" aria-hidden="true" />
-                  +49 123 456 7890
+                  {client.telefon}
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@ihre-werkstatt.de"
+                  href={`mailto:${client.email}`}
                   className="flex items-center gap-2.5 text-sm text-white/45 hover:text-white transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-brand-primary shrink-0" aria-hidden="true" />
-                  info@ihre-werkstatt.de
+                  {client.email}
                 </a>
               </li>
               <li>
                 <address className="not-italic flex items-start gap-2.5 text-sm text-white/45">
                   <MapPin className="w-3.5 h-3.5 text-brand-primary shrink-0 mt-0.5" aria-hidden="true" />
-                  <span>Musterstraße 1<br />12345 Musterstadt</span>
+                  <span>{client.adresse}</span>
                 </address>
               </li>
             </ul>
@@ -149,7 +149,7 @@ export function Footer() {
       <div className="border-t border-white/[0.05]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/25">
-            © {year} KUWEZU. Alle Rechte vorbehalten.
+            © {year} {client.name}. Alle Rechte vorbehalten.
           </p>
           <div className="flex items-center gap-4">
             <a href="/impressum"   className="text-xs text-white/25 hover:text-white/60 transition-colors">Impressum</a>
