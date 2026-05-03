@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { client } from "@/data/client";
 
@@ -36,6 +37,7 @@ const SOCIAL = [
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const initials = client.name.slice(0, 2).toUpperCase();
 
   return (
     <footer className="bg-[#0a0c18] border-t border-white/[0.06]" aria-label="Seitenende">
@@ -45,17 +47,25 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               {client.logo ? (
-                <img src={client.logo} alt={client.name} className="h-9 w-auto" />
+                <Image
+                  src={client.logo}
+                  alt={client.name}
+                  width={120}
+                  height={36}
+                  className="h-8 w-auto object-contain"
+                  unoptimized
+                />
               ) : (
-                <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center">
-                  <span className="text-[#0d0f1a] font-black text-sm tracking-tight">{client.name.slice(0, 2).toUpperCase()}</span>
-                </div>
+                <>
+                  <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center">
+                    <span className="text-[#0d0f1a] font-black text-sm tracking-tight">{initials}</span>
+                  </div>
+                  <span className="text-white font-bold text-lg tracking-tight">{client.name}</span>
+                </>
               )}
-              <span className="text-white font-bold text-lg tracking-tight">{client.name}</span>
             </div>
             <p className="text-sm text-white/45 leading-relaxed mb-5">
-              Ihre professionelle Kfz-Werkstatt in {client.ort}. Qualität, Transparenz und
-              schneller Service seit über 20 Jahren.
+              Ihr {client.branche}-Betrieb in {client.ort}. Qualität, Transparenz und schneller Service.
             </p>
             <div className="flex items-center gap-3">
               {SOCIAL.map(({ label, href, svg }) => (
@@ -75,8 +85,8 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-white mb-4">Leistungen</h3>
             <ul className="space-y-2" role="list">
-              {client.leistungen.map((l) => (
-                <li key={l.title}>
+              {client.leistungen.slice(0, 8).map((l) => (
+                <li key={l.slug}>
                   <a
                     href="#leistungen"
                     className="text-sm text-white/45 hover:text-white transition-colors"
@@ -101,10 +111,7 @@ export function Footer() {
                 { label: "Barrierefreiheit", href: "/barrierefreiheit" },
               ].map(({ label, href }) => (
                 <li key={label}>
-                  <a
-                    href={href}
-                    className="text-sm text-white/45 hover:text-white transition-colors"
-                  >
+                  <a href={href} className="text-sm text-white/45 hover:text-white transition-colors">
                     {label}
                   </a>
                 </li>
@@ -116,30 +123,36 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-white mb-4">Kontakt</h3>
             <ul className="space-y-3" role="list">
-              <li>
-                <a
-                  href={`tel:${client.telefon}`}
-                  className="flex items-center gap-2.5 text-sm text-white/45 hover:text-white transition-colors"
-                >
-                  <Phone className="w-3.5 h-3.5 text-brand-primary shrink-0" aria-hidden="true" />
-                  {client.telefon}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${client.email}`}
-                  className="flex items-center gap-2.5 text-sm text-white/45 hover:text-white transition-colors"
-                >
-                  <Mail className="w-3.5 h-3.5 text-brand-primary shrink-0" aria-hidden="true" />
-                  {client.email}
-                </a>
-              </li>
-              <li>
-                <address className="not-italic flex items-start gap-2.5 text-sm text-white/45">
-                  <MapPin className="w-3.5 h-3.5 text-brand-primary shrink-0 mt-0.5" aria-hidden="true" />
-                  <span>{client.adresse}</span>
-                </address>
-              </li>
+              {client.telefon && (
+                <li>
+                  <a
+                    href={`tel:${client.telefon}`}
+                    className="flex items-center gap-2.5 text-sm text-white/45 hover:text-white transition-colors"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-brand-primary shrink-0" aria-hidden="true" />
+                    {client.telefon}
+                  </a>
+                </li>
+              )}
+              {client.email && (
+                <li>
+                  <a
+                    href={`mailto:${client.email}`}
+                    className="flex items-center gap-2.5 text-sm text-white/45 hover:text-white transition-colors"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-brand-primary shrink-0" aria-hidden="true" />
+                    {client.email}
+                  </a>
+                </li>
+              )}
+              {client.adresse && (
+                <li>
+                  <address className="not-italic flex items-start gap-2.5 text-sm text-white/45">
+                    <MapPin className="w-3.5 h-3.5 text-brand-primary shrink-0 mt-0.5" aria-hidden="true" />
+                    <span>{client.adresse}</span>
+                  </address>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -152,8 +165,8 @@ export function Footer() {
             © {year} {client.name}. Alle Rechte vorbehalten.
           </p>
           <div className="flex items-center gap-4">
-            <a href="/impressum"   className="text-xs text-white/25 hover:text-white/60 transition-colors">Impressum</a>
-            <a href="/datenschutz" className="text-xs text-white/25 hover:text-white/60 transition-colors">Datenschutz</a>
+            <a href="/impressum"        className="text-xs text-white/25 hover:text-white/60 transition-colors">Impressum</a>
+            <a href="/datenschutz"      className="text-xs text-white/25 hover:text-white/60 transition-colors">Datenschutz</a>
             <a href="/barrierefreiheit" className="text-xs text-white/25 hover:text-white/60 transition-colors">Barrierefreiheit</a>
           </div>
         </div>
