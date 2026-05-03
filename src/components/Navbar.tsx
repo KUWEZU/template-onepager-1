@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { client } from "@/data/client";
@@ -27,6 +28,8 @@ export function Navbar() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   }
 
+  const initials = client.name.slice(0, 2).toUpperCase();
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -47,15 +50,24 @@ export function Navbar() {
           onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}
         >
           {client.logo ? (
-            <img src={client.logo} alt={client.name} className="h-8 w-auto" />
+            <Image
+              src={client.logo}
+              alt={client.name}
+              width={120}
+              height={36}
+              className="h-9 w-auto object-contain"
+              unoptimized
+            />
           ) : (
-            <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center">
-              <span className="text-[#0d0f1a] font-black text-sm tracking-tight">{client.name.slice(0, 2).toUpperCase()}</span>
-            </div>
+            <>
+              <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center">
+                <span className="text-[#0d0f1a] font-black text-sm tracking-tight">{initials}</span>
+              </div>
+              <span className="text-white font-bold text-lg tracking-tight group-hover:text-brand-primary transition-colors">
+                {client.name}
+              </span>
+            </>
           )}
-          <span className="text-white font-bold text-lg tracking-tight group-hover:text-brand-primary transition-colors">
-            {client.name}
-          </span>
         </a>
 
         {/* Desktop links */}
@@ -75,18 +87,20 @@ export function Navbar() {
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <a
-            href={`tel:${client.telefon}`}
-            className="flex items-center gap-2 text-sm font-medium text-brand-primary hover:text-brand-primary-hover transition-colors"
-            aria-label="Jetzt anrufen"
-          >
-            <Phone className="w-4 h-4" aria-hidden="true" />
-            {client.telefon}
-          </a>
+          {client.telefon && (
+            <a
+              href={`tel:${client.telefon}`}
+              className="flex items-center gap-2 text-sm font-medium text-brand-primary hover:text-brand-primary-hover transition-colors"
+              aria-label="Jetzt anrufen"
+            >
+              <Phone className="w-4 h-4" aria-hidden="true" />
+              {client.telefon}
+            </a>
+          )}
           <a
             href="#kontakt"
             onClick={(e) => { e.preventDefault(); handleNavClick("#kontakt"); }}
-            className="px-4 py-2 text-sm font-semibold bg-brand-primary text-[#0d0f1a] hover:bg-[#b8963e] rounded-xl transition-all"
+            className="px-4 py-2 text-sm font-semibold bg-brand-primary text-[#0d0f1a] hover:bg-brand-primary-hover rounded-xl transition-all"
           >
             Termin buchen
           </a>
@@ -125,13 +139,15 @@ export function Navbar() {
             ))}
           </ul>
           <div className="mt-3 pt-3 border-t border-white/[0.06] flex flex-col gap-2">
-            <a
-              href={`tel:${client.telefon}`}
-              className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-brand-primary"
-            >
-              <Phone className="w-4 h-4" aria-hidden="true" />
-              {client.telefon}
-            </a>
+            {client.telefon && (
+              <a
+                href={`tel:${client.telefon}`}
+                className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-brand-primary"
+              >
+                <Phone className="w-4 h-4" aria-hidden="true" />
+                {client.telefon}
+              </a>
+            )}
             <a
               href="#kontakt"
               onClick={(e) => { e.preventDefault(); handleNavClick("#kontakt"); }}
