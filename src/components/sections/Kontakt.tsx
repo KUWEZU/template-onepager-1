@@ -2,33 +2,7 @@
 
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
-
-const INFOS = [
-  {
-    icon: Phone,
-    title: "Telefon",
-    lines: ["+49 123 456 7890", "Mo–Fr 8:00–18:00 Uhr"],
-    href: "tel:+491234567890",
-  },
-  {
-    icon: Mail,
-    title: "E-Mail",
-    lines: ["info@ihre-werkstatt.de", "Antwort innerhalb 24h"],
-    href: "mailto:info@ihre-werkstatt.de",
-  },
-  {
-    icon: MapPin,
-    title: "Adresse",
-    lines: ["Musterstraße 1", "12345 Musterstadt"],
-    href: "https://maps.google.com",
-  },
-  {
-    icon: Clock,
-    title: "Öffnungszeiten",
-    lines: ["Mo–Fr 8:00–18:00", "Sa 9:00–14:00"],
-    href: null,
-  },
-];
+import { client } from "@/data/client";
 
 type FormState = {
   name: string;
@@ -61,6 +35,33 @@ export function Kontakt() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const INFOS = [
+    {
+      icon: Phone,
+      title: "Telefon",
+      lines: [client.telefon, "Mo–Fr 8:00–18:00 Uhr"],
+      href: `tel:${client.telefon}`,
+    },
+    {
+      icon: Mail,
+      title: "E-Mail",
+      lines: [client.email, "Antwort innerhalb 24h"],
+      href: `mailto:${client.email}`,
+    },
+    {
+      icon: MapPin,
+      title: "Adresse",
+      lines: [client.adresse],
+      href: "https://maps.google.com",
+    },
+    {
+      icon: Clock,
+      title: "Öffnungszeiten",
+      lines: client.kontakt.oeffnungszeiten,
+      href: null,
+    },
+  ];
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
