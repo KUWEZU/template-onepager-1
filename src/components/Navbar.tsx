@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
+import { client } from "@/data/client";
 
 const NAV_LINKS = [
   { label: "Über uns",    href: "#ueber-uns"  },
@@ -45,11 +46,15 @@ export function Navbar() {
           aria-label="Zur Startseite"
           onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}
         >
-          <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center">
-            <span className="text-[#0d0f1a] font-black text-sm tracking-tight">KW</span>
-          </div>
+          {client.logo ? (
+            <img src={client.logo} alt={client.name} className="h-8 w-auto" />
+          ) : (
+            <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center">
+              <span className="text-[#0d0f1a] font-black text-sm tracking-tight">{client.name.slice(0, 2).toUpperCase()}</span>
+            </div>
+          )}
           <span className="text-white font-bold text-lg tracking-tight group-hover:text-brand-primary transition-colors">
-            KUWEZU
+            {client.name}
           </span>
         </a>
 
@@ -71,12 +76,12 @@ export function Navbar() {
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="tel:+491234567890"
+            href={`tel:${client.telefon}`}
             className="flex items-center gap-2 text-sm font-medium text-brand-primary hover:text-brand-primary-hover transition-colors"
             aria-label="Jetzt anrufen"
           >
             <Phone className="w-4 h-4" aria-hidden="true" />
-            +49 123 456 7890
+            {client.telefon}
           </a>
           <a
             href="#kontakt"
@@ -121,11 +126,11 @@ export function Navbar() {
           </ul>
           <div className="mt-3 pt-3 border-t border-white/[0.06] flex flex-col gap-2">
             <a
-              href="tel:+491234567890"
+              href={`tel:${client.telefon}`}
               className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-brand-primary"
             >
               <Phone className="w-4 h-4" aria-hidden="true" />
-              +49 123 456 7890
+              {client.telefon}
             </a>
             <a
               href="#kontakt"
