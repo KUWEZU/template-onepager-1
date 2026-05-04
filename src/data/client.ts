@@ -14,6 +14,8 @@ const R2 = "https://r2.kuwezu.de";
 export const client = {
   // ── Allgemein ──────────────────────────────────────────────────────────────
   name: "KUWEZU",
+  branche: "Kfz-Werkstatt" as string,
+  ort: "Musterstadt" as string,
   slogan: "Professionelle Kfz-Werkstatt die Sie verdienen",
   adresse: "Musterstraße 1, 12345 Musterstadt",
   telefon: "+49 123 456 7890",
@@ -22,13 +24,16 @@ export const client = {
   logo: null,
   standort_bild: null,
 
+  // ── Öffnungszeiten & Services ──────────────────────────────────────────────
+  tuev_termine: true as boolean,
+  oeffnungszeiten: {
+    mo_fr: "08:00 – 18:00" as string,
+    sa:    "09:00 – 13:00" as string,
+    so:    "" as string,
+  },
+
   // ── Hero ───────────────────────────────────────────────────────────────────
   hero: {
-    /**
-     * Vollbild-Hintergrundbild.
-     * Noch kein Hero-Foto in R2 → SVG-Platzhalter.
-     * Sobald vorhanden: `${R2}/bibliothek/hero/[dateiname].webp`
-     */
     bild: "/images/hero.svg",
     overlayOpacity: 0.55,
     ueberschrift: "Professionelle Kfz-Reparatur",
@@ -41,11 +46,6 @@ export const client = {
 
   // ── Über uns ───────────────────────────────────────────────────────────────
   ueberUns: {
-    /**
-     * Team-/Werkstattfoto rechts neben dem Text.
-     * Noch kein Foto in R2 → SVG-Platzhalter.
-     * Sobald vorhanden: `${R2}/bibliothek/team/[dateiname].webp`
-     */
     bild: "/images/ueber-uns.svg",
     ueberschrift: "Ihre Werkstatt — Ihr Vertrauen",
     text1:
@@ -62,7 +62,6 @@ export const client = {
   },
 
   // ── Leistungen ─────────────────────────────────────────────────────────────
-  // Bilder direkt von R2. Kein Bild vorhanden → SVG-Platzhalter (lokal).
   leistungen: [
     {
       slug: "lackierung",
@@ -99,7 +98,6 @@ export const client = {
     {
       slug: "hu-au",
       title: "HU / AU",
-      // R2-Key enthält Leerzeichen: "bibliothek/HU/AU/..." → direkt verwendbar als URL
       bild: `${R2}/bibliothek/HU/AU/1777808071378-leistung_tu_v.png`,
       description:
         "Hauptuntersuchung und Abgasuntersuchung direkt bei uns — schnell und ohne lange Wartezeit.",
@@ -116,7 +114,6 @@ export const client = {
     {
       slug: "smart-repair",
       title: "Smart Repair",
-      // Noch kein Bild in R2 → SVG-Platzhalter
       bild: "/images/leistungen/smart-repair.svg",
       description:
         "Kleine Dellen, Kratzer und Lackschäden wirtschaftlich und schnell reparieren.",
@@ -133,7 +130,6 @@ export const client = {
     {
       slug: "leasingrueckgabe",
       title: "Leasingrückgabe",
-      // Noch kein Bild in R2 → SVG-Platzhalter
       bild: "/images/leistungen/leasingrueckgabe.svg",
       description:
         "Professionelle Aufbereitung und Reparatur vor der Fahrzeugrückgabe — stressfrei und transparent.",
@@ -142,7 +138,6 @@ export const client = {
     {
       slug: "hagelschaden",
       title: "Hagelschaden",
-      // Noch kein Bild in R2 → SVG-Platzhalter
       bild: "/images/leistungen/hagelschaden.svg",
       description:
         "Schnelle und spurslose Hagelschadenreparatur durch PDR-Technologie ohne Lackierung.",
@@ -170,11 +165,8 @@ export const client = {
 
   // ── Kontakt ────────────────────────────────────────────────────────────────
   kontakt: {
-    oeffnungszeiten: ["Mo–Fr 8:00–18:00", "Sa 9:00–14:00"],
-    // Für echte Karte: Google Maps Embed-URL oder Koordinaten hier eintragen
-    // mapEmbedUrl: "https://www.google.com/maps/embed?pb=..."
+    oeffnungszeiten: ["Mo–Fr: 08:00 – 18:00", "Sa: 09:00 – 13:00"],
   },
 } as const;
 
 export type LeistungConfig = (typeof client.leistungen)[number];
-
