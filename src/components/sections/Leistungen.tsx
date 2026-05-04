@@ -22,7 +22,7 @@ export function Leistungen() {
 
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
-            <span className="text-brand-secondary text-sm font-semibold uppercase tracking-wider">Leistungen</span>
+            <span className="text-safe-secondary text-sm font-semibold uppercase tracking-wider">Leistungen</span>
           </div>
           <h2 id="leistungen-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
             Alles aus einer Hand
@@ -72,7 +72,7 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
         <div className="w-full aspect-video flex items-center justify-center border-b border-brand-border"
           style={{ backgroundColor: "var(--color-section-alt)" }}>
           <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
-            <Icon className="w-7 h-7 text-brand-primary" aria-hidden="true" />
+            <Icon className="w-7 h-7 text-safe-icon" aria-hidden="true" />
           </div>
         </div>
       )}
@@ -81,7 +81,7 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
         <div className="flex items-center gap-3 mb-4">
           <div className="w-9 h-9 rounded-xl bg-brand-primary/10 border border-brand-primary/15 flex items-center justify-center shrink-0
                           group-hover:bg-brand-primary/20 transition-colors">
-            <Icon className="w-4 h-4 text-brand-primary" aria-hidden="true" />
+            <Icon className="w-4 h-4 text-safe-icon" aria-hidden="true" />
           </div>
           <h3 className="text-lg font-bold text-brand-heading">{leistung.title}</h3>
         </div>
