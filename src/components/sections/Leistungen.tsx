@@ -12,14 +12,19 @@ const ICONS = [
 
 export function Leistungen() {
   return (
-    <section id="leistungen" className="py-28 bg-brand-surface2" aria-labelledby="leistungen-heading">
+    <section
+      id="leistungen"
+      className="py-28"
+      style={{ backgroundColor: "var(--color-section-alt)" }}
+      aria-labelledby="leistungen-heading"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
             <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Leistungen</span>
           </div>
-          <h2 id="leistungen-heading" className="text-4xl sm:text-5xl font-black text-brand-text mb-5">
+          <h2 id="leistungen-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
             Alles aus einer Hand
           </h2>
           <p className="max-w-2xl mx-auto text-brand-muted text-lg leading-relaxed">
@@ -52,9 +57,9 @@ export function Leistungen() {
 function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon: React.ElementType }) {
   return (
     <article
-      className="h-full flex flex-col bg-brand-surface border border-brand-border rounded-2xl overflow-hidden
+      className="h-full flex flex-col border border-brand-border rounded-2xl overflow-hidden
                  transition-all duration-200 hover:-translate-y-1 hover:border-brand-primary/30 group"
-      style={{ boxShadow: "var(--card-shadow)" }}
+      style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
     >
       {/* Bild 16:9 */}
       {leistung.bild ? (
@@ -65,7 +70,8 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
             unoptimized={leistung.bild.endsWith(".svg")} />
         </div>
       ) : (
-        <div className="w-full aspect-video bg-brand-surface2 flex items-center justify-center border-b border-brand-border">
+        <div className="w-full aspect-video flex items-center justify-center border-b border-brand-border"
+          style={{ backgroundColor: "var(--color-section-alt)" }}>
           <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
             <Icon className="w-7 h-7 text-brand-primary" aria-hidden="true" />
           </div>
@@ -79,7 +85,7 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
                           group-hover:bg-brand-primary/20 transition-colors">
             <Icon className="w-4 h-4 text-brand-primary" aria-hidden="true" />
           </div>
-          <h3 className="text-lg font-bold text-brand-text">{leistung.title}</h3>
+          <h3 className="text-lg font-bold text-brand-heading">{leistung.title}</h3>
         </div>
 
         <p className="text-base text-brand-muted leading-relaxed mb-5 flex-1">{leistung.description}</p>
