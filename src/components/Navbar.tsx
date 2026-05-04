@@ -104,7 +104,7 @@ export function Navbar() {
           {client.telefon && (
             <a href={`tel:${client.telefon}`}
               className="flex items-center gap-2 text-base font-medium transition-colors min-h-[44px]"
-              style={{ color: scrolled ? "var(--color-brand-primary)" : "var(--nav-hero-text)" }}
+              style={{ color: scrolled ? "var(--safe-primary-text)" : "var(--nav-hero-text)" }}
               aria-label="Jetzt anrufen">
               <Phone className="w-4 h-4" aria-hidden="true" />
               {client.telefon}
@@ -145,7 +145,7 @@ export function Navbar() {
           <div className="mt-4 pt-4 border-t flex flex-col gap-3" style={{ borderTopColor: "var(--color-brand-border)" }}>
             {client.telefon && (
               <a href={`tel:${client.telefon}`}
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-brand-primary min-h-[44px]">
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-safe-primary min-h-[44px]">
                 <Phone className="w-4 h-4" aria-hidden="true" />{client.telefon}
               </a>
             )}
