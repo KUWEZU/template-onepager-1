@@ -9,7 +9,12 @@ const BADGES = [
 ];
 
 export function Hero() {
-  const { bild, ueberschrift, ueberschriftHighlight, untertext, ctaPrimary, ctaSecondary } = client.hero;
+  const { bild, ueberschrift, ueberschriftHighlight, untertext, ctaPrimary, ctaSecondary, overlayOpacity } = client.hero;
+
+  // Overlay strength: use client value (set per farbmodus), min 0.65 for WCAG AA compliance.
+  // Top of gradient is extra dark so the fixed navbar always has a legible background.
+  const base = Math.max(overlayOpacity ?? 0.65, 0.65);
+  const top  = Math.min(base + 0.15, 1);
 
   return (
     <section
@@ -17,13 +22,14 @@ export function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]"
       aria-label="Startbereich"
     >
-      {/* ── Hintergrundbild mit Gradient-Overlay ── */}
+      {/* ── Hintergrundbild mit verstärktem Overlay ── */}
       {bild && (
         <div className="absolute inset-0" aria-hidden="true">
           <Image src={bild} alt="" fill priority sizes="100vw" className="object-cover object-center" unoptimized={bild.endsWith(".svg")} />
-          {/* Gradient: oben 75% → unten 55% Dunkelheit — garantiert lesbarer Text auf jedem Bild */}
+          {/* Gradient: oben sehr dunkel (Navbar-Bereich) → gleichmäßig dunkel darunter.
+              Mindest-Overlay 0.65 → WCAG AA ≥ 4.5:1 für weißen Text auf beliebigem Foto. */}
           <div className="absolute inset-0" style={{
-            background: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 100%)"
+            background: `linear-gradient(to bottom, rgba(0,0,0,${top}) 0%, rgba(0,0,0,${base}) 35%, rgba(0,0,0,${base}) 100%)`
           }} />
         </div>
       )}
@@ -55,6 +61,7 @@ export function Hero() {
         >
           {ueberschrift.replace(ueberschriftHighlight, "").trim()}
           <br />
+          {/* Accent-Farbe auf dunklem Overlay: #ffd100 vs black ≈ 13:1 ✅ */}
           <span
             className="text-brand-primary"
             style={{ textShadow: "0 2px 24px rgba(0,0,0,0.9), 0 0 60px rgba(0,0,0,0.5)" }}
