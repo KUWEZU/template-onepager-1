@@ -20,14 +20,14 @@ export function UeberUns() {
           {/* ── Linke Spalte: Text ── */}
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
-              <span className="text-brand-secondary text-sm font-semibold uppercase tracking-wider">Über uns</span>
+              <span className="text-safe-secondary text-sm font-semibold uppercase tracking-wider">Über uns</span>
             </div>
 
             <h2 id="ueber-uns-heading" className="text-4xl sm:text-5xl font-black text-brand-heading leading-tight mb-6">
               {ueberschrift.split("—").map((part, i) =>
                 i === 0
                   ? <span key={i}>{part}—<br /></span>
-                  : <span key={i} className="text-brand-primary">{part}</span>
+                  : <span key={i} className="text-safe-primary">{part}</span>
               )}
             </h2>
 
@@ -37,7 +37,7 @@ export function UeberUns() {
             <div className="flex flex-wrap gap-3">
               {tags.map((tag) => (
                 <span key={tag}
-                  className="inline-flex items-center px-4 py-1.5 text-sm font-medium text-brand-primary
+                  className="inline-flex items-center px-4 py-1.5 text-sm font-medium text-safe-primary
                              bg-brand-primary/10 border border-brand-primary/20 rounded-full">
                   {tag}
                 </span>
@@ -77,7 +77,7 @@ export function UeberUns() {
                     style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
                     <div className="w-9 h-9 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-3
                                     group-hover:bg-brand-primary/20 transition-colors">
-                      <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
+                      <Icon className="w-5 h-5 text-safe-icon" aria-hidden="true" />
                     </div>
                     <p className="text-2xl font-black text-brand-heading">{value}</p>
                     <p className="text-sm text-brand-muted mt-1 leading-relaxed">{label}</p>
