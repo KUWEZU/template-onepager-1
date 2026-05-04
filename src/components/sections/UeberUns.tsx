@@ -8,7 +8,12 @@ export function UeberUns() {
   const { bild, ueberschrift, text1, text2, tags, stats } = client.ueberUns;
 
   return (
-    <section id="ueber-uns" className="py-28 bg-brand-bg" aria-labelledby="ueber-uns-heading">
+    <section
+      id="ueber-uns"
+      className="py-28"
+      style={{ backgroundColor: "var(--color-page-bg)" }}
+      aria-labelledby="ueber-uns-heading"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-10 items-start">
 
@@ -18,7 +23,7 @@ export function UeberUns() {
               <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Über uns</span>
             </div>
 
-            <h2 id="ueber-uns-heading" className="text-4xl sm:text-5xl font-black text-brand-text leading-tight mb-6">
+            <h2 id="ueber-uns-heading" className="text-4xl sm:text-5xl font-black text-brand-heading leading-tight mb-6">
               {ueberschrift.split("—").map((part, i) =>
                 i === 0
                   ? <span key={i}>{part}—<br /></span>
@@ -45,14 +50,14 @@ export function UeberUns() {
                 const Icon = STAT_ICONS[i] ?? Award;
                 return (
                   <div key={label}
-                    className="bg-brand-surface border border-brand-border rounded-2xl p-5
+                    className="border border-brand-border rounded-2xl p-5
                                hover:border-brand-primary/30 transition-all group"
-                    style={{ boxShadow: "var(--card-shadow)" }}>
+                    style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
                     <div className="w-9 h-9 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-3
                                     group-hover:bg-brand-primary/20 transition-colors">
                       <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
                     </div>
-                    <p className="text-2xl font-black text-brand-text">{value}</p>
+                    <p className="text-2xl font-black text-brand-heading">{value}</p>
                     <p className="text-sm text-brand-muted mt-1 leading-relaxed">{label}</p>
                   </div>
                 );
@@ -71,8 +76,8 @@ export function UeberUns() {
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-brand-primary/15 pointer-events-none" />
               </div>
             ) : (
-              <div className="w-full aspect-[4/3] rounded-2xl bg-brand-surface border border-brand-border flex items-center justify-center"
-                style={{ boxShadow: "var(--card-shadow)" }}>
+              <div className="w-full aspect-[4/3] rounded-2xl border border-brand-border flex items-center justify-center"
+                style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
                 <div className="text-center text-brand-text/20">
                   <Award className="w-12 h-12 mx-auto mb-3" aria-hidden="true" />
                   <p className="text-base">Kein Bild konfiguriert</p>
