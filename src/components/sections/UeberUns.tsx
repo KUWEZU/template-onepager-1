@@ -15,9 +15,9 @@ export function UeberUns() {
       aria-labelledby="ueber-uns-heading"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
 
-          {/* Textseite + Stats */}
+          {/* ── Linke Spalte: Text ── */}
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
               <span className="text-brand-secondary text-sm font-semibold uppercase tracking-wider">Über uns</span>
@@ -31,10 +31,10 @@ export function UeberUns() {
               )}
             </h2>
 
-            <p className="text-brand-text/70 text-lg leading-relaxed mb-4">{text1}</p>
+            <p className="text-brand-text/70 text-lg leading-relaxed mb-5">{text1}</p>
             <p className="text-brand-muted text-lg leading-relaxed mb-10">{text2}</p>
 
-            <div className="flex flex-wrap gap-3 mb-12">
+            <div className="flex flex-wrap gap-3">
               {tags.map((tag) => (
                 <span key={tag}
                   className="inline-flex items-center px-4 py-1.5 text-sm font-medium text-brand-primary
@@ -43,8 +43,30 @@ export function UeberUns() {
                 </span>
               ))}
             </div>
+          </div>
 
-            {/* Stats — alle Viewports */}
+          {/* ── Rechte Spalte: Bild + Stats ── */}
+          <div className="flex flex-col gap-6">
+            {/* Bild */}
+            {bild ? (
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-brand-border"
+                style={{ boxShadow: "var(--card-shadow), 0 20px 60px rgba(0,0,0,0.15)" }}>
+                <Image src={bild} alt="Unser Betrieb" fill
+                  sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-center"
+                  unoptimized={bild.endsWith(".svg")} />
+                <div className="absolute inset-0 rounded-2xl ring-1 ring-brand-primary/15 pointer-events-none" />
+              </div>
+            ) : (
+              <div className="w-full aspect-[4/3] rounded-2xl border border-brand-border flex items-center justify-center"
+                style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
+                <div className="text-center text-brand-text/20">
+                  <Award className="w-12 h-12 mx-auto mb-3" aria-hidden="true" />
+                  <p className="text-base">Kein Bild konfiguriert</p>
+                </div>
+              </div>
+            )}
+
+            {/* Stats 2×2 Grid */}
             <div className="grid grid-cols-2 gap-4">
               {stats.map(({ value, label }, i) => {
                 const Icon = STAT_ICONS[i] ?? Award;
@@ -63,27 +85,6 @@ export function UeberUns() {
                 );
               })}
             </div>
-          </div>
-
-          {/* Bild */}
-          <div>
-            {bild ? (
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-brand-border"
-                style={{ boxShadow: "var(--card-shadow), 0 20px 60px rgba(0,0,0,0.15)" }}>
-                <Image src={bild} alt="Unser Betrieb" fill
-                  sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-center"
-                  unoptimized={bild.endsWith(".svg")} />
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-brand-primary/15 pointer-events-none" />
-              </div>
-            ) : (
-              <div className="w-full aspect-[4/3] rounded-2xl border border-brand-border flex items-center justify-center"
-                style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
-                <div className="text-center text-brand-text/20">
-                  <Award className="w-12 h-12 mx-auto mb-3" aria-hidden="true" />
-                  <p className="text-base">Kein Bild konfiguriert</p>
-                </div>
-              </div>
-            )}
           </div>
 
         </div>
