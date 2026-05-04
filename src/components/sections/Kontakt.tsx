@@ -46,8 +46,8 @@ export function Kontakt() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
-            <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Kontakt</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
+            <span className="text-brand-secondary text-sm font-semibold uppercase tracking-wider">Kontakt</span>
           </div>
           <h2 id="kontakt-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
             So erreichen Sie uns
