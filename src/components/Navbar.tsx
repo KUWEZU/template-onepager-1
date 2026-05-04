@@ -51,7 +51,7 @@ export function Navbar() {
         <a href="#hero" className="flex items-center gap-3 group" aria-label="Zur Startseite"
           onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}>
           {client.logo ? (
-            <Image src={client.logo} alt={client.name} width={140} height={40} className="h-10 w-auto object-contain" unoptimized />
+            <Image src={client.logo} alt={client.name} width={180} height={64} className="h-12 sm:h-16 w-auto object-contain" unoptimized />
           ) : (
             <>
               <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center shrink-0">
