@@ -11,8 +11,9 @@ const BADGES = [
 export function Hero() {
   const { bild, ueberschrift, ueberschriftHighlight, untertext, ctaPrimary, ctaSecondary, overlayOpacity } = client.hero;
 
-  const base = Math.max(overlayOpacity ?? 0.65, 0.65);
-  const top  = Math.min(base + 0.15, 1);
+  const HERO_OVERLAY_MIN = 0.55; // fixed — never weaker, never overridable
+  const base = Math.max(overlayOpacity ?? HERO_OVERLAY_MIN, HERO_OVERLAY_MIN);
+  const top  = Math.min(base + 0.20, 1);
 
   return (
     <section
@@ -39,9 +40,9 @@ export function Hero() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-36 pb-24 text-center">
 
-        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-8 backdrop-blur-sm">
-          <span className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse" aria-hidden="true" />
-          <span className="text-brand-secondary text-base font-medium">
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 border border-white/25 mb-8 backdrop-blur-sm">
+          <span className="w-2 h-2 rounded-full bg-white/80 animate-pulse" aria-hidden="true" />
+          <span className="text-white text-base font-medium">
             Ihre {client.branche ?? "Werkstatt"} in {client.ort}
           </span>
         </div>
@@ -89,8 +90,8 @@ export function Hero() {
 
         <div className="flex flex-wrap items-center justify-center gap-8" role="list" aria-label="Vertrauensnachweise">
           {BADGES.map(({ icon: Icon, text }) => (
-            <div key={text} className="flex items-center gap-2.5 text-white/70" role="listitem">
-              <Icon className="w-5 h-5 text-brand-secondary shrink-0" aria-hidden="true" />
+            <div key={text} className="flex items-center gap-2.5 text-white/80" role="listitem">
+              <Icon className="w-5 h-5 text-white/70 shrink-0" aria-hidden="true" />
               <span className="text-base font-medium">{text}</span>
             </div>
           ))}
@@ -104,3 +105,4 @@ export function Hero() {
     </section>
   );
 }
+
