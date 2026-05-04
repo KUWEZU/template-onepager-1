@@ -19,8 +19,8 @@ export function UeberUns() {
 
           {/* Textseite + Stats */}
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
-              <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Über uns</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
+              <span className="text-brand-secondary text-sm font-semibold uppercase tracking-wider">Über uns</span>
             </div>
 
             <h2 id="ueber-uns-heading" className="text-4xl sm:text-5xl font-black text-brand-heading leading-tight mb-6">
