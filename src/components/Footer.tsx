@@ -2,17 +2,16 @@ import Image from "next/image";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { client } from "@/data/client";
 
-const SOCIAL_LINKS = [
-  { label: "Facebook",  href: "#", path: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z", fill: true },
-  { label: "Instagram", href: "#", isInstagram: true },
-];
-
 export function Footer() {
   const year = new Date().getFullYear();
   const initials = client.name.slice(0, 2).toUpperCase();
 
   return (
-    <footer className="bg-[#1a1a1a] border-t border-white/[0.06]" aria-label="Seitenende">
+    <footer
+      className="border-t border-white/[0.06]"
+      style={{ backgroundColor: "var(--color-footer-bg)" }}
+      aria-label="Seitenende"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
 
