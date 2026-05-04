@@ -22,7 +22,7 @@ export function Karriere() {
 
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
-            <span className="text-brand-secondary text-sm font-semibold uppercase tracking-wider">Karriere</span>
+            <span className="text-safe-secondary text-sm font-semibold uppercase tracking-wider">Karriere</span>
           </div>
           <h2 id="karriere-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
             Werde Teil unseres Teams
@@ -44,7 +44,7 @@ export function Karriere() {
                              hover:border-brand-primary/25 transition-all"
                   style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
                   <div className="w-11 h-11 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
+                    <Icon className="w-5 h-5 text-safe-icon" aria-hidden="true" />
                   </div>
                   <p className="text-base font-bold text-brand-heading mb-2">{title}</p>
                   <p className="text-base text-brand-muted leading-relaxed">{text}</p>
@@ -65,12 +65,12 @@ export function Karriere() {
                     style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
                     aria-label={`Stelle: ${job.title}`}>
                     <div>
-                      <p className="text-base font-bold text-brand-text group-hover:text-brand-primary transition-colors">
+                      <p className="text-base font-bold text-brand-text group-hover:text-safe-primary transition-colors">
                         {job.title}
                       </p>
                       <p className="text-base text-brand-muted mt-1">{job.type} · {job.experience}</p>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-brand-muted group-hover:text-brand-primary shrink-0 transition-colors" aria-hidden="true" />
+                    <ArrowRight className="w-5 h-5 text-brand-muted group-hover:text-safe-primary shrink-0 transition-colors" aria-hidden="true" />
                   </a>
                 </li>
               ))}
@@ -78,7 +78,7 @@ export function Karriere() {
 
             <div className="mt-6 p-6 bg-brand-primary/[0.06] border border-brand-primary/20 rounded-2xl">
               <p className="text-base text-brand-text/80 leading-relaxed">
-                <span className="font-bold text-brand-primary">Keine passende Stelle dabei?</span><br />
+                <span className="font-bold text-safe-primary">Keine passende Stelle dabei?</span><br />
                 Initiativbewerbungen sind jederzeit willkommen.
               </p>
               <a href="#kontakt"
