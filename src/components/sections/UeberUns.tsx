@@ -10,9 +10,9 @@ export function UeberUns() {
   return (
     <section id="ueber-uns" className="py-28 bg-brand-bg" aria-labelledby="ueber-uns-heading">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
 
-          {/* Textseite */}
+          {/* Textseite + Stats */}
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
               <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Über uns</span>
@@ -39,14 +39,19 @@ export function UeberUns() {
               ))}
             </div>
 
-            {/* Stats — nur auf Mobile */}
-            <div className="grid grid-cols-2 gap-4 lg:hidden">
+            {/* Stats — alle Viewports */}
+            <div className="grid grid-cols-2 gap-4">
               {stats.map(({ value, label }, i) => {
                 const Icon = STAT_ICONS[i] ?? Award;
                 return (
-                  <div key={label} className="bg-brand-surface border border-brand-border rounded-2xl p-5"
+                  <div key={label}
+                    className="bg-brand-surface border border-brand-border rounded-2xl p-5
+                               hover:border-brand-primary/30 transition-all group"
                     style={{ boxShadow: "var(--card-shadow)" }}>
-                    <Icon className="w-5 h-5 text-brand-primary mb-3" aria-hidden="true" />
+                    <div className="w-9 h-9 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-3
+                                    group-hover:bg-brand-primary/20 transition-colors">
+                      <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
+                    </div>
                     <p className="text-2xl font-black text-brand-text">{value}</p>
                     <p className="text-sm text-brand-muted mt-1 leading-relaxed">{label}</p>
                   </div>
@@ -55,8 +60,8 @@ export function UeberUns() {
             </div>
           </div>
 
-          {/* Bild + Stats Desktop */}
-          <div className="flex flex-col gap-5">
+          {/* Bild */}
+          <div>
             {bild ? (
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-brand-border"
                 style={{ boxShadow: "var(--card-shadow), 0 20px 60px rgba(0,0,0,0.15)" }}>
@@ -74,26 +79,6 @@ export function UeberUns() {
                 </div>
               </div>
             )}
-
-            {/* Stats Desktop */}
-            <div className="hidden lg:grid grid-cols-2 gap-4">
-              {stats.map(({ value, label }, i) => {
-                const Icon = STAT_ICONS[i] ?? Award;
-                return (
-                  <div key={label}
-                    className="bg-brand-surface border border-brand-border rounded-2xl p-6
-                               hover:border-brand-primary/30 transition-all group"
-                    style={{ boxShadow: "var(--card-shadow)" }}>
-                    <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4
-                                    group-hover:bg-brand-primary/20 transition-colors">
-                      <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
-                    </div>
-                    <p className="text-3xl font-black text-brand-text">{value}</p>
-                    <p className="text-sm text-brand-muted mt-1 leading-relaxed">{label}</p>
-                  </div>
-                );
-              })}
-            </div>
           </div>
 
         </div>
