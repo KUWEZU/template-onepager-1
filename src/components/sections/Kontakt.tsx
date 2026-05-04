@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { client } from "@/data/client";
 
@@ -59,7 +60,7 @@ export function Kontakt() {
 
         <div className="grid lg:grid-cols-2 gap-12">
 
-          {/* Kontaktinfos */}
+          {/* Kontaktinfos + Standortbild */}
           <div>
             <div className="grid sm:grid-cols-2 gap-4 mb-6">
               {INFOS.map(({ icon: Icon, title, lines, href }) => (
@@ -82,14 +83,32 @@ export function Kontakt() {
                 </div>
               ))}
             </div>
-            <div className="h-56 border border-brand-border rounded-2xl flex items-center justify-center"
-              style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
-              aria-label="Kartenansicht" role="img">
-              <div className="text-center text-brand-text/25">
-                <MapPin className="w-10 h-10 mx-auto mb-3" aria-hidden="true" />
-                <p className="text-base">Google Maps Integration</p>
+
+            {/* Standortbild oder Adress-Placeholder */}
+            {client.standort_bild ? (
+              <div className="relative h-56 border border-brand-border rounded-2xl overflow-hidden"
+                style={{ boxShadow: "var(--card-shadow)" }}
+                aria-label="Unser Standort">
+                <Image
+                  src={client.standort_bild}
+                  alt="Unser Standort"
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
               </div>
-            </div>
+            ) : (
+              <div className="h-56 border border-brand-border rounded-2xl flex flex-col items-center justify-center gap-3"
+                style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
+                aria-label="Standort">
+                <MapPin className="w-8 h-8 text-brand-muted/30" aria-hidden="true" />
+                {client.adresse && (
+                  <p className="text-base text-brand-muted/50 font-medium text-center px-6 leading-relaxed">
+                    {client.adresse}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Formular */}
