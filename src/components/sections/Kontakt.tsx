@@ -37,14 +37,19 @@ export function Kontakt() {
   }
 
   return (
-    <section id="kontakt" className="py-28 bg-brand-surface2" aria-labelledby="kontakt-heading">
+    <section
+      id="kontakt"
+      className="py-28"
+      style={{ backgroundColor: "var(--color-section-alt)" }}
+      aria-labelledby="kontakt-heading"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
             <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Kontakt</span>
           </div>
-          <h2 id="kontakt-heading" className="text-4xl sm:text-5xl font-black text-brand-text mb-5">
+          <h2 id="kontakt-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
             So erreichen Sie uns
           </h2>
           <p className="max-w-xl mx-auto text-brand-muted text-lg leading-relaxed">
@@ -58,8 +63,9 @@ export function Kontakt() {
           <div>
             <div className="grid sm:grid-cols-2 gap-4 mb-6">
               {INFOS.map(({ icon: Icon, title, lines, href }) => (
-                <div key={title} className="bg-brand-surface border border-brand-border rounded-2xl p-5"
-                  style={{ boxShadow: "var(--card-shadow)" }}>
+                <div key={title}
+                  className="border border-brand-border rounded-2xl p-5"
+                  style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
                   <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4">
                     <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
                   </div>
@@ -76,8 +82,8 @@ export function Kontakt() {
                 </div>
               ))}
             </div>
-            <div className="h-56 bg-brand-surface border border-brand-border rounded-2xl flex items-center justify-center"
-              style={{ boxShadow: "var(--card-shadow)" }}
+            <div className="h-56 border border-brand-border rounded-2xl flex items-center justify-center"
+              style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
               aria-label="Kartenansicht" role="img">
               <div className="text-center text-brand-text/25">
                 <MapPin className="w-10 h-10 mx-auto mb-3" aria-hidden="true" />
@@ -87,21 +93,21 @@ export function Kontakt() {
           </div>
 
           {/* Formular */}
-          <div className="bg-brand-surface border border-brand-border rounded-2xl p-8"
-            style={{ boxShadow: "var(--card-shadow)" }}>
+          <div className="border border-brand-border rounded-2xl p-8"
+            style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12">
                 <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/25 flex items-center justify-center mb-5">
                   <CheckCircle className="w-8 h-8 text-green-400" aria-hidden="true" />
                 </div>
-                <h3 className="text-2xl font-bold text-brand-text mb-3">Nachricht gesendet!</h3>
+                <h3 className="text-2xl font-bold text-brand-heading mb-3">Nachricht gesendet!</h3>
                 <p className="text-brand-muted text-lg leading-relaxed max-w-xs">
                   Vielen Dank. Wir melden uns schnellstmöglich bei Ihnen.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate aria-label="Kontaktformular">
-                <h3 className="text-xl font-bold text-brand-text mb-6">Nachricht senden</h3>
+                <h3 className="text-xl font-bold text-brand-heading mb-6">Nachricht senden</h3>
 
                 {error && (
                   <div role="alert" className="mb-5 px-4 py-3.5 rounded-xl bg-red-500/10 border border-red-500/25 text-base text-red-400">
@@ -121,9 +127,10 @@ export function Kontakt() {
                       </label>
                       <input id={id} name={id} type={type} autoComplete={autoComplete} required={required}
                         value={(form as Record<string, string>)[id]} onChange={handleChange} placeholder={placeholder}
-                        className="w-full px-4 py-3.5 bg-brand-surface2 border border-brand-border rounded-xl
+                        className="w-full px-4 py-3.5 border border-brand-border rounded-xl
                                    text-brand-text placeholder:text-brand-muted text-base outline-none
-                                   hover:border-brand-primary/30 focus:border-brand-primary/60 transition-colors min-h-[52px]" />
+                                   hover:border-brand-primary/30 focus:border-brand-primary/60 transition-colors min-h-[52px]"
+                        style={{ backgroundColor: "var(--color-section-alt)" }} />
                     </div>
                   ))}
 
@@ -133,9 +140,10 @@ export function Kontakt() {
                     </label>
                     <textarea id="message" name="message" rows={5} required value={form.message} onChange={handleChange}
                       placeholder="Wie können wir Ihnen helfen?"
-                      className="w-full px-4 py-3.5 bg-brand-surface2 border border-brand-border rounded-xl
+                      className="w-full px-4 py-3.5 border border-brand-border rounded-xl
                                  text-brand-text placeholder:text-brand-muted text-base outline-none
-                                 hover:border-brand-primary/30 focus:border-brand-primary/60 transition-colors resize-none" />
+                                 hover:border-brand-primary/30 focus:border-brand-primary/60 transition-colors resize-none"
+                      style={{ backgroundColor: "var(--color-section-alt)" }} />
                   </div>
 
                   <div className="flex items-start gap-3 pt-1">
