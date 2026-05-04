@@ -48,7 +48,7 @@ export function Kontakt() {
 
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
-            <span className="text-brand-secondary text-sm font-semibold uppercase tracking-wider">Kontakt</span>
+            <span className="text-safe-secondary text-sm font-semibold uppercase tracking-wider">Kontakt</span>
           </div>
           <h2 id="kontakt-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
             So erreichen Sie uns
@@ -68,12 +68,12 @@ export function Kontakt() {
                   className="border border-brand-border rounded-2xl p-5"
                   style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
                   <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
+                    <Icon className="w-5 h-5 text-safe-icon" aria-hidden="true" />
                   </div>
-                  <p className="text-sm font-semibold text-brand-primary uppercase tracking-wider mb-2">{title}</p>
+                  <p className="text-sm font-semibold text-safe-primary uppercase tracking-wider mb-2">{title}</p>
                   {lines.map((line, i) =>
                     href && i === 0 ? (
-                      <a key={i} href={href} className="block text-base text-brand-text hover:text-brand-primary transition-colors font-medium">
+                      <a key={i} href={href} className="block text-base text-brand-text hover:text-safe-primary transition-colors font-medium">
                         {line}
                       </a>
                     ) : (
@@ -142,7 +142,7 @@ export function Kontakt() {
                   ].map(({ id, label, type, required, autoComplete, placeholder }) => (
                     <div key={id}>
                       <label htmlFor={id} className="block text-base font-semibold text-brand-text mb-2">
-                        {label} {required && <span className="text-brand-primary" aria-label="Pflichtfeld">*</span>}
+                        {label} {required && <span className="text-safe-primary" aria-label="Pflichtfeld">*</span>}
                       </label>
                       <input id={id} name={id} type={type} autoComplete={autoComplete} required={required}
                         value={(form as Record<string, string>)[id]} onChange={handleChange} placeholder={placeholder}
@@ -155,7 +155,7 @@ export function Kontakt() {
 
                   <div>
                     <label htmlFor="message" className="block text-base font-semibold text-brand-text mb-2">
-                      Nachricht <span className="text-brand-primary" aria-label="Pflichtfeld">*</span>
+                      Nachricht <span className="text-safe-primary" aria-label="Pflichtfeld">*</span>
                     </label>
                     <textarea id="message" name="message" rows={5} required value={form.message} onChange={handleChange}
                       placeholder="Wie können wir Ihnen helfen?"
@@ -170,13 +170,13 @@ export function Kontakt() {
                       className="mt-1 w-5 h-5 accent-brand-primary cursor-pointer shrink-0" />
                     <label htmlFor="dsgvo" className="text-base text-brand-muted leading-relaxed cursor-pointer">
                       Ich stimme der Verarbeitung meiner Daten gemäß der{" "}
-                      <a href="/datenschutz" className="text-brand-primary hover:underline font-medium">Datenschutzerklärung</a> zu.{" "}
-                      <span className="text-brand-primary">*</span>
+                      <a href="/datenschutz" className="text-safe-primary hover:underline font-medium">Datenschutzerklärung</a> zu.{" "}
+                      <span className="text-safe-primary">*</span>
                     </label>
                   </div>
 
                   <button type="submit" disabled={loading}
-                    className="w-full flex items-center justify-center gap-2 py-4 bg-brand-primary text-white
+                    className="w-full flex items-center justify-center gap-2 py-4 bg-brand-primary text-on-primary
                                font-semibold rounded-xl hover:bg-brand-primary-hover transition-all
                                disabled:opacity-50 disabled:cursor-not-allowed text-lg min-h-[56px]
                                shadow-xl shadow-brand-primary/20">
