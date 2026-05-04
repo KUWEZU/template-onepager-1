@@ -43,7 +43,7 @@ export function Leistungen() {
         <div className="text-center mt-14">
           <p className="text-brand-muted text-lg mb-5">Ihr Anliegen ist nicht dabei?</p>
           <a href="#kontakt"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-brand-primary text-white font-semibold
+            className="inline-flex items-center gap-2 px-8 py-4 bg-brand-primary text-on-primary font-semibold
                        rounded-xl hover:bg-brand-primary-hover transition-all text-lg min-h-[52px]
                        shadow-xl shadow-brand-primary/20">
             Sprechen Sie uns an
@@ -61,7 +61,6 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
                  transition-all duration-200 hover:-translate-y-1 hover:border-brand-primary/30 group"
       style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
     >
-      {/* Bild 16:9 */}
       {leistung.bild ? (
         <div className="relative w-full aspect-video overflow-hidden">
           <Image src={leistung.bild} alt={leistung.title} fill
@@ -78,7 +77,6 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
         </div>
       )}
 
-      {/* Card Body */}
       <div className="flex flex-col flex-1 p-6">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-9 h-9 rounded-xl bg-brand-primary/10 border border-brand-primary/15 flex items-center justify-center shrink-0

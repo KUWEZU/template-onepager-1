@@ -82,7 +82,7 @@ export function Karriere() {
                 Initiativbewerbungen sind jederzeit willkommen.
               </p>
               <a href="#kontakt"
-                className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-brand-primary text-white
+                className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-brand-primary text-on-primary
                            font-semibold rounded-xl hover:bg-brand-primary-hover transition-all text-base min-h-[44px]">
                 Initiativ bewerben <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </a>

@@ -39,7 +39,6 @@ export function Navbar() {
         borderBottomColor: "var(--color-brand-border)",
         boxShadow: "var(--nav-shadow)",
       } : {
-        // Non-scrolled: mode-aware overlay via CSS variables set in globals.css
         background: "var(--nav-hero-bg)",
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
@@ -55,7 +54,7 @@ export function Navbar() {
           ) : (
             <>
               <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center shrink-0">
-                <span className="text-white font-black text-sm tracking-tight">{initials}</span>
+                <span className="text-on-primary font-black text-sm tracking-tight">{initials}</span>
               </div>
               <span
                 className="font-bold text-lg tracking-tight transition-colors group-hover:opacity-80"
@@ -112,7 +111,7 @@ export function Navbar() {
             </a>
           )}
           <a href="#kontakt" onClick={(e) => { e.preventDefault(); handleNavClick("#kontakt"); }}
-            className="px-5 py-2.5 text-base font-semibold bg-brand-primary text-white hover:bg-brand-primary-hover
+            className="px-5 py-2.5 text-base font-semibold bg-brand-primary text-on-primary hover:bg-brand-primary-hover
                        rounded-xl transition-all min-h-[44px] inline-flex items-center shadow-lg shadow-brand-primary/20">
             Termin buchen
           </a>
@@ -151,7 +150,7 @@ export function Navbar() {
               </a>
             )}
             <a href="#kontakt" onClick={(e) => { e.preventDefault(); handleNavClick("#kontakt"); }}
-              className="w-full text-center px-4 py-3.5 text-base font-semibold bg-brand-primary text-white rounded-xl min-h-[44px] flex items-center justify-center">
+              className="w-full text-center px-4 py-3.5 text-base font-semibold bg-brand-primary text-on-primary rounded-xl min-h-[44px] flex items-center justify-center">
               Termin buchen
             </a>
           </div>
