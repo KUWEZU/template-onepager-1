@@ -12,14 +12,19 @@ export function Karriere() {
   const jobs = client.karriere?.jobs ?? [];
 
   return (
-    <section id="karriere" className="py-28 bg-brand-bg" aria-labelledby="karriere-heading">
+    <section
+      id="karriere"
+      className="py-28"
+      style={{ backgroundColor: "var(--color-page-bg)" }}
+      aria-labelledby="karriere-heading"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
             <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Karriere</span>
           </div>
-          <h2 id="karriere-heading" className="text-4xl sm:text-5xl font-black text-brand-text mb-5">
+          <h2 id="karriere-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
             Werde Teil unseres Teams
           </h2>
           <p className="max-w-xl mx-auto text-brand-muted text-lg leading-relaxed">
@@ -31,17 +36,17 @@ export function Karriere() {
 
           {/* Benefits */}
           <div>
-            <h3 className="text-2xl font-bold text-brand-text mb-7">Warum zu uns?</h3>
+            <h3 className="text-2xl font-bold text-brand-heading mb-7">Warum zu uns?</h3>
             <div className="grid sm:grid-cols-2 gap-5">
               {BENEFITS.map(({ icon: Icon, title, text }) => (
                 <div key={title}
-                  className="bg-brand-surface border border-brand-border rounded-2xl p-6
+                  className="border border-brand-border rounded-2xl p-6
                              hover:border-brand-primary/25 transition-all"
-                  style={{ boxShadow: "var(--card-shadow)" }}>
+                  style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
                   <div className="w-11 h-11 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4">
                     <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
                   </div>
-                  <p className="text-base font-bold text-brand-text mb-2">{title}</p>
+                  <p className="text-base font-bold text-brand-heading mb-2">{title}</p>
                   <p className="text-base text-brand-muted leading-relaxed">{text}</p>
                 </div>
               ))}
@@ -50,14 +55,14 @@ export function Karriere() {
 
           {/* Stellen */}
           <div>
-            <h3 className="text-2xl font-bold text-brand-text mb-7">Offene Stellen</h3>
+            <h3 className="text-2xl font-bold text-brand-heading mb-7">Offene Stellen</h3>
             <ul className="space-y-4" role="list" aria-label="Stellenangebote">
               {jobs.map((job) => (
                 <li key={job.title}>
                   <a href="#kontakt"
-                    className="flex items-center justify-between gap-4 bg-brand-surface border border-brand-border rounded-2xl p-5
+                    className="flex items-center justify-between gap-4 border border-brand-border rounded-2xl p-5
                                hover:border-brand-primary/30 transition-all group min-h-[72px]"
-                    style={{ boxShadow: "var(--card-shadow)" }}
+                    style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
                     aria-label={`Stelle: ${job.title}`}>
                     <div>
                       <p className="text-base font-bold text-brand-text group-hover:text-brand-primary transition-colors">
