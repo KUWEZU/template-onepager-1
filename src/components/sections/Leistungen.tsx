@@ -1,32 +1,46 @@
 import Image from "next/image";
-import { Paintbrush2, Car, CircleDot, ClipboardCheck, CheckCircle, Wind, Sparkles, Thermometer, RotateCcw, CloudRain, Wrench } from "lucide-react";
+import {
+  Paintbrush2, Car, CircleDot, ClipboardCheck, CheckCircle,
+  Wind, Sparkles, Thermometer, RotateCcw, CloudRain, Wrench,
+} from "lucide-react";
 import { client, type LeistungConfig } from "@/data/client";
 
-const ICONS = [Paintbrush2, Car, CircleDot, ClipboardCheck, CheckCircle, Wind, Sparkles, Thermometer, RotateCcw, CloudRain, Wrench];
+const ICONS = [
+  Paintbrush2, Car, CircleDot, ClipboardCheck, CheckCircle,
+  Wind, Sparkles, Thermometer, RotateCcw, CloudRain, Wrench,
+];
 
 export function Leistungen() {
   return (
-    <section id="leistungen" className="py-24 bg-brand-secondary" aria-labelledby="leistungen-heading">
+    <section id="leistungen" className="py-28 bg-brand-surface2" aria-labelledby="leistungen-heading">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-4">
-            <span className="text-brand-primary text-xs font-semibold uppercase tracking-wider">Leistungen</span>
+
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
+            <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Leistungen</span>
           </div>
-          <h2 id="leistungen-heading" className="text-3xl sm:text-4xl font-black text-brand-text mb-4">Alles aus einer Hand</h2>
-          <p className="max-w-xl mx-auto text-brand-muted text-lg">
+          <h2 id="leistungen-heading" className="text-4xl sm:text-5xl font-black text-brand-text mb-5">
+            Alles aus einer Hand
+          </h2>
+          <p className="max-w-2xl mx-auto text-brand-muted text-lg leading-relaxed">
             Wir bieten das komplette Spektrum — professionell, transparent und zu fairen Preisen.
           </p>
         </div>
 
-        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" role="list" aria-label="Leistungsübersicht">
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label="Leistungsübersicht">
           {client.leistungen.map((leistung, i) => (
-            <li key={leistung.slug}><LeistungCard leistung={leistung} icon={ICONS[i] ?? Wrench} /></li>
+            <li key={leistung.slug}>
+              <LeistungCard leistung={leistung} icon={ICONS[i] ?? Wrench} />
+            </li>
           ))}
         </ul>
 
-        <div className="text-center mt-12">
-          <p className="text-brand-muted mb-4">Ihr Anliegen ist nicht dabei?</p>
-          <a href="#kontakt" className="inline-flex items-center gap-2 px-6 py-3 bg-brand-primary text-white font-semibold rounded-xl hover:bg-brand-primary-hover transition-all">
+        <div className="text-center mt-14">
+          <p className="text-brand-muted text-lg mb-5">Ihr Anliegen ist nicht dabei?</p>
+          <a href="#kontakt"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-brand-primary text-white font-semibold
+                       rounded-xl hover:bg-brand-primary-hover transition-all text-lg min-h-[52px]
+                       shadow-xl shadow-brand-primary/20">
             Sprechen Sie uns an
           </a>
         </div>
@@ -37,36 +51,48 @@ export function Leistungen() {
 
 function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon: React.ElementType }) {
   return (
-    <div className="h-full flex flex-col bg-brand-bg border border-brand-border rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:border-brand-primary/30 transition-all group">
+    <article
+      className="h-full flex flex-col bg-brand-surface border border-brand-border rounded-2xl overflow-hidden
+                 transition-all duration-200 hover:-translate-y-1 hover:border-brand-primary/30 group"
+      style={{ boxShadow: "var(--card-shadow)" }}
+    >
+      {/* Bild 16:9 */}
       {leistung.bild ? (
         <div className="relative w-full aspect-video overflow-hidden">
-          <Image src={leistung.bild} alt={`${leistung.title} — Leistungsbild`} fill sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw" className="object-cover object-center transition-transform duration-500 group-hover:scale-105" unoptimized={leistung.bild.endsWith(".svg")} />
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-brand-bg to-transparent" />
+          <Image src={leistung.bild} alt={leistung.title} fill
+            sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw"
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            unoptimized={leistung.bild.endsWith(".svg")} />
         </div>
       ) : (
-        <div className="relative w-full aspect-video bg-brand-surface flex items-center justify-center border-b border-brand-border">
-          <div className="w-12 h-12 rounded-xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
-            <Icon className="w-6 h-6 text-brand-primary" aria-hidden="true" />
+        <div className="w-full aspect-video bg-brand-surface2 flex items-center justify-center border-b border-brand-border">
+          <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
+            <Icon className="w-7 h-7 text-brand-primary" aria-hidden="true" />
           </div>
         </div>
       )}
-      <div className="flex flex-col flex-1 p-5">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 rounded-lg bg-brand-primary/10 border border-brand-primary/15 flex items-center justify-center shrink-0 group-hover:bg-brand-primary/20 transition-colors">
+
+      {/* Card Body */}
+      <div className="flex flex-col flex-1 p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-9 h-9 rounded-xl bg-brand-primary/10 border border-brand-primary/15 flex items-center justify-center shrink-0
+                          group-hover:bg-brand-primary/20 transition-colors">
             <Icon className="w-4 h-4 text-brand-primary" aria-hidden="true" />
           </div>
-          <h3 className="text-base font-bold text-brand-text">{leistung.title}</h3>
+          <h3 className="text-lg font-bold text-brand-text">{leistung.title}</h3>
         </div>
-        <p className="text-sm text-brand-muted leading-relaxed mb-4 flex-1">{leistung.description}</p>
-        <ul className="space-y-1" aria-label={`Highlights ${leistung.title}`}>
+
+        <p className="text-base text-brand-muted leading-relaxed mb-5 flex-1">{leistung.description}</p>
+
+        <ul className="space-y-2" aria-label={`Highlights ${leistung.title}`}>
           {leistung.highlights.map((h) => (
-            <li key={h} className="flex items-center gap-2 text-xs text-brand-muted/70">
-              <span className="w-1 h-1 rounded-full bg-brand-primary shrink-0" aria-hidden="true" />
+            <li key={h} className="flex items-center gap-2.5 text-base text-brand-text/60">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-primary shrink-0" aria-hidden="true" />
               {h}
             </li>
           ))}
         </ul>
       </div>
-    </div>
+    </article>
   );
 }
