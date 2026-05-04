@@ -4,120 +4,158 @@ import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { client } from "@/data/client";
 
-type FormState = { name: string; email: string; phone: string; service: string; message: string };
+type FormState = { name: string; email: string; phone: string; message: string };
 
 export function Kontakt() {
-  const [form, setForm] = useState<FormState>({ name: "", email: "", phone: "", service: "", message: "" });
+  const [form, setForm] = useState<FormState>({ name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const INFOS = [
-    { icon: Phone, title: "Telefon",       lines: [client.telefon, "Mo–Fr 8:00–18:00 Uhr"], href: `tel:${client.telefon}` },
-    { icon: Mail,  title: "E-Mail",         lines: [client.email, "Antwort innerhalb 24h"],  href: `mailto:${client.email}` },
-    { icon: MapPin, title: "Adresse",       lines: [client.adresse], href: "https://maps.google.com" },
+    { icon: Phone, title: "Telefon",        lines: [client.telefon, "Mo–Fr 8:00–18:00 Uhr"], href: `tel:${client.telefon}` },
+    { icon: Mail,  title: "E-Mail",          lines: [client.email, "Antwort innerhalb 24h"],   href: `mailto:${client.email}` },
+    { icon: MapPin, title: "Adresse",        lines: [client.adresse], href: "https://maps.google.com" },
     { icon: Clock,  title: "Öffnungszeiten", lines: client.kontakt.oeffnungszeiten, href: null },
   ];
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setForm(f => ({ ...f, [e.target.name]: e.target.value }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    if (!form.name || !form.email || !form.message) { setError("Bitte füllen Sie alle Pflichtfelder aus."); return; }
+    if (!form.name || !form.email || !form.message) {
+      setError("Bitte füllen Sie alle Pflichtfelder aus.");
+      return;
+    }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     setLoading(false);
     setSubmitted(true);
   }
 
   return (
-    <section id="kontakt" className="py-24 bg-brand-secondary" aria-labelledby="kontakt-heading">
+    <section id="kontakt" className="py-28 bg-brand-surface2" aria-labelledby="kontakt-heading">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-4">
-            <span className="text-brand-primary text-xs font-semibold uppercase tracking-wider">Kontakt</span>
+
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
+            <span className="text-brand-primary text-sm font-semibold uppercase tracking-wider">Kontakt</span>
           </div>
-          <h2 id="kontakt-heading" className="text-3xl sm:text-4xl font-black text-brand-text mb-4">So erreichen Sie uns</h2>
-          <p className="max-w-xl mx-auto text-brand-muted text-lg">Vereinbaren Sie einen Termin, stellen Sie uns eine Frage oder besuchen Sie uns direkt.</p>
+          <h2 id="kontakt-heading" className="text-4xl sm:text-5xl font-black text-brand-text mb-5">
+            So erreichen Sie uns
+          </h2>
+          <p className="max-w-xl mx-auto text-brand-muted text-lg leading-relaxed">
+            Vereinbaren Sie einen Termin, stellen Sie uns eine Frage oder besuchen Sie uns direkt.
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
+
+          {/* Kontaktinfos */}
           <div>
-            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+            <div className="grid sm:grid-cols-2 gap-4 mb-6">
               {INFOS.map(({ icon: Icon, title, lines, href }) => (
-                <div key={title} className="bg-brand-bg border border-brand-border rounded-xl p-5 shadow-sm">
-                  <div className="w-9 h-9 rounded-lg bg-brand-primary/10 flex items-center justify-center mb-3">
-                    <Icon className="w-4 h-4 text-brand-primary" aria-hidden="true" />
+                <div key={title} className="bg-brand-surface border border-brand-border rounded-2xl p-5"
+                  style={{ boxShadow: "var(--card-shadow)" }}>
+                  <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5 text-brand-primary" aria-hidden="true" />
                   </div>
-                  <p className="text-xs font-semibold text-brand-primary uppercase tracking-wider mb-1">{title}</p>
+                  <p className="text-sm font-semibold text-brand-primary uppercase tracking-wider mb-2">{title}</p>
                   {lines.map((line, i) =>
-                    href && i === 0
-                      ? <a key={i} href={href} className="block text-sm text-brand-text hover:text-brand-primary transition-colors">{line}</a>
-                      : <p key={i} className="text-sm text-brand-muted">{line}</p>
+                    href && i === 0 ? (
+                      <a key={i} href={href} className="block text-base text-brand-text hover:text-brand-primary transition-colors font-medium">
+                        {line}
+                      </a>
+                    ) : (
+                      <p key={i} className="text-base text-brand-muted leading-relaxed">{line}</p>
+                    )
                   )}
                 </div>
               ))}
             </div>
-            <div className="h-52 bg-brand-bg border border-brand-border rounded-xl flex items-center justify-center shadow-sm" aria-label="Kartenansicht" role="img">
+            <div className="h-56 bg-brand-surface border border-brand-border rounded-2xl flex items-center justify-center"
+              style={{ boxShadow: "var(--card-shadow)" }}
+              aria-label="Kartenansicht" role="img">
               <div className="text-center text-brand-text/25">
-                <MapPin className="w-8 h-8 mx-auto mb-2" aria-hidden="true" />
-                <p className="text-sm">Google Maps Integration</p>
+                <MapPin className="w-10 h-10 mx-auto mb-3" aria-hidden="true" />
+                <p className="text-base">Google Maps Integration</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-brand-bg border border-brand-border rounded-2xl p-6 sm:p-8 shadow-sm">
+          {/* Formular */}
+          <div className="bg-brand-surface border border-brand-border rounded-2xl p-8"
+            style={{ boxShadow: "var(--card-shadow)" }}>
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12">
-                <div className="w-14 h-14 rounded-full bg-green-500/10 border border-green-500/25 flex items-center justify-center mb-4">
-                  <CheckCircle className="w-7 h-7 text-green-400" aria-hidden="true" />
+                <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/25 flex items-center justify-center mb-5">
+                  <CheckCircle className="w-8 h-8 text-green-400" aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold text-brand-text mb-2">Nachricht gesendet!</h3>
-                <p className="text-brand-muted max-w-xs">Vielen Dank für Ihre Anfrage. Wir melden uns schnellstmöglich.</p>
+                <h3 className="text-2xl font-bold text-brand-text mb-3">Nachricht gesendet!</h3>
+                <p className="text-brand-muted text-lg leading-relaxed max-w-xs">
+                  Vielen Dank. Wir melden uns schnellstmöglich bei Ihnen.
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate aria-label="Kontaktformular">
-                <h3 className="text-lg font-bold text-brand-text mb-6">Nachricht senden</h3>
-                {error && <div role="alert" className="mb-4 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/25 text-sm text-red-400">{error}</div>}
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-brand-text mb-1.5">Name <span className="text-brand-primary">*</span></label>
-                    <input id="name" name="name" type="text" autoComplete="name" required value={form.name} onChange={handleChange} placeholder="Max Mustermann"
-                      className="w-full px-4 py-3 bg-brand-surface border border-brand-border hover:border-brand-primary/40 focus:border-brand-primary/60 rounded-xl text-brand-text placeholder:text-brand-muted text-sm outline-none transition-colors" />
+                <h3 className="text-xl font-bold text-brand-text mb-6">Nachricht senden</h3>
+
+                {error && (
+                  <div role="alert" className="mb-5 px-4 py-3.5 rounded-xl bg-red-500/10 border border-red-500/25 text-base text-red-400">
+                    {error}
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-brand-text mb-1.5">E-Mail <span className="text-brand-primary">*</span></label>
-                      <input id="email" name="email" type="email" autoComplete="email" required value={form.email} onChange={handleChange} placeholder="max@beispiel.de"
-                        className="w-full px-4 py-3 bg-brand-surface border border-brand-border hover:border-brand-primary/40 focus:border-brand-primary/60 rounded-xl text-brand-text placeholder:text-brand-muted text-sm outline-none transition-colors" />
+                )}
+
+                <div className="space-y-5">
+                  {[
+                    { id: "name",    label: "Name",    type: "text",  required: true,  autoComplete: "name",  placeholder: "Max Mustermann" },
+                    { id: "email",   label: "E-Mail",  type: "email", required: true,  autoComplete: "email", placeholder: "max@beispiel.de" },
+                    { id: "phone",   label: "Telefon", type: "tel",   required: false, autoComplete: "tel",   placeholder: "+49 ..." },
+                  ].map(({ id, label, type, required, autoComplete, placeholder }) => (
+                    <div key={id}>
+                      <label htmlFor={id} className="block text-base font-semibold text-brand-text mb-2">
+                        {label} {required && <span className="text-brand-primary" aria-label="Pflichtfeld">*</span>}
+                      </label>
+                      <input id={id} name={id} type={type} autoComplete={autoComplete} required={required}
+                        value={(form as Record<string, string>)[id]} onChange={handleChange} placeholder={placeholder}
+                        className="w-full px-4 py-3.5 bg-brand-surface2 border border-brand-border rounded-xl
+                                   text-brand-text placeholder:text-brand-muted text-base outline-none
+                                   hover:border-brand-primary/30 focus:border-brand-primary/60 transition-colors min-h-[52px]" />
                     </div>
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-brand-text mb-1.5">Telefon</label>
-                      <input id="phone" name="phone" type="tel" autoComplete="tel" value={form.phone} onChange={handleChange} placeholder="+49 ..."
-                        className="w-full px-4 py-3 bg-brand-surface border border-brand-border hover:border-brand-primary/40 focus:border-brand-primary/60 rounded-xl text-brand-text placeholder:text-brand-muted text-sm outline-none transition-colors" />
-                    </div>
-                  </div>
+                  ))}
+
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-brand-text mb-1.5">Nachricht <span className="text-brand-primary">*</span></label>
-                    <textarea id="message" name="message" rows={4} required value={form.message} onChange={handleChange} placeholder="Wie können wir Ihnen helfen?"
-                      className="w-full px-4 py-3 bg-brand-surface border border-brand-border hover:border-brand-primary/40 focus:border-brand-primary/60 rounded-xl text-brand-text placeholder:text-brand-muted text-sm outline-none transition-colors resize-none" />
+                    <label htmlFor="message" className="block text-base font-semibold text-brand-text mb-2">
+                      Nachricht <span className="text-brand-primary" aria-label="Pflichtfeld">*</span>
+                    </label>
+                    <textarea id="message" name="message" rows={5} required value={form.message} onChange={handleChange}
+                      placeholder="Wie können wir Ihnen helfen?"
+                      className="w-full px-4 py-3.5 bg-brand-surface2 border border-brand-border rounded-xl
+                                 text-brand-text placeholder:text-brand-muted text-base outline-none
+                                 hover:border-brand-primary/30 focus:border-brand-primary/60 transition-colors resize-none" />
                   </div>
-                  <div className="flex items-start gap-3">
-                    <input id="dsgvo" name="dsgvo" type="checkbox" required className="mt-0.5 w-4 h-4 accent-brand-primary cursor-pointer shrink-0" />
-                    <label htmlFor="dsgvo" className="text-xs text-brand-muted leading-relaxed cursor-pointer">
+
+                  <div className="flex items-start gap-3 pt-1">
+                    <input id="dsgvo" name="dsgvo" type="checkbox" required
+                      className="mt-1 w-5 h-5 accent-brand-primary cursor-pointer shrink-0" />
+                    <label htmlFor="dsgvo" className="text-base text-brand-muted leading-relaxed cursor-pointer">
                       Ich stimme der Verarbeitung meiner Daten gemäß der{" "}
-                      <a href="/datenschutz" className="text-brand-primary hover:underline">Datenschutzerklärung</a> zu.{" "}
+                      <a href="/datenschutz" className="text-brand-primary hover:underline font-medium">Datenschutzerklärung</a> zu.{" "}
                       <span className="text-brand-primary">*</span>
                     </label>
                   </div>
+
                   <button type="submit" disabled={loading}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 bg-brand-primary text-white font-semibold rounded-xl hover:bg-brand-primary-hover transition-all disabled:opacity-60 disabled:cursor-not-allowed">
+                    className="w-full flex items-center justify-center gap-2 py-4 bg-brand-primary text-white
+                               font-semibold rounded-xl hover:bg-brand-primary-hover transition-all
+                               disabled:opacity-50 disabled:cursor-not-allowed text-lg min-h-[56px]
+                               shadow-xl shadow-brand-primary/20">
                     {loading
-                      ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Sende...</>
-                      : <><Send className="w-4 h-4" aria-hidden="true" />Nachricht senden</>
+                      ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />Wird gesendet…</>
+                      : <><Send className="w-5 h-5" aria-hidden="true" />Nachricht senden</>
                     }
                   </button>
                 </div>
