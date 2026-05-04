@@ -1,25 +1,60 @@
 @import "tailwindcss";
 
-/* ── Brand Design Tokens ─────────────────────────────────────── */
+/* ── Brand Design Tokens (Tailwind @theme) ────────────────────────────────── */
 @theme inline {
   --color-brand-bg:            #0f0f0f;
   --color-brand-surface:       #1a1a1a;
   --color-brand-surface2:      #242424;
-  --color-brand-secondary:     #242424;
+  --color-brand-heading:       #f0f0f0;
   --color-brand-text:          #f0f0f0;
   --color-brand-muted:         #a0a0a0;
   --color-brand-border:        rgba(255,255,255,0.08);
   --color-brand-primary:       #c9a84c;
   --color-brand-primary-hover: #b8963e;
+  --color-brand-secondary:     #8a7a5a;
+  --color-brand-accent:        #c9a84c;
+
+  /* Text-on-X — nur #000000 oder #FFFFFF */
+  --color-on-primary:     #000000;
+  --color-on-secondary:   #ffffff;
+  --color-on-footer:      #ffffff;
+
+  /* Kontrast-sichere Vordergrundfarben — text-safe-primary etc. */
+  --color-safe-primary:   #c9a84c;
+  --color-safe-secondary: #a0a0a0;
+  --color-safe-icon:      #c9a84c;
+
   --font-sans: var(--font-geist-sans);
 }
 
+/* ── CSS Custom Properties ────────────────────────────────────────────────── */
 :root {
-  --background:    #0f0f0f;
-  --foreground:    #f0f0f0;
-  --color-primary: #c9a84c;
-  --nav-shadow:    0 4px 24px rgba(0,0,0,0.5);
-  --card-shadow:   none;
+  --background:        #0f0f0f;
+  --foreground:        #f0f0f0;
+  --color-page-bg:     #0f0f0f;
+  --color-section-alt: #1a1a1a;
+  --color-card-bg:     #1a1a1a;
+  --color-footer-bg:   #0a0a0a;
+
+  --color-primary:     #c9a84c;
+  --color-secondary:   #8a7a5a;
+
+  --nav-shadow:             0 4px 24px rgba(0,0,0,0.5);
+  --nav-hero-bg:            rgba(0,0,0,0.50);
+  --nav-hero-text:          rgba(255,255,255,0.90);
+  --nav-hero-text-muted:    rgba(255,255,255,0.70);
+  --nav-hero-hover-bg:      rgba(255,255,255,0.10);
+
+  --card-shadow:       none;
+  --hero-overlay:      rgba(0,0,0,0.55);
+
+  --text-on-primary:     #000000;
+  --text-on-footer:      #ffffff;
+  --text-on-hero:        #ffffff;
+
+  --safe-primary-text:   #c9a84c;
+  --safe-secondary-text: #a0a0a0;
+  --safe-icon:           #c9a84c;
 }
 
 html, body {
@@ -29,6 +64,7 @@ html, body {
   line-height: 1.6;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 [id] { scroll-margin-top: 80px; }
