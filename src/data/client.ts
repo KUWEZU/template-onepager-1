@@ -19,6 +19,8 @@ export const client = {
   telefon: "+49 123 456 7890",
   email: "info@ihre-werkstatt.de",
   website: "https://ihre-werkstatt.de",
+  logo: null,
+  standort_bild: null,
 
   // ── Hero ───────────────────────────────────────────────────────────────────
   hero: {
@@ -169,10 +171,10 @@ export const client = {
   // ── Kontakt ────────────────────────────────────────────────────────────────
   kontakt: {
     oeffnungszeiten: ["Mo–Fr 8:00–18:00", "Sa 9:00–14:00"],
-    googleMapsUrl: "https://maps.google.com",
     // Für echte Karte: Google Maps Embed-URL oder Koordinaten hier eintragen
     // mapEmbedUrl: "https://www.google.com/maps/embed?pb=..."
   },
 } as const;
 
 export type LeistungConfig = (typeof client.leistungen)[number];
+
