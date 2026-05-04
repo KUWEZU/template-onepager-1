@@ -39,8 +39,8 @@ export function Navbar() {
         borderBottomColor: "var(--color-brand-border)",
         boxShadow: "var(--nav-shadow)",
       } : {
-        // Not scrolled: semi-transparent dark overlay so all text stays legible on any hero image
-        background: "rgba(0,0,0,0.50)",
+        // Non-scrolled: mode-aware overlay via CSS variables set in globals.css
+        background: "var(--nav-hero-bg)",
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
       }}
@@ -57,8 +57,9 @@ export function Navbar() {
               <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center shrink-0">
                 <span className="text-white font-black text-sm tracking-tight">{initials}</span>
               </div>
-              <span className={`font-bold text-lg tracking-tight transition-colors
-                ${scrolled ? "text-brand-text group-hover:text-brand-primary" : "text-white group-hover:text-white/80"}`}>
+              <span
+                className="font-bold text-lg tracking-tight transition-colors group-hover:opacity-80"
+                style={{ color: scrolled ? "var(--color-brand-text)" : "var(--nav-hero-text)" }}>
                 {client.name}
               </span>
             </>
@@ -70,11 +71,29 @@ export function Navbar() {
           {NAV_LINKS.map(({ label, href }) => (
             <li key={href}>
               <a href={href} onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
-                className={`px-4 py-2.5 text-base font-medium rounded-lg transition-all min-h-[44px] inline-flex items-center
-                  ${scrolled
-                    ? "text-brand-text/70 hover:text-brand-text hover:bg-brand-text/[0.06]"
-                    : "text-white/85 hover:text-white hover:bg-white/10"
-                  }`}>
+                className="px-4 py-2.5 text-base font-medium rounded-lg transition-all min-h-[44px] inline-flex items-center"
+                style={scrolled ? {
+                  color: "var(--color-brand-text)",
+                  opacity: 0.7,
+                } : {
+                  color: "var(--nav-hero-text-muted)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = scrolled
+                    ? "rgba(0,0,0,0.06)"
+                    : "var(--nav-hero-hover-bg)";
+                  (e.currentTarget as HTMLElement).style.color = scrolled
+                    ? "var(--color-brand-text)"
+                    : "var(--nav-hero-text)";
+                  (e.currentTarget as HTMLElement).style.opacity = "1";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                  (e.currentTarget as HTMLElement).style.color = scrolled
+                    ? "var(--color-brand-text)"
+                    : "var(--nav-hero-text-muted)";
+                  (e.currentTarget as HTMLElement).style.opacity = scrolled ? "0.7" : "1";
+                }}>
                 {label}
               </a>
             </li>
@@ -85,8 +104,8 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           {client.telefon && (
             <a href={`tel:${client.telefon}`}
-              className={`flex items-center gap-2 text-base font-medium transition-colors min-h-[44px]
-                ${scrolled ? "text-brand-primary hover:text-brand-primary-hover" : "text-white/90 hover:text-white"}`}
+              className="flex items-center gap-2 text-base font-medium transition-colors min-h-[44px]"
+              style={{ color: scrolled ? "var(--color-brand-primary)" : "var(--nav-hero-text)" }}
               aria-label="Jetzt anrufen">
               <Phone className="w-4 h-4" aria-hidden="true" />
               {client.telefon}
@@ -101,8 +120,8 @@ export function Navbar() {
 
         {/* Mobile burger */}
         <button type="button" onClick={() => setOpen(v => !v)}
-          className={`md:hidden p-3 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center
-            ${scrolled ? "text-brand-text/70 hover:text-brand-text" : "text-white/80 hover:text-white"}`}
+          className="md:hidden p-3 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          style={{ color: scrolled ? "var(--color-brand-text)" : "var(--nav-hero-text)" }}
           aria-label={open ? "Menü schließen" : "Menü öffnen"} aria-expanded={open} aria-controls="mobile-menu">
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
