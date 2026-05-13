@@ -12,6 +12,11 @@ const NAV_LINKS = [
   { label: "Kontakt",    href: "#kontakt"    },
 ];
 
+// Dark-surface constants — used whenever the nav is on its own dark background
+// (i.e. scrolled state in any mode, which always matches the footer background).
+const DARK_NAV_HOVER_BG     = "rgba(255,255,255,0.08)";
+const DARK_NAV_BORDER_COLOR = "rgba(255,255,255,0.08)";
+
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -33,10 +38,11 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300${scrolled ? " border-b" : ""}`}
       style={scrolled ? {
-        backgroundColor: "var(--color-brand-bg)",
+        // Always the same dark background as the footer — independent of farbmodus.
+        backgroundColor: "var(--color-footer-bg)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
-        borderBottomColor: "var(--color-brand-border)",
+        borderBottomColor: DARK_NAV_BORDER_COLOR,
         boxShadow: "var(--nav-shadow)",
       } : {
         background: "var(--nav-hero-bg)",
@@ -58,7 +64,7 @@ export function Navbar() {
               </div>
               <span
                 className="font-bold text-lg tracking-tight transition-colors group-hover:opacity-80"
-                style={{ color: scrolled ? "var(--color-brand-text)" : "var(--nav-hero-text)" }}>
+                style={{ color: scrolled ? "var(--text-on-footer)" : "var(--nav-hero-text)" }}>
                 {client.name}
               </span>
             </>
@@ -72,24 +78,25 @@ export function Navbar() {
               <a href={href} onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
                 className="px-4 py-2.5 text-base font-medium rounded-lg transition-all min-h-[44px] inline-flex items-center"
                 style={scrolled ? {
-                  color: "var(--color-brand-text)",
+                  // Dark surface: white text at reduced opacity for visual hierarchy
+                  color: "var(--text-on-footer)",
                   opacity: 0.7,
                 } : {
                   color: "var(--nav-hero-text-muted)",
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.backgroundColor = scrolled
-                    ? "rgba(0,0,0,0.06)"
+                    ? DARK_NAV_HOVER_BG
                     : "var(--nav-hero-hover-bg)";
                   (e.currentTarget as HTMLElement).style.color = scrolled
-                    ? "var(--color-brand-text)"
+                    ? "var(--text-on-footer)"
                     : "var(--nav-hero-text)";
                   (e.currentTarget as HTMLElement).style.opacity = "1";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
                   (e.currentTarget as HTMLElement).style.color = scrolled
-                    ? "var(--color-brand-text)"
+                    ? "var(--text-on-footer)"
                     : "var(--nav-hero-text-muted)";
                   (e.currentTarget as HTMLElement).style.opacity = scrolled ? "0.7" : "1";
                 }}>
@@ -104,7 +111,8 @@ export function Navbar() {
           {client.telefon && (
             <a href={`tel:${client.telefon}`}
               className="flex items-center gap-2 text-base font-medium transition-colors min-h-[44px]"
-              style={{ color: scrolled ? "var(--safe-primary-text)" : "var(--nav-hero-text)" }}
+              // On dark surface: brand primary colour is always legible
+              style={{ color: scrolled ? "var(--color-brand-primary)" : "var(--nav-hero-text)" }}
               aria-label="Jetzt anrufen">
               <Phone className="w-4 h-4" aria-hidden="true" />
               {client.telefon}
@@ -120,32 +128,32 @@ export function Navbar() {
         {/* Mobile burger */}
         <button type="button" onClick={() => setOpen(v => !v)}
           className="md:hidden p-3 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-          style={{ color: scrolled ? "var(--color-brand-text)" : "var(--nav-hero-text)" }}
+          style={{ color: scrolled ? "var(--text-on-footer)" : "var(--nav-hero-text)" }}
           aria-label={open ? "Menü schließen" : "Menü öffnen"} aria-expanded={open} aria-controls="mobile-menu">
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — always dark, matching the scrolled header and footer */}
       {open && (
         <div id="mobile-menu" role="navigation" aria-label="Mobilmenü"
           className="md:hidden border-t px-4 pb-5"
-          style={{ backgroundColor: "var(--color-brand-bg)", borderTopColor: "var(--color-brand-border)" }}>
+          style={{ backgroundColor: "var(--color-footer-bg)", borderTopColor: DARK_NAV_BORDER_COLOR }}>
           <ul className="space-y-1 pt-3" role="list">
             {NAV_LINKS.map(({ label, href }) => (
               <li key={href}>
                 <a href={href} onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
-                  className="flex items-center px-4 py-3 text-base font-medium text-brand-text/70 hover:text-brand-text
-                             hover:bg-brand-text/[0.06] rounded-lg transition-all min-h-[44px]">
+                  className="flex items-center px-4 py-3 text-base font-medium text-on-footer/70 hover:text-on-footer
+                             hover:bg-white/[0.08] rounded-lg transition-all min-h-[44px]">
                   {label}
                 </a>
               </li>
             ))}
           </ul>
-          <div className="mt-4 pt-4 border-t flex flex-col gap-3" style={{ borderTopColor: "var(--color-brand-border)" }}>
+          <div className="mt-4 pt-4 border-t flex flex-col gap-3" style={{ borderTopColor: DARK_NAV_BORDER_COLOR }}>
             {client.telefon && (
               <a href={`tel:${client.telefon}`}
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-safe-primary min-h-[44px]">
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-brand-primary min-h-[44px]">
                 <Phone className="w-4 h-4" aria-hidden="true" />{client.telefon}
               </a>
             )}

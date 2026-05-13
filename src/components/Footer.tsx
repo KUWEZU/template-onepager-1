@@ -124,11 +124,11 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/[0.05]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-on-footer/30">© {year} {client.name}. Alle Rechte vorbehalten.</p>
+          <p className="text-sm text-on-footer/45">© {year} {client.name}. Alle Rechte vorbehalten.</p>
           <div className="flex items-center gap-5">
-            <a href="/impressum"        className="text-sm text-on-footer/30 hover:text-on-footer/70 transition-colors">Impressum</a>
-            <a href="/datenschutz"      className="text-sm text-on-footer/30 hover:text-on-footer/70 transition-colors">Datenschutz</a>
-            <a href="/barrierefreiheit" className="text-sm text-on-footer/30 hover:text-on-footer/70 transition-colors">Barrierefreiheit</a>
+            <a href="/impressum"        className="text-sm text-on-footer/45 hover:text-on-footer/70 transition-colors">Impressum</a>
+            <a href="/datenschutz"      className="text-sm text-on-footer/45 hover:text-on-footer/70 transition-colors">Datenschutz</a>
+            <a href="/barrierefreiheit" className="text-sm text-on-footer/45 hover:text-on-footer/70 transition-colors">Barrierefreiheit</a>
           </div>
         </div>
       </div>
