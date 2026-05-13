@@ -45,6 +45,10 @@
   --nav-hero-text-muted:    rgba(255,255,255,0.70);
   --nav-hero-hover-bg:      rgba(255,255,255,0.10);
 
+  /* Navbar scrolled + Footer — wechselt mit Farbmodus */
+  --nav-scrolled-hover-bg:  rgba(255,255,255,0.08);
+  --nav-scrolled-border:    rgba(255,255,255,0.08);
+
   --card-shadow:       none;
   --hero-overlay:      rgba(0,0,0,0.55);
 

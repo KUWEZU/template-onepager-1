@@ -8,7 +8,7 @@ export function Footer() {
 
   return (
     <footer
-      className="border-t border-white/[0.06]"
+      className="border-t border-brand-border"
       style={{ backgroundColor: "var(--color-footer-bg)" }}
       aria-label="Seitenende"
     >
@@ -26,19 +26,19 @@ export function Footer() {
                   <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center shrink-0">
                     <span className="text-on-primary font-black text-sm">{initials}</span>
                   </div>
-                  <span className="text-on-footer font-bold text-lg">{client.name}</span>
+                  <span className="text-brand-text font-bold text-lg">{client.name}</span>
                 </>
               )}
             </div>
-            <p className="text-base text-on-footer/50 leading-relaxed mb-6">
+            <p className="text-base text-brand-muted leading-relaxed mb-6">
               Ihr {client.branche}-Betrieb in {client.ort}. Qualität, Transparenz
               und schneller Service.
             </p>
             <div className="flex items-center gap-3">
               {[{ label: "Facebook", href: "#" }, { label: "Instagram", href: "#" }].map(({ label, href }) => (
                 <a key={label} href={href} aria-label={`${label} öffnen`}
-                  className="w-10 h-10 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center
-                             text-on-footer/40 hover:text-on-footer hover:border-white/[0.16] transition-all text-xs font-medium min-h-[44px]">
+                  className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center
+                             text-brand-muted hover:text-brand-text hover:border-brand-border transition-all text-xs font-medium min-h-[44px]">
                   {label.slice(0, 2)}
                 </a>
               ))}
@@ -47,12 +47,12 @@ export function Footer() {
 
           {/* Leistungen */}
           <div>
-            <h3 className="text-base font-semibold text-on-footer mb-5 uppercase tracking-wide text-sm">Leistungen</h3>
+            <h3 className="text-base font-semibold text-brand-heading mb-5 uppercase tracking-wide text-sm">Leistungen</h3>
             <ul className="space-y-2.5" role="list">
               {client.leistungen.slice(0, 8).map((l) => (
                 <li key={l.slug}>
                   <a href="#leistungen"
-                    className="text-base text-on-footer/50 hover:text-on-footer transition-colors leading-relaxed">
+                    className="text-base text-brand-muted hover:text-brand-text transition-colors leading-relaxed">
                     {l.title}
                   </a>
                 </li>
@@ -62,7 +62,7 @@ export function Footer() {
 
           {/* Unternehmen */}
           <div>
-            <h3 className="text-base font-semibold text-on-footer mb-5 uppercase tracking-wide text-sm">Unternehmen</h3>
+            <h3 className="text-base font-semibold text-brand-heading mb-5 uppercase tracking-wide text-sm">Unternehmen</h3>
             <ul className="space-y-2.5" role="list">
               {[
                 { label: "Über uns",         href: "#ueber-uns"        },
@@ -73,7 +73,7 @@ export function Footer() {
                 { label: "Barrierefreiheit", href: "/barrierefreiheit" },
               ].map(({ label, href }) => (
                 <li key={label}>
-                  <a href={href} className="text-base text-on-footer/50 hover:text-on-footer transition-colors">{label}</a>
+                  <a href={href} className="text-base text-brand-muted hover:text-brand-text transition-colors">{label}</a>
                 </li>
               ))}
             </ul>
@@ -81,12 +81,12 @@ export function Footer() {
 
           {/* Kontaktdaten */}
           <div>
-            <h3 className="text-base font-semibold text-on-footer mb-5 uppercase tracking-wide text-sm">Kontakt</h3>
+            <h3 className="text-base font-semibold text-brand-heading mb-5 uppercase tracking-wide text-sm">Kontakt</h3>
             <ul className="space-y-4" role="list">
               {client.telefon && (
                 <li>
                   <a href={`tel:${client.telefon}`}
-                    className="flex items-center gap-3 text-base text-on-footer/50 hover:text-on-footer transition-colors group min-h-[44px]">
+                    className="flex items-center gap-3 text-base text-brand-muted hover:text-brand-text transition-colors group min-h-[44px]">
                     <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center shrink-0 group-hover:bg-brand-primary/25 transition-colors">
                       <Phone className="w-4 h-4 text-brand-primary" aria-hidden="true" />
                     </div>
@@ -97,7 +97,7 @@ export function Footer() {
               {client.email && (
                 <li>
                   <a href={`mailto:${client.email}`}
-                    className="flex items-center gap-3 text-base text-on-footer/50 hover:text-on-footer transition-colors group min-h-[44px]">
+                    className="flex items-center gap-3 text-base text-brand-muted hover:text-brand-text transition-colors group min-h-[44px]">
                     <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center shrink-0 group-hover:bg-brand-primary/25 transition-colors">
                       <Mail className="w-4 h-4 text-brand-primary" aria-hidden="true" />
                     </div>
@@ -107,7 +107,7 @@ export function Footer() {
               )}
               {client.adresse && (
                 <li>
-                  <address className="not-italic flex items-start gap-3 text-base text-on-footer/50">
+                  <address className="not-italic flex items-start gap-3 text-base text-brand-muted">
                     <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center shrink-0 mt-0.5">
                       <MapPin className="w-4 h-4 text-brand-primary" aria-hidden="true" />
                     </div>
@@ -122,13 +122,13 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/[0.05]">
+      <div className="border-t border-brand-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-on-footer/45">© {year} {client.name}. Alle Rechte vorbehalten.</p>
+          <p className="text-sm text-brand-muted">© {year} {client.name}. Alle Rechte vorbehalten.</p>
           <div className="flex items-center gap-5">
-            <a href="/impressum"        className="text-sm text-on-footer/45 hover:text-on-footer/70 transition-colors">Impressum</a>
-            <a href="/datenschutz"      className="text-sm text-on-footer/45 hover:text-on-footer/70 transition-colors">Datenschutz</a>
-            <a href="/barrierefreiheit" className="text-sm text-on-footer/45 hover:text-on-footer/70 transition-colors">Barrierefreiheit</a>
+            <a href="/impressum"        className="text-sm text-brand-muted hover:text-brand-text transition-colors">Impressum</a>
+            <a href="/datenschutz"      className="text-sm text-brand-muted hover:text-brand-text transition-colors">Datenschutz</a>
+            <a href="/barrierefreiheit" className="text-sm text-brand-muted hover:text-brand-text transition-colors">Barrierefreiheit</a>
           </div>
         </div>
       </div>

@@ -12,10 +12,10 @@ const NAV_LINKS = [
   { label: "Kontakt",    href: "#kontakt"    },
 ];
 
-// Dark-surface constants — used whenever the nav is on its own dark background
-// (i.e. scrolled state in any mode, which always matches the footer background).
-const DARK_NAV_HOVER_BG     = "rgba(255,255,255,0.08)";
-const DARK_NAV_BORDER_COLOR = "rgba(255,255,255,0.08)";
+// Scrolled-nav surface variables — resolved per Farbmodus via CSS custom properties.
+// Set by the dashboard's buildGlobalsCss(); defaults in globals.css match dark mode.
+const NAV_SCROLLED_HOVER_BG     = "var(--nav-scrolled-hover-bg)";
+const NAV_SCROLLED_BORDER_COLOR = "var(--nav-scrolled-border)";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -38,11 +38,11 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300${scrolled ? " border-b" : ""}`}
       style={scrolled ? {
-        // Always the same dark background as the footer — independent of farbmodus.
+        // Same surface as footer — light in Light Mode, dark in Dark Mode.
         backgroundColor: "var(--color-footer-bg)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
-        borderBottomColor: DARK_NAV_BORDER_COLOR,
+        borderBottomColor: NAV_SCROLLED_BORDER_COLOR,
         boxShadow: "var(--nav-shadow)",
       } : {
         background: "var(--nav-hero-bg)",
@@ -78,7 +78,7 @@ export function Navbar() {
               <a href={href} onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
                 className="px-4 py-2.5 text-base font-medium rounded-lg transition-all min-h-[44px] inline-flex items-center"
                 style={scrolled ? {
-                  // Dark surface: white text at reduced opacity for visual hierarchy
+                  // Scrolled: text-on-footer switches per mode (white/dark)
                   color: "var(--text-on-footer)",
                   opacity: 0.7,
                 } : {
@@ -86,7 +86,7 @@ export function Navbar() {
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.backgroundColor = scrolled
-                    ? DARK_NAV_HOVER_BG
+                    ? NAV_SCROLLED_HOVER_BG
                     : "var(--nav-hero-hover-bg)";
                   (e.currentTarget as HTMLElement).style.color = scrolled
                     ? "var(--text-on-footer)"
@@ -111,8 +111,8 @@ export function Navbar() {
           {client.telefon && (
             <a href={`tel:${client.telefon}`}
               className="flex items-center gap-2 text-base font-medium transition-colors min-h-[44px]"
-              // On dark surface: brand primary colour is always legible
-              style={{ color: scrolled ? "var(--color-brand-primary)" : "var(--nav-hero-text)" }}
+              // Scrolled: --color-safe-primary = primary if ≥4.5:1 on surface, else heading color
+              style={{ color: scrolled ? "var(--color-safe-primary)" : "var(--nav-hero-text)" }}
               aria-label="Jetzt anrufen">
               <Phone className="w-4 h-4" aria-hidden="true" />
               {client.telefon}
@@ -134,26 +134,28 @@ export function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu — always dark, matching the scrolled header and footer */}
+      {/* Mobile menu — same surface as scrolled header + footer (mode-aware) */}
       {open && (
         <div id="mobile-menu" role="navigation" aria-label="Mobilmenü"
           className="md:hidden border-t px-4 pb-5"
-          style={{ backgroundColor: "var(--color-footer-bg)", borderTopColor: DARK_NAV_BORDER_COLOR }}>
+          style={{ backgroundColor: "var(--color-footer-bg)", borderTopColor: NAV_SCROLLED_BORDER_COLOR }}>
           <ul className="space-y-1 pt-3" role="list">
             {NAV_LINKS.map(({ label, href }) => (
               <li key={href}>
                 <a href={href} onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
                   className="flex items-center px-4 py-3 text-base font-medium text-on-footer/70 hover:text-on-footer
-                             hover:bg-white/[0.08] rounded-lg transition-all min-h-[44px]">
+                             rounded-lg transition-all min-h-[44px]"
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--nav-scrolled-hover-bg)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}>
                   {label}
                 </a>
               </li>
             ))}
           </ul>
-          <div className="mt-4 pt-4 border-t flex flex-col gap-3" style={{ borderTopColor: DARK_NAV_BORDER_COLOR }}>
+          <div className="mt-4 pt-4 border-t flex flex-col gap-3" style={{ borderTopColor: NAV_SCROLLED_BORDER_COLOR }}>
             {client.telefon && (
               <a href={`tel:${client.telefon}`}
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-brand-primary min-h-[44px]">
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-safe-primary min-h-[44px]">
                 <Phone className="w-4 h-4" aria-hidden="true" />{client.telefon}
               </a>
             )}
