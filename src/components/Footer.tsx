@@ -34,26 +34,32 @@ export function Footer() {
               Ihr {client.branche}-Betrieb in {client.ort}. Qualität, Transparenz
               und schneller Service.
             </p>
-            <div className="flex items-center gap-3">
-              <a href="#" aria-label="Facebook öffnen"
-                className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center
-                           text-brand-muted hover:text-brand-text hover:border-brand-border transition-all min-h-[44px]">
-                {/* Facebook "f" — stroke style, same format as lucide-react */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                </svg>
-              </a>
-              <a href="#" aria-label="Instagram öffnen"
-                className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center
-                           text-brand-muted hover:text-brand-text hover:border-brand-border transition-all min-h-[44px]">
-                {/* Instagram camera — stroke style, same format as lucide-react */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                </svg>
-              </a>
-            </div>
+            {(client.social.facebook || client.social.instagram) && (
+              <div className="flex items-center gap-3">
+                {client.social.facebook && (
+                  <a href={client.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook öffnen"
+                    className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center
+                               text-brand-muted hover:text-brand-text hover:border-brand-border transition-all min-h-[44px]">
+                    {/* Facebook "f" — stroke style, same format as lucide-react */}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true">
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                    </svg>
+                  </a>
+                )}
+                {client.social.instagram && (
+                  <a href={client.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram öffnen"
+                    className="w-10 h-10 rounded-lg bg-brand-surface2 border border-brand-border flex items-center justify-center
+                               text-brand-muted hover:text-brand-text hover:border-brand-border transition-all min-h-[44px]">
+                    {/* Instagram camera — stroke style, same format as lucide-react */}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    </svg>
+                  </a>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Leistungen */}

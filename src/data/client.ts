@@ -167,6 +167,12 @@ export const client = {
   kontakt: {
     oeffnungszeiten: ["Mo–Fr: 08:00 – 18:00", "Sa: 09:00 – 13:00"],
   },
+
+  // ── Social Media ───────────────────────────────────────────────────────────
+  social: {
+    facebook:  null as string | null,
+    instagram: null as string | null,
+  },
 } as const;
 
 export type LeistungConfig = (typeof client.leistungen)[number];
