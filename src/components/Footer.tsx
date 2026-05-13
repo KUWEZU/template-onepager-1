@@ -83,6 +83,7 @@ export function Footer() {
             <ul className="space-y-2.5" role="list">
               {[
                 { label: "Über uns",         href: "#ueber-uns"        },
+                ...(client.newsEnabled ? [{ label: "Aktuelles", href: "/aktuelles" }] : []),
                 { label: "Karriere",         href: "#karriere"         },
                 { label: "Kontakt",          href: "#kontakt"          },
                 { label: "Impressum",        href: "/impressum"        },

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { client } from "@/data/client";
@@ -104,6 +105,27 @@ export function Navbar() {
               </a>
             </li>
           ))}
+          {client.newsEnabled && (
+            <li>
+              <Link href="/aktuelles"
+                className="px-4 py-2.5 text-base font-medium rounded-lg transition-all min-h-[44px] inline-flex items-center"
+                style={scrolled ? { color: "var(--text-on-footer)", opacity: 0.7 } : { color: "var(--nav-hero-text-muted)" }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.backgroundColor = scrolled ? NAV_SCROLLED_HOVER_BG : "var(--nav-hero-hover-bg)";
+                  el.style.color = scrolled ? "var(--text-on-footer)" : "var(--nav-hero-text)";
+                  el.style.opacity = "1";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.backgroundColor = "transparent";
+                  el.style.color = scrolled ? "var(--text-on-footer)" : "var(--nav-hero-text-muted)";
+                  el.style.opacity = scrolled ? "0.7" : "1";
+                }}>
+                Aktuelles
+              </Link>
+            </li>
+          )}
         </ul>
 
         {/* Desktop CTA */}
@@ -151,6 +173,17 @@ export function Navbar() {
                 </a>
               </li>
             ))}
+            {client.newsEnabled && (
+              <li>
+                <Link href="/aktuelles" onClick={() => setOpen(false)}
+                  className="flex items-center px-4 py-3 text-base font-medium text-on-footer/70 hover:text-on-footer
+                             rounded-lg transition-all min-h-[44px]"
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--nav-scrolled-hover-bg)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}>
+                  Aktuelles
+                </Link>
+              </li>
+            )}
           </ul>
           <div className="mt-4 pt-4 border-t flex flex-col gap-3" style={{ borderTopColor: NAV_SCROLLED_BORDER_COLOR }}>
             {client.telefon && (

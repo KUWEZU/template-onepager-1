@@ -173,6 +173,9 @@ export const client = {
     facebook:  null as string | null,
     instagram: null as string | null,
   },
+
+  // ── Features ───────────────────────────────────────────────────────────────
+  newsEnabled: true as boolean,
 } as const;
 
 export type LeistungConfig = (typeof client.leistungen)[number];
