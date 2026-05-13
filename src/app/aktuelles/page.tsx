@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { client } from "@/data/client";
@@ -64,18 +63,18 @@ export default function AktuellesPage() {
                 <p className="text-brand-muted text-lg">Aktuell sind keine Beiträge vorhanden.</p>
               </div>
             ) : (
-              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
+              <ul className="flex flex-col gap-6" role="list">
                 {items.map((item) => (
                   <li key={item.slug}>
                     <article
-                      className="h-full flex flex-col border border-brand-border rounded-2xl overflow-hidden
-                                 hover:border-brand-primary/40 transition-all group"
+                      id={`artikel-${item.slug}`}
+                      className="border border-brand-border rounded-2xl overflow-hidden transition-colors hover:border-brand-primary/40"
                       style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
                     >
-                      <div className="flex flex-col flex-1 p-6">
+                      <div className="p-6 sm:p-8">
                         <time
                           dateTime={item.datum}
-                          className="text-xs font-semibold text-safe-secondary uppercase tracking-wider mb-3"
+                          className="text-xs font-semibold text-safe-secondary uppercase tracking-wider mb-3 block"
                         >
                           {new Date(item.datum).toLocaleDateString("de-DE", {
                             year: "numeric",
@@ -83,21 +82,22 @@ export default function AktuellesPage() {
                             day: "numeric",
                           })}
                         </time>
-                        <h2 className="text-xl font-bold text-brand-heading mb-3 leading-snug group-hover:text-safe-primary transition-colors">
+                        <h2 className="text-2xl font-bold text-brand-heading mb-3 leading-snug">
                           {item.titel}
                         </h2>
-                        <p className="text-brand-muted leading-relaxed flex-1 mb-6">
+                        <p className="text-brand-muted leading-relaxed mb-4">
                           {item.intro}
                         </p>
-                        <Link
-                          href={`/aktuelles/${item.slug}`}
-                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-safe-primary
-                                     hover:gap-2.5 transition-all mt-auto"
-                          aria-label={`${item.titel} weiterlesen`}
-                        >
-                          Weiterlesen
-                          <span aria-hidden="true">→</span>
-                        </Link>
+                        {/* Full article text — expandable via native <details>, no JS required */}
+                        <details className="group">
+                          <summary className="inline-flex items-center gap-1.5 text-sm font-semibold text-safe-primary cursor-pointer list-none select-none hover:opacity-75 transition-opacity [&::-webkit-details-marker]:hidden">
+                            <span className="group-open:hidden">Weiterlesen →</span>
+                            <span className="hidden group-open:inline">Weniger anzeigen ↑</span>
+                          </summary>
+                          <div className="mt-5 pt-5 border-t border-brand-border text-brand-text leading-relaxed whitespace-pre-wrap">
+                            {item.text}
+                          </div>
+                        </details>
                       </div>
                     </article>
                   </li>
