@@ -174,6 +174,9 @@ export const client = {
     instagram: null as string | null,
   },
 
+  // ── WhatsApp ───────────────────────────────────────────────────────────────
+  whatsapp: "" as string,
+
   // ── Features ───────────────────────────────────────────────────────────────
   newsEnabled: true as boolean,
 } as const;
