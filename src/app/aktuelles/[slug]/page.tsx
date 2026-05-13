@@ -23,8 +23,18 @@ function getAllNewsItems(): NewsItem[] {
 }
 
 // Required for `output: 'export'` — pre-render all known slugs at build time.
-export function generateStaticParams() {
-  return getAllNewsItems().map((item) => ({ slug: item.slug }));
+// Must be async: Next.js 16 / Turbopack does not detect synchronous fs-based
+// generateStaticParams correctly with output: 'export'.
+export async function generateStaticParams() {
+  try {
+    const newsDir = path.join(process.cwd(), "content/news");
+    const files = await fs.promises.readdir(newsDir);
+    return files
+      .filter((f) => f.endsWith(".json"))
+      .map((f) => ({ slug: f.replace(".json", "") }));
+  } catch {
+    return [];
+  }
 }
 
 export default async function NewsDetailPage({
