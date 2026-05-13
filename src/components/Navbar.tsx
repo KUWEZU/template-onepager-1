@@ -3,14 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, Phone } from "lucide-react";
 import { client } from "@/data/client";
 
-const NAV_LINKS = [
-  { label: "Über uns",   href: "#ueber-uns"  },
-  { label: "Leistungen", href: "#leistungen" },
-  { label: "Karriere",   href: "#karriere"   },
-  { label: "Kontakt",    href: "#kontakt"    },
+const NAV_ANCHORS = [
+  { label: "Über uns",   anchor: "ueber-uns"  },
+  { label: "Leistungen", anchor: "leistungen" },
+  { label: "Karriere",   anchor: "karriere"   },
+  { label: "Kontakt",    anchor: "kontakt"    },
 ];
 
 // Scrolled-nav surface variables — resolved per Farbmodus via CSS custom properties.
@@ -21,6 +22,7 @@ const NAV_SCROLLED_BORDER_COLOR = "var(--nav-scrolled-border)";
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     function onScroll() { setScrolled(window.scrollY > 30); }
@@ -28,9 +30,16 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  function handleNavClick(href: string) {
+  // On the home page smooth-scroll; on any other page navigate to /#anchor.
+  function navHref(anchor: string) {
+    return pathname === "/" ? `#${anchor}` : `/#${anchor}`;
+  }
+
+  function handleNavClick(e: React.MouseEvent, anchor: string) {
+    if (pathname !== "/") return; // let normal link navigation handle it
+    e.preventDefault();
     setOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth" });
   }
 
   const initials = client.name.slice(0, 2).toUpperCase();
@@ -54,8 +63,8 @@ export function Navbar() {
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between" aria-label="Hauptnavigation">
 
         {/* Logo / Wordmark */}
-        <a href="#hero" className="flex items-center gap-3 group" aria-label="Zur Startseite"
-          onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}>
+        <a href={navHref("hero")} className="flex items-center gap-3 group" aria-label="Zur Startseite"
+          onClick={(e) => handleNavClick(e, "hero")}>
           {client.logo ? (
             <Image src={client.logo} alt={client.name} width={180} height={64} className="h-12 sm:h-16 w-auto object-contain" unoptimized />
           ) : (
@@ -74,9 +83,9 @@ export function Navbar() {
 
         {/* Desktop nav links */}
         <ul className="hidden md:flex items-center gap-1" role="list">
-          {NAV_LINKS.map(({ label, href }) => (
-            <li key={href}>
-              <a href={href} onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
+          {NAV_ANCHORS.map(({ label, anchor }) => (
+            <li key={anchor}>
+              <a href={navHref(anchor)} onClick={(e) => handleNavClick(e, anchor)}
                 className="px-4 py-2.5 text-base font-medium rounded-lg transition-all min-h-[44px] inline-flex items-center"
                 style={scrolled ? {
                   // Scrolled: text-on-footer switches per mode (white/dark)
@@ -140,7 +149,7 @@ export function Navbar() {
               {client.telefon}
             </a>
           )}
-          <a href="#kontakt" onClick={(e) => { e.preventDefault(); handleNavClick("#kontakt"); }}
+          <a href={navHref("kontakt")} onClick={(e) => handleNavClick(e, "kontakt")}
             className="px-5 py-2.5 text-base font-semibold bg-brand-primary text-on-primary hover:bg-brand-primary-hover
                        rounded-xl transition-all min-h-[44px] inline-flex items-center shadow-lg shadow-brand-primary/20">
             Termin buchen
@@ -162,9 +171,9 @@ export function Navbar() {
           className="md:hidden border-t px-4 pb-5"
           style={{ backgroundColor: "var(--color-footer-bg)", borderTopColor: NAV_SCROLLED_BORDER_COLOR }}>
           <ul className="space-y-1 pt-3" role="list">
-            {NAV_LINKS.map(({ label, href }) => (
-              <li key={href}>
-                <a href={href} onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
+            {NAV_ANCHORS.map(({ label, anchor }) => (
+              <li key={anchor}>
+                <a href={navHref(anchor)} onClick={(e) => handleNavClick(e, anchor)}
                   className="flex items-center px-4 py-3 text-base font-medium text-on-footer/70 hover:text-on-footer
                              rounded-lg transition-all min-h-[44px]"
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "var(--nav-scrolled-hover-bg)"; }}
@@ -192,7 +201,7 @@ export function Navbar() {
                 <Phone className="w-4 h-4" aria-hidden="true" />{client.telefon}
               </a>
             )}
-            <a href="#kontakt" onClick={(e) => { e.preventDefault(); handleNavClick("#kontakt"); }}
+            <a href={navHref("kontakt")} onClick={(e) => handleNavClick(e, "kontakt")}
               className="w-full text-center px-4 py-3.5 text-base font-semibold bg-brand-primary text-on-primary rounded-xl min-h-[44px] flex items-center justify-center">
               Termin buchen
             </a>
