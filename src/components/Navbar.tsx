@@ -8,6 +8,7 @@ import { Menu, X, Phone } from "lucide-react";
 import { client } from "@/data/client";
 
 const NAV_ANCHORS = [
+  { label: "Home",       anchor: ""           },
   { label: "Über uns",   anchor: "ueber-uns"  },
   { label: "Leistungen", anchor: "leistungen" },
   { label: "Karriere",   anchor: "karriere"   },
@@ -39,7 +40,11 @@ export function Navbar() {
     if (pathname !== "/") return; // let normal link navigation handle it
     e.preventDefault();
     setOpen(false);
-    document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth" });
+    if (anchor === "") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   const initials = client.name.slice(0, 2).toUpperCase();
