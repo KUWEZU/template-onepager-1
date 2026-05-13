@@ -30,56 +30,83 @@ export default function AktuellesPage() {
   return (
     <>
       <Navbar />
-      <main
-        id="main-content"
-        tabIndex={-1}
-        className="min-h-screen"
-        style={{ backgroundColor: "var(--color-page-bg)" }}
-      >
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-32 pb-24">
-          <h1 className="text-3xl sm:text-4xl font-bold text-brand-heading mb-2">
-            Aktuelles
-          </h1>
-          <p className="text-brand-muted mb-12">
-            Neuigkeiten und Tipps rund um {client.branche} in {client.ort}.
-          </p>
+      <main id="main-content" tabIndex={-1}>
 
-          {empty ? (
-            <p className="text-brand-muted">Aktuell sind keine Einträge vorhanden.</p>
-          ) : (
-            <div className="space-y-10">
-              {items.map((item) => (
-                <article
-                  key={item.slug}
-                  className="border-b border-brand-border pb-10"
-                >
-                  <time
-                    dateTime={item.datum}
-                    className="text-sm text-brand-muted"
-                  >
-                    {new Date(item.datum).toLocaleDateString("de-DE", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                  <h2 className="text-xl font-semibold text-brand-heading mt-1.5 mb-2">
-                    {item.titel}
-                  </h2>
-                  <p className="text-brand-muted leading-relaxed mb-4">
-                    {item.intro}
-                  </p>
-                  <Link
-                    href={`/aktuelles/${item.slug}`}
-                    className="inline-flex items-center gap-1 text-sm font-medium text-brand-primary hover:underline"
-                  >
-                    Weiterlesen →
-                  </Link>
-                </article>
-              ))}
+        <section
+          className="py-28 pt-48"
+          style={{ backgroundColor: "var(--color-page-bg)" }}
+          aria-labelledby="aktuelles-heading"
+        >
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
+            {/* Section badge + heading */}
+            <div className="mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
+                <span className="text-safe-secondary text-sm font-semibold uppercase tracking-wider">Aktuelles</span>
+              </div>
+              <h1
+                id="aktuelles-heading"
+                className="text-4xl sm:text-5xl font-black text-brand-heading mb-5"
+              >
+                Neuigkeiten & Tipps
+              </h1>
+              <p className="text-brand-muted text-lg leading-relaxed max-w-2xl">
+                Aktuelles rund um {client.branche} in {client.ort} — Tipps, Termine und Neuigkeiten aus unserem Betrieb.
+              </p>
             </div>
-          )}
-        </div>
+
+            {/* Articles */}
+            {empty ? (
+              <div
+                className="border border-brand-border rounded-2xl p-10 text-center"
+                style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
+              >
+                <p className="text-brand-muted text-lg">Aktuell sind keine Beiträge vorhanden.</p>
+              </div>
+            ) : (
+              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
+                {items.map((item) => (
+                  <li key={item.slug}>
+                    <article
+                      className="h-full flex flex-col border border-brand-border rounded-2xl overflow-hidden
+                                 hover:border-brand-primary/40 transition-all group"
+                      style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
+                    >
+                      <div className="flex flex-col flex-1 p-6">
+                        <time
+                          dateTime={item.datum}
+                          className="text-xs font-semibold text-safe-secondary uppercase tracking-wider mb-3"
+                        >
+                          {new Date(item.datum).toLocaleDateString("de-DE", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </time>
+                        <h2 className="text-xl font-bold text-brand-heading mb-3 leading-snug group-hover:text-safe-primary transition-colors">
+                          {item.titel}
+                        </h2>
+                        <p className="text-brand-muted leading-relaxed flex-1 mb-6">
+                          {item.intro}
+                        </p>
+                        <Link
+                          href={`/aktuelles/${item.slug}`}
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-safe-primary
+                                     hover:gap-2.5 transition-all mt-auto"
+                          aria-label={`${item.titel} weiterlesen`}
+                        >
+                          Weiterlesen
+                          <span aria-hidden="true">→</span>
+                        </Link>
+                      </div>
+                    </article>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+
       </main>
       <Footer />
     </>
