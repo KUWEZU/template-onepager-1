@@ -99,17 +99,16 @@ function WheelchairIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
       aria-hidden="true"
     >
-      <circle cx="12" cy="4" r="1.5" />
-      <path d="M9 9h4l2 5h2" />
-      <path d="M9 9l-1 5h4l1 4" />
-      <circle cx="8" cy="20" r="2" />
-      <circle cx="16" cy="20" r="2" />
+      <circle cx="12" cy="5" r="1.5" />
+      <path d="M9 9h6l-1 5-2 5-2-5-1-5" />
+      <path d="M9 12l-2 5" />
+      <path d="M15 12l2 5" />
     </svg>
   );
 }
