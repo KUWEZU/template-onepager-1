@@ -18,7 +18,15 @@ function getNewsItems(): NewsItem[] {
   return fs
     .readdirSync(newsDir)
     .filter((f) => f.endsWith(".json"))
-    .map((f) => JSON.parse(fs.readFileSync(path.join(newsDir, f), "utf-8")) as NewsItem)
+    .flatMap((f) => {
+      try {
+        const raw = fs.readFileSync(path.join(newsDir, f), "utf-8").trim();
+        if (!raw) return [];
+        return [JSON.parse(raw) as NewsItem];
+      } catch {
+        return []; // leere oder ungültige JSON-Datei überspringen
+      }
+    })
     .sort((a, b) => b.datum.localeCompare(a.datum)); // newest first
 }
 
