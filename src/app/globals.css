@@ -49,6 +49,9 @@
   --nav-scrolled-hover-bg:  rgba(255,255,255,0.08);
   --nav-scrolled-border:    rgba(255,255,255,0.08);
 
+  --color-modal-bg:         #13162b;
+  --color-modal-bg-hover:   #1a1e35;
+
   --card-shadow:       none;
   --hero-overlay:      rgba(0,0,0,0.55);
 
@@ -95,6 +98,17 @@ html.a11y-no-motion *, html.a11y-no-motion *::before, html.a11y-no-motion *::aft
   transition-duration: 0.01ms !important; scroll-behavior: auto !important;
 }
 html.a11y-underline-links a { text-decoration: underline !important; text-underline-offset: 3px; }
+
+/* ── Navbar link hover states (eliminates onMouseEnter/Leave JS) ── */
+.nav-link { color: var(--nav-hero-text-muted); opacity: 1; }
+.nav-link:hover { background-color: var(--nav-hero-hover-bg); color: var(--nav-hero-text); }
+header.nav-scrolled .nav-link { color: var(--text-on-footer); opacity: 0.7; }
+header.nav-scrolled .nav-link:hover { background-color: var(--nav-scrolled-hover-bg); color: var(--text-on-footer); opacity: 1; }
+
+/* ── Hero text shadows ── */
+.hero-title-shadow     { text-shadow: 0 2px 20px rgba(0,0,0,0.6); }
+.hero-highlight-shadow { text-shadow: 0 2px 24px rgba(0,0,0,0.9), 0 0 60px rgba(0,0,0,0.5); }
+.hero-text-shadow      { text-shadow: 0 1px 12px rgba(0,0,0,0.6); }
 html.a11y-readable-font, html.a11y-readable-font * {
   font-family: Arial, Helvetica, sans-serif !important; letter-spacing: 0.01em;
 }

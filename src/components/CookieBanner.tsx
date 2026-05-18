@@ -55,7 +55,7 @@ export function CookieBanner() {
       aria-modal="true"
       className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6"
     >
-      <div className="max-w-3xl mx-auto bg-[#13162b] border border-white/[0.12] rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
+      <div className="max-w-3xl mx-auto bg-[var(--color-modal-bg)] border border-white/[0.12] rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
         {/* Header */}
         <div className="flex items-start justify-between gap-4 px-5 pt-5 pb-4">
           <div className="flex items-center gap-3">
