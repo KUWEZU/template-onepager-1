@@ -21,8 +21,8 @@ export function Leistungen() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
-            <span className="text-safe-secondary text-sm font-semibold uppercase tracking-wider">Leistungen</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
+            <span className="text-safe-primary text-sm font-semibold uppercase tracking-wider">Leistungen</span>
           </div>
           <h2 id="leistungen-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
             Alles aus einer Hand
@@ -69,10 +69,11 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
             unoptimized={leistung.bild.endsWith(".svg")} />
         </div>
       ) : (
-        <div className="w-full aspect-video flex items-center justify-center border-b border-brand-border"
+        <div className="w-full aspect-video flex items-center justify-center border-b border-brand-border relative overflow-hidden"
           style={{ backgroundColor: "var(--color-section-alt)" }}>
-          <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
-            <Icon className="w-7 h-7 text-safe-icon" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 via-transparent to-brand-primary/5 pointer-events-none" />
+          <div className="w-20 h-20 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center relative">
+            <Icon className="w-10 h-10 text-safe-icon opacity-70" aria-hidden="true" />
           </div>
         </div>
       )}

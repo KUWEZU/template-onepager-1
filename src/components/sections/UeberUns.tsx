@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Award, Users, Wrench, ThumbsUp } from "lucide-react";
+import { Award, Users, Wrench, ThumbsUp, Star } from "lucide-react";
 import { client } from "@/data/client";
 import reviewsData from "@/data/reviews.json";
 
@@ -11,12 +11,23 @@ function Stars({ rating, size = "sm" }: { rating: number; size?: "sm" | "lg" }) 
   const full  = Math.floor(rating);
   const half  = rating - full >= 0.5;
   const empty = 5 - full - (half ? 1 : 0);
-  const cls = size === "lg" ? "text-2xl leading-none" : "text-base leading-none";
+  const cls = size === "lg" ? "w-6 h-6" : "w-4 h-4";
   return (
-    <span className={cls} aria-label={`${rating} von 5 Sternen`}>
-      {"★".repeat(full)}
-      {half ? "½" : ""}
-      {"☆".repeat(empty)}
+    <span className="inline-flex items-center gap-0.5" aria-label={`${rating} von 5 Sternen`}>
+      {Array.from({ length: full }).map((_, i) => (
+        <Star key={`f${i}`} className={`${cls} text-yellow-400 fill-yellow-400`} aria-hidden="true" />
+      ))}
+      {half && (
+        <span className={`relative inline-block ${cls} shrink-0`} aria-hidden="true">
+          <Star className={`${cls} text-yellow-400/30`} />
+          <span className="absolute inset-0 overflow-hidden w-1/2">
+            <Star className={`${cls} text-yellow-400 fill-yellow-400`} />
+          </span>
+        </span>
+      )}
+      {Array.from({ length: empty }).map((_, i) => (
+        <Star key={`e${i}`} className={`${cls} text-yellow-400/30`} aria-hidden="true" />
+      ))}
     </span>
   );
 }
@@ -30,10 +41,10 @@ function ReviewCard({ author, rating, text, date }: {
       style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
     >
       {/* Stars */}
-      <div className="flex items-center gap-2">
-        <span className="text-yellow-400 text-base leading-none" aria-hidden="true">
-          {"★".repeat(Math.min(5, Math.max(1, Math.round(rating))))}
-        </span>
+      <div className="flex items-center gap-1">
+        {Array.from({ length: Math.min(5, Math.max(1, Math.round(rating))) }).map((_, i) => (
+          <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" aria-hidden="true" />
+        ))}
       </div>
 
       {/* Text */}
@@ -76,8 +87,8 @@ export function UeberUns() {
 
           {/* ── Linke Spalte: Text ── */}
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-secondary/10 border border-brand-secondary/30 mb-6">
-              <span className="text-safe-secondary text-sm font-semibold uppercase tracking-wider">Über uns</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
+              <span className="text-safe-primary text-sm font-semibold uppercase tracking-wider">Über uns</span>
             </div>
 
             <h2 id="ueber-uns-heading" className="text-4xl sm:text-5xl font-black text-brand-heading leading-tight mb-6">

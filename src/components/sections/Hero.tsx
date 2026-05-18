@@ -104,25 +104,16 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1
-          className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6"
-          style={{ textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}
-        >
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6 hero-title-shadow">
           {ueberschrift.replace(ueberschriftHighlight, "").trim()}
           <br />
-          <span
-            className="text-brand-primary"
-            style={{ textShadow: "0 2px 24px rgba(0,0,0,0.9), 0 0 60px rgba(0,0,0,0.5)" }}
-          >
+          <span className="text-brand-primary hero-highlight-shadow">
             {ueberschriftHighlight}
           </span>
         </h1>
 
         {/* Untertext */}
-        <p
-          className="max-w-2xl mx-auto text-xl text-white/85 leading-relaxed mb-10"
-          style={{ textShadow: "0 1px 12px rgba(0,0,0,0.6)" }}
-        >
+        <p className="max-w-2xl mx-auto text-xl text-white/85 leading-relaxed mb-10 hero-text-shadow">
           {untertext}
         </p>
 

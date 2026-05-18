@@ -180,7 +180,7 @@ export function AccessibilityWidget() {
       {/* ── Panel ── */}
       {open && (
         <div
-          className="absolute bottom-14 left-0 w-72 bg-[#13162b] border border-white/[0.12] rounded-2xl shadow-2xl shadow-black/60 overflow-hidden"
+          className="absolute bottom-14 left-0 w-72 bg-[var(--color-modal-bg)] border border-white/[0.12] rounded-2xl shadow-2xl shadow-black/60 overflow-hidden"
           role="dialog"
           aria-label="Barrierefreiheits-Einstellungen"
           aria-modal="true"
@@ -296,7 +296,7 @@ export function AccessibilityWidget() {
         className={`relative w-11 h-11 rounded-full shadow-lg flex items-center justify-center transition-all ${
           open
             ? "bg-brand-primary text-brand-bg shadow-brand-primary/30"
-            : "bg-[#13162b] border border-white/[0.14] text-white/50 hover:text-white hover:border-brand-primary/40 hover:bg-[#1a1e35] shadow-black/40"
+            : "bg-[var(--color-modal-bg)] border border-white/[0.14] text-white/50 hover:text-white hover:border-brand-primary/40 hover:bg-[var(--color-modal-bg-hover)] shadow-black/40"
         }`}
       >
         <WheelchairIcon className="w-5 h-5" />
