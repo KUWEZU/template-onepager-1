@@ -26,7 +26,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // On the home page smooth-scroll; on any other page navigate to /#anchor.
   function navHref(anchor: string) {
     return pathname === "/" ? `#${anchor}` : `/#${anchor}`;
   }
@@ -43,6 +42,23 @@ export function Navbar() {
   }
 
   const initials = client.name.slice(0, 2).toUpperCase();
+
+  /** Format German phone numbers: 012345678901 → 0123 456 78901 */
+  function formatPhone(raw: string): string {
+    const digits = raw.replace(/\D/g, "");
+    if (digits.length >= 10) {
+      const areaLen = digits.startsWith("0800") || digits.startsWith("0900") ? 4
+        : digits.startsWith("015") || digits.startsWith("016") || digits.startsWith("017") ? 4
+        : digits.startsWith("0") ? Math.min(5, Math.floor(digits.length / 2))
+        : 3;
+      const area = digits.slice(0, areaLen);
+      const rest = digits.slice(areaLen);
+      const mid  = rest.slice(0, Math.ceil(rest.length / 2));
+      const end  = rest.slice(Math.ceil(rest.length / 2));
+      return end ? `${area} ${mid} ${end}` : `${area} ${mid}`;
+    }
+    return raw;
+  }
 
   return (
     <header
@@ -101,19 +117,28 @@ export function Navbar() {
         </ul>
 
         {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3">
           {client.telefon && (
-            <a href={`tel:${client.telefon}`}
-              className="flex items-center gap-2 text-base font-medium transition-colors min-h-[44px]"
-              style={{ color: scrolled ? "var(--color-safe-primary)" : "var(--nav-hero-text)" }}
+            <a
+              href={`tel:${client.telefon}`}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl border transition-all min-h-[44px]"
+              style={scrolled ? {
+                color: "var(--color-safe-primary)",
+                borderColor: "var(--color-safe-primary)",
+                backgroundColor: "transparent",
+              } : {
+                color: "var(--nav-hero-text)",
+                borderColor: "rgba(255,255,255,0.35)",
+                backgroundColor: "rgba(255,255,255,0.08)",
+              }}
               aria-label="Jetzt anrufen">
-              <Phone className="w-4 h-4" aria-hidden="true" />
-              {client.telefon}
+              <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />
+              {formatPhone(client.telefon)}
             </a>
           )}
           <a href={navHref("kontakt")} onClick={(e) => handleNavClick(e, "kontakt")}
-            className="px-5 py-2.5 text-base font-semibold bg-brand-primary text-on-primary hover:bg-brand-primary-hover
-                       rounded-xl transition-all min-h-[44px] inline-flex items-center shadow-lg shadow-brand-primary/20">
+            className="px-5 py-2.5 text-sm font-semibold bg-brand-primary text-on-primary hover:bg-brand-primary-hover
+                       rounded-xl transition-all min-h-[44px] inline-flex items-center shadow-md shadow-brand-primary/25">
             Termin buchen
           </a>
         </div>
@@ -154,12 +179,15 @@ export function Navbar() {
           <div className="mt-4 pt-4 border-t border-[var(--nav-scrolled-border)] flex flex-col gap-3">
             {client.telefon && (
               <a href={`tel:${client.telefon}`}
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-safe-primary min-h-[44px]">
-                <Phone className="w-4 h-4" aria-hidden="true" />{client.telefon}
+                className="flex items-center gap-3 px-4 py-3 text-base font-semibold text-safe-primary
+                           border border-safe-primary/30 rounded-xl min-h-[44px] bg-safe-primary/5">
+                <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />
+                {formatPhone(client.telefon)}
               </a>
             )}
             <a href={navHref("kontakt")} onClick={(e) => handleNavClick(e, "kontakt")}
-              className="w-full text-center px-4 py-3.5 text-base font-semibold bg-brand-primary text-on-primary rounded-xl min-h-[44px] flex items-center justify-center">
+              className="w-full text-center px-4 py-3.5 text-base font-semibold bg-brand-primary text-on-primary
+                         rounded-xl min-h-[44px] flex items-center justify-center hover:bg-brand-primary-hover transition-all">
               Termin buchen
             </a>
           </div>
