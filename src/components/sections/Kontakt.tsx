@@ -47,7 +47,7 @@ export function Kontakt() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-icon-surface border border-icon-ring mb-6">
             <span className="text-safe-primary text-sm font-semibold uppercase tracking-wider">Kontakt</span>
           </div>
           <h2 id="kontakt-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
@@ -67,7 +67,7 @@ export function Kontakt() {
                 <div key={title}
                   className="border border-brand-border rounded-2xl p-5"
                   style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
-                  <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-icon-surface border border-icon-ring flex items-center justify-center mb-4">
                     <Icon className="w-5 h-5 text-safe-icon" aria-hidden="true" />
                   </div>
                   <p className="text-sm font-semibold text-safe-primary uppercase tracking-wider mb-2">{title}</p>
@@ -148,8 +148,8 @@ export function Kontakt() {
                         value={(form as Record<string, string>)[id]} onChange={handleChange} placeholder={placeholder}
                         className="w-full px-4 py-3.5 border border-brand-border rounded-xl
                                    text-brand-text placeholder:text-brand-muted/60 text-base outline-none
-                                   hover:border-brand-primary/30 focus:border-brand-primary/60
-                                   focus-visible:ring-2 focus-visible:ring-brand-primary/40 focus-visible:ring-offset-0
+                                   hover:border-icon-ring focus:border-icon-ring
+                                   focus-visible:ring-2 focus-visible:ring-icon-ring focus-visible:ring-offset-0
                                    transition-colors min-h-[52px]"
                         style={{ backgroundColor: "var(--color-section-alt)" }} />
                     </div>
@@ -163,8 +163,8 @@ export function Kontakt() {
                       placeholder="Wie können wir Ihnen helfen?"
                       className="w-full px-4 py-3.5 border border-brand-border rounded-xl
                                  text-brand-text placeholder:text-brand-muted/60 text-base outline-none
-                                 hover:border-brand-primary/30 focus:border-brand-primary/60
-                                 focus-visible:ring-2 focus-visible:ring-brand-primary/40 focus-visible:ring-offset-0
+                                 hover:border-icon-ring focus:border-icon-ring
+                                 focus-visible:ring-2 focus-visible:ring-icon-ring focus-visible:ring-offset-0
                                  transition-colors resize-none"
                       style={{ backgroundColor: "var(--color-section-alt)" }} />
                   </div>
