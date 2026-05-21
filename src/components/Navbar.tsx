@@ -80,7 +80,6 @@ export function Navbar() {
         <a href={navHref("hero")} className="flex items-center gap-3 group" aria-label="Zur Startseite"
           onClick={(e) => handleNavClick(e, "hero")}>
           {client.logo ? (
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={client.logo}
               alt={client.name}
