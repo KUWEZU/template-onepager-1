@@ -105,8 +105,8 @@ export function Footer() {
                 <li>
                   <a href={`tel:${client.telefon}`}
                     className="flex items-center gap-3 text-base text-brand-muted hover:text-brand-text transition-colors group min-h-[44px]">
-                    <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center shrink-0 group-hover:bg-brand-primary/25 transition-colors">
-                      <Phone className="w-4 h-4 text-brand-primary" aria-hidden="true" />
+                    <div className="w-8 h-8 rounded-lg bg-safe-icon/10 flex items-center justify-center shrink-0 group-hover:bg-safe-icon/20 transition-colors">
+                      <Phone className="w-4 h-4 text-safe-icon" aria-hidden="true" />
                     </div>
                     {client.telefon}
                   </a>
@@ -116,8 +116,8 @@ export function Footer() {
                 <li>
                   <a href={`mailto:${client.email}`}
                     className="flex items-center gap-3 text-base text-brand-muted hover:text-brand-text transition-colors group min-h-[44px]">
-                    <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center shrink-0 group-hover:bg-brand-primary/25 transition-colors">
-                      <Mail className="w-4 h-4 text-brand-primary" aria-hidden="true" />
+                    <div className="w-8 h-8 rounded-lg bg-safe-icon/10 flex items-center justify-center shrink-0 group-hover:bg-safe-icon/20 transition-colors">
+                      <Mail className="w-4 h-4 text-safe-icon" aria-hidden="true" />
                     </div>
                     {client.email}
                   </a>
@@ -126,8 +126,8 @@ export function Footer() {
               {client.adresse && (
                 <li>
                   <address className="not-italic flex items-start gap-3 text-base text-brand-muted">
-                    <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center shrink-0 mt-0.5">
-                      <MapPin className="w-4 h-4 text-brand-primary" aria-hidden="true" />
+                    <div className="w-8 h-8 rounded-lg bg-safe-icon/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <MapPin className="w-4 h-4 text-safe-icon" aria-hidden="true" />
                     </div>
                     <span className="leading-relaxed">{client.adresse}</span>
                   </address>
@@ -153,3 +153,4 @@ export function Footer() {
     </footer>
   );
 }
+
