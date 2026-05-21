@@ -87,7 +87,7 @@ export function UeberUns() {
 
           {/* ── Linke Spalte: Text ── */}
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-icon-surface border border-icon-ring mb-6">
               <span className="text-safe-primary text-sm font-semibold uppercase tracking-wider">Über uns</span>
             </div>
 
@@ -106,7 +106,7 @@ export function UeberUns() {
               {tags.map((tag) => (
                 <span key={tag}
                   className="inline-flex items-center px-4 py-1.5 text-sm font-medium text-safe-primary
-                             bg-brand-primary/10 border border-brand-primary/20 rounded-full">
+                             bg-icon-surface border border-icon-ring rounded-full">
                   {tag}
                 </span>
               ))}
@@ -141,10 +141,10 @@ export function UeberUns() {
                 return (
                   <div key={label}
                     className="border border-brand-border rounded-2xl p-5
-                               hover:border-brand-primary/30 transition-all group"
+                               hover:border-icon-ring transition-all group"
                     style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
-                    <div className="w-9 h-9 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-3
-                                    group-hover:bg-brand-primary/20 transition-colors">
+                    <div className="w-9 h-9 rounded-xl bg-icon-surface border border-icon-ring flex items-center justify-center mb-3
+                                    group-hover:bg-icon-ring transition-colors">
                       <Icon className="w-5 h-5 text-safe-icon" aria-hidden="true" />
                     </div>
                     <p className="text-2xl font-black text-brand-heading">{value}</p>
