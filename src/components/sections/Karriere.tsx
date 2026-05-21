@@ -21,7 +21,7 @@ export function Karriere() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-icon-surface border border-icon-ring mb-6">
             <span className="text-safe-primary text-sm font-semibold uppercase tracking-wider">Karriere</span>
           </div>
           <h2 id="karriere-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
@@ -41,9 +41,9 @@ export function Karriere() {
               {BENEFITS.map(({ icon: Icon, title, text }) => (
                 <div key={title}
                   className="border border-brand-border rounded-2xl p-6
-                             hover:border-brand-primary/25 transition-all"
+                             hover:border-icon-ring transition-all"
                   style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
-                  <div className="w-11 h-11 rounded-xl bg-brand-primary/10 flex items-center justify-center mb-4">
+                  <div className="w-11 h-11 rounded-xl bg-icon-surface border border-icon-ring flex items-center justify-center mb-4">
                     <Icon className="w-5 h-5 text-safe-icon" aria-hidden="true" />
                   </div>
                   <p className="text-base font-bold text-brand-heading mb-2">{title}</p>
@@ -61,7 +61,7 @@ export function Karriere() {
                 <li key={job.title}>
                   <a href="#kontakt"
                     className="flex items-center justify-between gap-4 border border-brand-border rounded-2xl p-5
-                               hover:border-brand-primary/30 transition-all group min-h-[72px]"
+                               hover:border-icon-ring transition-all group min-h-[72px]"
                     style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
                     aria-label={`Stelle: ${job.title}`}>
                     <div>
@@ -76,7 +76,7 @@ export function Karriere() {
               ))}
             </ul>
 
-            <div className="mt-6 p-6 bg-brand-primary/[0.06] border border-brand-primary/20 rounded-2xl">
+            <div className="mt-6 p-6 bg-icon-surface border border-icon-ring rounded-2xl">
               <p className="text-base text-brand-text/80 leading-relaxed">
                 <span className="font-bold text-safe-primary">Keine passende Stelle dabei?</span><br />
                 Initiativbewerbungen sind jederzeit willkommen.
