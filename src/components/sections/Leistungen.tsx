@@ -21,7 +21,7 @@ export function Leistungen() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/25 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-icon-surface border border-icon-ring mb-6">
             <span className="text-safe-primary text-sm font-semibold uppercase tracking-wider">Leistungen</span>
           </div>
           <h2 id="leistungen-heading" className="text-4xl sm:text-5xl font-black text-brand-heading mb-5">
@@ -58,7 +58,7 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
   return (
     <article
       className="h-full flex flex-col border border-brand-border rounded-2xl overflow-hidden
-                 transition-all duration-200 hover:-translate-y-1 hover:border-brand-primary/30 group"
+                 transition-all duration-200 hover:-translate-y-1 hover:border-icon-ring group"
       style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
     >
       {leistung.bild ? (
@@ -72,7 +72,7 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
         <div className="w-full aspect-video flex items-center justify-center border-b border-brand-border relative overflow-hidden"
           style={{ backgroundColor: "var(--color-section-alt)" }}>
           <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 via-transparent to-brand-primary/5 pointer-events-none" />
-          <div className="w-20 h-20 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center relative">
+          <div className="w-20 h-20 rounded-2xl bg-icon-surface border border-icon-ring flex items-center justify-center relative">
             <Icon className="w-10 h-10 text-safe-icon opacity-70" aria-hidden="true" />
           </div>
         </div>
@@ -80,8 +80,8 @@ function LeistungCard({ leistung, icon: Icon }: { leistung: LeistungConfig; icon
 
       <div className="flex flex-col flex-1 p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-9 h-9 rounded-xl bg-brand-primary/10 border border-brand-primary/15 flex items-center justify-center shrink-0
-                          group-hover:bg-brand-primary/20 transition-colors">
+          <div className="w-9 h-9 rounded-xl bg-icon-surface border border-icon-ring flex items-center justify-center shrink-0
+                          group-hover:bg-icon-ring transition-colors">
             <Icon className="w-4 h-4 text-safe-icon" aria-hidden="true" />
           </div>
           <h3 className="text-lg font-bold text-brand-heading">{leistung.title}</h3>
