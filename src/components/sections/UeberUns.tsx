@@ -64,7 +64,10 @@ function ReviewCard({ author, rating, text, date }: {
 // ── Hauptkomponente ───────────────────────────────────────────────────────────
 
 export function UeberUns() {
-  const { bild, ueberschrift, text1, text2, tags, stats } = client.ueberUns;
+  const { bild, ueberschrift, text1, text2, tags } = client.ueberUns;
+  // stats: aus dem readonly-Tuple in ein generisches Array kopieren, damit die
+  // längenabhängige Grid-Logik (0–4 Kacheln) typisiert funktioniert.
+  const stats = [...client.ueberUns.stats] as { value: string; label: string }[];
 
   // Reviews aus statischer JSON-Datei (beim Generieren importiert)
   const reviews = reviewsData as {
@@ -134,8 +137,15 @@ export function UeberUns() {
               </div>
             )}
 
-            {/* Stats 2×2 Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            {/* Stats-Grid — passt sich an die Kachelzahl an (0–4 echte Werte).
+                Ohne Werte wird der Block komplett ausgeblendet (kein Platzhalter). */}
+            {stats.length > 0 && (
+            <div className={`grid gap-4 ${
+              stats.length === 4 ? "grid-cols-2" :
+              stats.length === 3 ? "grid-cols-3" :
+              stats.length === 2 ? "grid-cols-2" :
+              "grid-cols-1"
+            }`}>
               {stats.map(({ value, label }, i) => {
                 const Icon = STAT_ICONS[i] ?? Award;
                 return (
@@ -153,6 +163,7 @@ export function UeberUns() {
                 );
               })}
             </div>
+            )}
           </div>
 
         </div>
