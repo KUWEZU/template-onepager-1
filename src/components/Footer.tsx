@@ -129,7 +129,18 @@ export function Footer() {
                     <div className="w-8 h-8 rounded-lg bg-safe-icon/10 flex items-center justify-center shrink-0 mt-0.5">
                       <MapPin className="w-4 h-4 text-safe-icon" aria-hidden="true" />
                     </div>
-                    <span className="leading-relaxed">{client.adresse}</span>
+                    {client.maps_url ? (
+                      <a
+                        href={client.maps_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="leading-relaxed hover:text-brand-text transition-colors"
+                      >
+                        {client.adresse}
+                      </a>
+                    ) : (
+                      <span className="leading-relaxed">{client.adresse}</span>
+                    )}
                   </address>
                 </li>
               )}

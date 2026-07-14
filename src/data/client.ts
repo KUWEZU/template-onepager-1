@@ -18,6 +18,9 @@ export const client = {
   ort: "Musterstadt" as string,
   slogan: "Professionelle Kfz-Werkstatt die Sie verdienen",
   adresse: "Musterstraße 1, 12345 Musterstadt",
+  // Google-Maps-Link für die Footer-Adresse. Wird beim Generieren zentral gesetzt
+  // (kunde.maps_url oder Google-Maps-Suche aus der Adresse); null = kein Link.
+  maps_url: "https://www.google.com/maps/search/?api=1&query=Musterstra%C3%9Fe%201%2C%2012345%20Musterstadt" as string | null,
   telefon: "+49 123 456 7890",
   email: "info@ihre-werkstatt.de",
   website: "https://ihre-werkstatt.de",
