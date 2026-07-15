@@ -29,6 +29,12 @@ export const client = {
 
   // ── Öffnungszeiten & Services ──────────────────────────────────────────────
   tuev_termine: true as boolean,
+  // Wiederkehrende TÜV-/HU-Termine — leer/null: kein Infoblock im Kontaktbereich
+  tuev_slots: [
+    { day: "di", from: "08:00", to: "16:00" },
+    { day: "do", from: "08:00", to: "12:00" },
+  ] as { day: string; from: string; to: string }[] | null,
+  tuev_hinweis: "Nur nach Terminvereinbarung." as string | null,
   oeffnungszeiten: {
     mo_fr: "08:00 – 18:00" as string,
     sa:    "09:00 – 13:00" as string,

@@ -2,10 +2,15 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle, CalendarCheck } from "lucide-react";
 import { client } from "@/data/client";
 
 type FormState = { name: string; email: string; phone: string; message: string };
+
+/** "di" → "Di" — Anzeige der wiederkehrenden TÜV-/HU-Slots. */
+const TUEV_DAY_LABELS: Record<string, string> = {
+  mo: "Mo", di: "Di", mi: "Mi", do: "Do", fr: "Fr", sa: "Sa", so: "So",
+};
 
 export function Kontakt() {
   const [form, setForm] = useState<FormState>({ name: "", email: "", phone: "", message: "" });
@@ -19,6 +24,13 @@ export function Kontakt() {
     { icon: MapPin, title: "Adresse",        lines: [client.adresse], href: "https://maps.google.com" },
     { icon: Clock,  title: "Öffnungszeiten", lines: client.kontakt.oeffnungszeiten, href: null },
   ];
+
+  // TÜV-/HU-Termine: Infoblock nur, wenn das Feature aktiv ist UND Slots
+  // hinterlegt sind — sonst (wie bisher) nur der Hero-Badge bzw. gar nichts.
+  const tuevAktiv = (client as unknown as { tuev_termine?: boolean }).tuev_termine ?? false;
+  const tuevSlots = ((client as unknown as { tuev_slots?: { day: string; from: string; to: string }[] | null }).tuev_slots ?? [])
+    .filter((s) => s && TUEV_DAY_LABELS[s.day] && s.from && s.to);
+  const tuevHinweis = (client as unknown as { tuev_hinweis?: string | null }).tuev_hinweis ?? null;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -83,6 +95,34 @@ export function Kontakt() {
                 </div>
               ))}
             </div>
+
+            {/* TÜV-/HU-Termine — nur bei aktivem Toggle UND hinterlegten Slots */}
+            {tuevAktiv && tuevSlots.length > 0 && (
+              <div
+                className="border border-brand-border rounded-2xl p-5 mb-6"
+                style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
+                aria-label="TÜV- und HU-Termine"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-icon-surface border border-icon-ring flex items-center justify-center shrink-0">
+                    <CalendarCheck className="w-5 h-5 text-safe-icon" aria-hidden="true" />
+                  </div>
+                  <p className="text-sm font-semibold text-safe-primary uppercase tracking-wider">
+                    TÜV-/HU-Termine
+                  </p>
+                </div>
+                <ul className="space-y-1" role="list">
+                  {tuevSlots.map((s, i) => (
+                    <li key={i} className="text-base text-brand-text font-medium">
+                      {TUEV_DAY_LABELS[s.day]} {s.from}–{s.to} Uhr
+                    </li>
+                  ))}
+                </ul>
+                {tuevHinweis && (
+                  <p className="text-sm text-brand-muted leading-relaxed mt-3">{tuevHinweis}</p>
+                )}
+              </div>
+            )}
 
             {/* Standortbild oder Adress-Placeholder */}
             {client.standort_bild ? (
