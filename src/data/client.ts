@@ -157,7 +157,12 @@ export const client = {
   ],
 
   // ── Karriere ───────────────────────────────────────────────────────────────
+  // enabled: false blendet die ganze Section (inkl. Nav-/Footer-Link) aus;
+  // jobs: [] blendet nur "Offene Stellen" aus; benefits: null = neutrale
+  // Default-Kacheln (überschreibbar mit [{title, text}]).
   karriere: {
+    enabled: true as boolean,
+    benefits: null as { title: string; text: string }[] | null,
     jobs: [
       { title: "Kfz-Mechatroniker / -in",              type: "Vollzeit",            experience: "Berufserfahrung erwünscht"  },
       { title: "Kfz-Lackierer / -in",                  type: "Vollzeit",            experience: "Berufseinsteiger willkommen" },

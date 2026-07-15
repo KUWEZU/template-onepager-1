@@ -6,11 +6,13 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Phone } from "lucide-react";
 import { client } from "@/data/client";
 
+// Karriere-Eintrag nur, wenn die Section aktiv ist (client.karriere.enabled) —
+// sonst wäre der Anker tot.
 const NAV_ANCHORS = [
   { label: "Home",       anchor: ""           },
   { label: "Über uns",   anchor: "ueber-uns"  },
   { label: "Leistungen", anchor: "leistungen" },
-  { label: "Karriere",   anchor: "karriere"   },
+  ...(client.karriere?.enabled === false ? [] : [{ label: "Karriere", anchor: "karriere" }]),
   { label: "Kontakt",    anchor: "kontakt"    },
 ];
 

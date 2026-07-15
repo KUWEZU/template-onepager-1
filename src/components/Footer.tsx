@@ -84,7 +84,7 @@ export function Footer() {
               {[
                 { label: "Über uns",         href: "#ueber-uns"        },
                 ...(client.newsEnabled ? [{ label: "Aktuelles", href: "/aktuelles" }] : []),
-                { label: "Karriere",         href: "#karriere"         },
+                ...(client.karriere?.enabled === false ? [] : [{ label: "Karriere", href: "#karriere" }]),
                 { label: "Kontakt",          href: "#kontakt"          },
                 { label: "Impressum",        href: "/impressum"        },
                 { label: "Datenschutz",      href: "/datenschutz"      },
