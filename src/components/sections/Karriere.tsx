@@ -21,6 +21,12 @@ export function Karriere() {
   if (client.karriere?.enabled === false) return null;
 
   const jobs = client.karriere?.jobs ?? [];
+  // Button-Ziel: hinterlegte http(s)-URL → externer Link im NEUEN Tab
+  // (noopener noreferrer); leer → In-Page-Anker #kontakt wie bisher.
+  const buttonUrl = client.karriere?.buttonUrl ?? null;
+  const ctaHref = buttonUrl ?? "#kontakt";
+  const ctaExternal = buttonUrl !== null;
+  const ctaProps = ctaExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
   const benefitOverrides = client.karriere?.benefits ?? null;
   const benefits = benefitOverrides?.length
     ? benefitOverrides.map((b, i) => ({ icon: BENEFIT_ICONS[i % BENEFIT_ICONS.length], title: b.title, text: b.text }))
@@ -76,7 +82,7 @@ export function Karriere() {
             <ul className="space-y-4" role="list" aria-label="Stellenangebote">
               {jobs.map((job) => (
                 <li key={job.title}>
-                  <a href="#kontakt"
+                  <a href={ctaHref} {...ctaProps}
                     className="flex items-center justify-between gap-4 border border-brand-border rounded-2xl p-5
                                hover:border-icon-ring transition-all group min-h-[72px]"
                     style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
@@ -100,7 +106,7 @@ export function Karriere() {
                 <span className="font-bold text-safe-primary">{jobs.length > 0 ? "Keine passende Stelle dabei?" : "Interesse an einer Mitarbeit?"}</span><br />
                 Initiativbewerbungen sind jederzeit willkommen.
               </p>
-              <a href="#kontakt"
+              <a href={ctaHref} {...ctaProps}
                 className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-brand-primary text-on-primary
                            font-semibold rounded-xl hover:bg-brand-primary-hover transition-all text-base min-h-[44px]">
                 Initiativ bewerben <ArrowRight className="w-4 h-4" aria-hidden="true" />

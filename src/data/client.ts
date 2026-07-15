@@ -163,6 +163,8 @@ export const client = {
   karriere: {
     enabled: true as boolean,
     benefits: null as { title: string; text: string }[] | null,
+    // null = In-Page-Anker #kontakt; http(s)-URL öffnet im neuen Tab
+    buttonUrl: null as string | null,
     jobs: [
       { title: "Kfz-Mechatroniker / -in",              type: "Vollzeit",            experience: "Berufserfahrung erwünscht"  },
       { title: "Kfz-Lackierer / -in",                  type: "Vollzeit",            experience: "Berufseinsteiger willkommen" },
