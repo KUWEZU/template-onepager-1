@@ -95,11 +95,20 @@ export function UeberUns() {
             </div>
 
             <h2 id="ueber-uns-heading" className="text-4xl sm:text-5xl font-black text-brand-heading leading-tight mb-6">
-              {ueberschrift.split("—").map((part, i) =>
-                i === 0
-                  ? <span key={i}>{part}—<br /></span>
-                  : <span key={i} className="text-safe-primary">{part}</span>
-              )}
+              {(() => {
+                // Trenne am ERSTEN Gedankenstrich-mit-Leerzeichen (Em-/En-Dash oder
+                // Hyphen). KI liefert oft "–"/"-" statt "—"; ohne Trenner (oder mit
+                // Bindestrich innerhalb eines Wortes) bleibt die Überschrift intakt —
+                // kein angehängter Strich, kein leerer Highlight-Teil.
+                const m = ueberschrift.match(/^(.+?)\s+[—–-]\s+(.+)$/);
+                if (!m) return ueberschrift;
+                return (
+                  <>
+                    <span>{m[1]}&nbsp;—<br /></span>
+                    <span className="text-safe-primary">{m[2]}</span>
+                  </>
+                );
+              })()}
             </h2>
 
             <p className="text-brand-text/70 text-lg leading-relaxed mb-5">{text1}</p>
