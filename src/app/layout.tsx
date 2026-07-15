@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "de_DE",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "KUWEZU | Professionelle Kfz-Werkstatt",
+    description: "Ihre zuverlässige Kfz-Werkstatt.",
+  },
 };
 
 export default function RootLayout({
