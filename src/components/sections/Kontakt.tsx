@@ -18,10 +18,13 @@ export function Kontakt() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const INFOS = [
-    { icon: Phone, title: "Telefon",        lines: [client.telefon, "Mo–Fr 8:00–18:00 Uhr"], href: `tel:${client.telefon}` },
+  // Adresse verlinkt aufs echte Google-Firmenprofil (client.maps_url, aus
+  // Place-ID/GMB-Import). Fallback: kein Link. Öffnet im neuen Tab (external).
+  const adressHref = (client as unknown as { maps_url?: string | null }).maps_url ?? null;
+  const INFOS: { icon: typeof Phone; title: string; lines: readonly string[]; href: string | null; external?: boolean }[] = [
+    { icon: Phone, title: "Telefon",        lines: [client.telefon], href: `tel:${client.telefon}` },
     { icon: Mail,  title: "E-Mail",          lines: [client.email, "Antwort innerhalb 24h"],   href: `mailto:${client.email}` },
-    { icon: MapPin, title: "Adresse",        lines: [client.adresse], href: "https://maps.google.com" },
+    { icon: MapPin, title: "Adresse",        lines: [client.adresse], href: adressHref, external: true },
     { icon: Clock,  title: "Öffnungszeiten", lines: client.kontakt.oeffnungszeiten, href: null },
   ];
 
@@ -75,7 +78,7 @@ export function Kontakt() {
           {/* Kontaktinfos + Standortbild */}
           <div>
             <div className="grid sm:grid-cols-2 gap-4 mb-6">
-              {INFOS.map(({ icon: Icon, title, lines, href }) => (
+              {INFOS.map(({ icon: Icon, title, lines, href, external }) => (
                 <div key={title}
                   className="border border-brand-border rounded-2xl p-5"
                   style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}>
@@ -85,7 +88,9 @@ export function Kontakt() {
                   <p className="text-sm font-semibold text-safe-primary uppercase tracking-wider mb-2">{title}</p>
                   {lines.map((line, i) =>
                     href && i === 0 ? (
-                      <a key={i} href={href} className="block text-base text-brand-text hover:text-safe-primary transition-colors font-medium">
+                      <a key={i} href={href}
+                        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="block text-base text-brand-text hover:text-safe-primary transition-colors font-medium">
                         {line}
                       </a>
                     ) : (
