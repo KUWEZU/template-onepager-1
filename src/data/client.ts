@@ -195,6 +195,12 @@ export const client = {
 
   // ── Features ───────────────────────────────────────────────────────────────
   newsEnabled: true as boolean,
+
+  // ── Impressum / Rechtsangaben (Migration 095; leere Felder = weglassen) ──────
+  impressum: {} as {
+    inhaber?: string; rechtsform?: string; ust_id?: string; handelsregister?: string;
+    registergericht?: string; aufsichtsbehoerde?: string; verantwortlicher?: string;
+  },
 } as const;
 
 export type LeistungConfig = (typeof client.leistungen)[number];
