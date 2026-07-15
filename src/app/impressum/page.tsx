@@ -44,6 +44,17 @@ export default function ImpressumPage() {
         <p className="whitespace-pre-line">{verantwortlicher}</p>
       </LegalSection>
 
+      <LegalSection heading="Streitschlichtung">
+        <p>
+          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{" "}
+          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer"
+            className="text-brand-primary hover:underline">https://ec.europa.eu/consumers/odr/</a>.
+          Unsere E-Mail-Adresse finden Sie oben im Impressum. Wir sind nicht bereit oder
+          verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+          teilzunehmen.
+        </p>
+      </LegalSection>
+
       <LegalSection heading="Haftung für Inhalte">
         <p>
           Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten

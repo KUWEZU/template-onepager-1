@@ -15,15 +15,15 @@ export const client = {
   // ── Allgemein ──────────────────────────────────────────────────────────────
   name: "KUWEZU",
   branche: "Kfz-Werkstatt" as string,
-  ort: "Musterstadt" as string,
+  ort: "Warendorf" as string,
   slogan: "Professionelle Kfz-Werkstatt die Sie verdienen",
-  adresse: "Musterstraße 1, 12345 Musterstadt",
+  adresse: "Bernhardstraße 4c, 48231 Warendorf",
   // Google-Maps-Link für die Footer-Adresse. Wird beim Generieren zentral gesetzt
   // (kunde.maps_url oder Google-Maps-Suche aus der Adresse); null = kein Link.
-  maps_url: "https://www.google.com/maps/search/?api=1&query=Musterstra%C3%9Fe%201%2C%2012345%20Musterstadt" as string | null,
-  telefon: "+49 123 456 7890",
-  email: "info@ihre-werkstatt.de",
-  website: "https://ihre-werkstatt.de",
+  maps_url: "https://www.google.com/maps/search/?api=1&query=Bernhardstra%C3%9Fe%204c%2C%2048231%20Warendorf" as string | null,
+  telefon: "0176 21575303",
+  email: "info@kuwezu.de",
+  website: "https://www.kuwezu.de",
   logo: null,
   standort_bild: null,
 
@@ -197,7 +197,13 @@ export const client = {
   newsEnabled: true as boolean,
 
   // ── Impressum / Rechtsangaben (Migration 095; leere Felder = weglassen) ──────
-  impressum: {} as {
+  // Beispieldaten = KUWEZU Werbeagentur GbR (Betreiber des Templates).
+  impressum: {
+    inhaber: "Sven Sickmann & David Aundrup",
+    rechtsform: "Gesellschaft bürgerlichen Rechts (GbR)",
+    ust_id: "DE456178409",
+    verantwortlicher: "Sven Sickmann, Bernhardstraße 4c, 48231 Warendorf",
+  } as {
     inhaber?: string; rechtsform?: string; ust_id?: string; handelsregister?: string;
     registergericht?: string; aufsichtsbehoerde?: string; verantwortlicher?: string;
   },
