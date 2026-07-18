@@ -293,15 +293,13 @@ export function AccessibilityWidget() {
         onClick={() => setOpen((o) => !o)}
         aria-label="Barrierefreiheits-Einstellungen öffnen"
         aria-expanded={open}
-        className={`relative w-11 h-11 rounded-full shadow-lg flex items-center justify-center transition-all ${
-          open
-            ? "bg-brand-primary text-brand-bg shadow-brand-primary/30"
-            : "bg-[var(--color-modal-bg)] border border-white/[0.14] text-white/50 hover:text-white hover:border-brand-primary/40 hover:bg-[var(--color-modal-bg-hover)] shadow-black/40"
-        }`}
+        className={`relative w-11 h-11 rounded-full shadow-lg flex items-center justify-center transition-all
+          bg-brand-primary text-on-primary ring-1 ring-black/10 shadow-brand-primary/40
+          hover:brightness-110 ${open ? "brightness-110" : ""}`}
       >
         <WheelchairIcon className="w-5 h-5" />
         {isModified && !open && (
-          <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-brand-primary rounded-full border-2 border-[#0d0f1a]" />
+          <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-white rounded-full border-2 border-brand-primary" />
         )}
       </button>
     </div>

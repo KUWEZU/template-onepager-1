@@ -169,15 +169,6 @@ export function Hero() {
           )}
         </div>
       </div>
-
-      {/* Scroll-Indicator */}
-      <div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30"
-        aria-hidden="true"
-      >
-        <span className="text-xs font-medium tracking-[0.2em] uppercase">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
-      </div>
     </section>
   );
 }
