@@ -59,30 +59,32 @@ function ToggleRow({
   active: boolean;
   onToggle: () => void;
 }) {
+  // Eigenständiges, fixes Hochkontrast-Schema (unabhängig von Marke/Seite/Modus).
   return (
     <button
       type="button"
       onClick={onToggle}
-      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all group ${
+      aria-pressed={active}
+      className={`w-full flex items-start gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${
         active
-          ? "bg-brand-primary/15 border border-brand-primary/40"
-          : "bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.18] hover:bg-white/[0.07]"
+          ? "bg-[#12263f] border border-[#3b82f6]"
+          : "bg-[#212737] border border-[#2e3546] hover:bg-[#262d40] hover:border-[#3a445a]"
       }`}
     >
-      <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-        active ? "bg-brand-primary text-brand-bg" : "bg-white/[0.08] text-white/50 group-hover:text-white"
+      <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+        active ? "bg-[#3b82f6] text-white" : "bg-[#2c3446] text-[#aab3c5]"
       }`}>
         <Icon className="w-4 h-4" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className={`text-sm font-medium leading-none mb-0.5 ${active ? "text-brand-primary" : "text-white"}`}>
+        <p className={`text-sm font-semibold leading-tight mb-0.5 ${active ? "text-white" : "text-[#eef1f6]"}`}>
           {label}
         </p>
-        <p className="text-xs text-white/40 truncate">{description}</p>
+        <p className="text-xs leading-snug text-[#aab3c5]">{description}</p>
       </div>
-      {/* Pill toggle */}
-      <div className={`w-9 h-5 rounded-full transition-colors shrink-0 relative ${
-        active ? "bg-brand-primary" : "bg-white/10"
+      {/* Pill toggle — Grau (aus) vs Blau (an) + Knopfposition = klar unterscheidbar */}
+      <div className={`mt-0.5 w-9 h-5 rounded-full transition-colors shrink-0 relative ${
+        active ? "bg-[#3b82f6]" : "bg-[#3a445a]"
       }`}>
         <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
           active ? "translate-x-4" : "translate-x-0.5"
@@ -180,21 +182,21 @@ export function AccessibilityWidget() {
       {/* ── Panel ── */}
       {open && (
         <div
-          className="absolute bottom-14 left-0 w-72 bg-[var(--color-modal-bg)] border border-white/[0.12] rounded-2xl shadow-2xl shadow-black/60 overflow-hidden"
+          className="absolute bottom-14 left-0 w-72 bg-[#171b26] border border-[#2e3546] rounded-2xl shadow-2xl shadow-black/60 overflow-hidden text-[#eef1f6]"
           role="dialog"
           aria-label="Barrierefreiheits-Einstellungen"
           aria-modal="true"
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08]">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-[#2e3546] bg-[#1c2130]">
             <div className="flex items-center gap-2">
-              <WheelchairIcon className="w-4 h-4 text-brand-primary" />
+              <WheelchairIcon className="w-4 h-4 text-[#60a5fa]" />
               <span className="text-sm font-semibold text-white">Barrierefreiheit</span>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="p-1 text-white/40 hover:text-white transition-colors rounded"
+              className="p-1 -mr-1 text-[#9aa4b8] hover:text-white transition-colors rounded"
               aria-label="Schließen"
             >
               <X className="w-4 h-4" />
@@ -203,14 +205,14 @@ export function AccessibilityWidget() {
 
           <div className="p-3 space-y-2">
             {/* Font Size */}
-            <div className="bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2.5">
+            <div className="bg-[#212737] border border-[#2e3546] rounded-lg px-3 py-2.5">
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center">
-                  <Type className="w-4 h-4 text-white/50" />
+                <div className="w-8 h-8 rounded-lg bg-[#2c3446] flex items-center justify-center">
+                  <Type className="w-4 h-4 text-[#aab3c5]" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white leading-none mb-0.5">Schriftgröße</p>
-                  <p className="text-xs text-white/40">{fontSizeLabel}</p>
+                  <p className="text-sm font-semibold text-[#eef1f6] leading-none mb-0.5">Schriftgröße</p>
+                  <p className="text-xs text-[#aab3c5]">{fontSizeLabel}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -219,7 +221,7 @@ export function AccessibilityWidget() {
                   onClick={() => changeFontSize(-2)}
                   disabled={settings.fontSize <= -4}
                   aria-label="Schrift verkleinern"
-                  className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-white/[0.06] border border-white/[0.08] text-white/70 hover:text-white hover:border-brand-primary/30 transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-xs font-medium"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-[#2c3446] border border-[#3a445a] text-[#dfe4ee] hover:bg-[#333c50] hover:border-[#4a5570] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
                 >
                   <Minus className="w-3.5 h-3.5" /> Kleiner
                 </button>
@@ -228,7 +230,7 @@ export function AccessibilityWidget() {
                   onClick={() => changeFontSize(2)}
                   disabled={settings.fontSize >= 12}
                   aria-label="Schrift vergrößern"
-                  className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-white/[0.06] border border-white/[0.08] text-white/70 hover:text-white hover:border-brand-primary/30 transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-xs font-medium"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-[#2c3446] border border-[#3a445a] text-[#dfe4ee] hover:bg-[#333c50] hover:border-[#4a5570] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
                 >
                   <Plus className="w-3.5 h-3.5" /> Größer
                 </button>
@@ -270,7 +272,7 @@ export function AccessibilityWidget() {
               <button
                 type="button"
                 onClick={reset}
-                className="w-full flex items-center justify-center gap-2 py-2 text-xs text-white/50 hover:text-white/80 transition-colors border border-white/[0.06] rounded-lg hover:border-white/[0.14]"
+                className="w-full flex items-center justify-center gap-2 py-2 text-xs text-[#aab3c5] hover:text-white transition-colors border border-[#2e3546] rounded-lg hover:border-[#3a445a]"
               >
                 <RotateCcw className="w-3 h-3" />
                 Einstellungen zurücksetzen
@@ -279,8 +281,8 @@ export function AccessibilityWidget() {
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-2 border-t border-white/[0.06]">
-            <p className="text-[10px] text-white/25 text-center">
+          <div className="px-4 py-2 border-t border-[#2e3546] bg-[#1c2130]">
+            <p className="text-[10px] text-[#8a93a6] text-center">
               Einstellungen werden lokal gespeichert
             </p>
           </div>
