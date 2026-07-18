@@ -11,8 +11,11 @@ export default function ImpressumPage() {
   const verantwortlicher = imp.verantwortlicher || `${client.name}, ${client.adresse}`;
   // Die Plattform-Adresse darf NIE als Werkstatt-Kontakt im Impressum stehen
   // (§5 DDG verlangt die echten Kontaktdaten des Anbieters). Leaked-Fallback abfangen.
+  // client.email zu `string` weiten (manche generierte client.ts haben email: "" als
+  // Literaltyp → sonst narrowt "" && … den Zweig auf `never` und tsc bricht).
+  const clientEmail = String(client.email ?? "");
   const kontaktEmail =
-    client.email && client.email.toLowerCase() !== "info@kuwezu.de" ? client.email : null;
+    clientEmail && clientEmail.toLowerCase() !== "info@kuwezu.de" ? clientEmail : null;
   // Rechtsform NICHT doppelt ausgeben, wenn der Firmenname sie bereits enthält
   // (z.B. Name "… GmbH" + separate Rechtsform-Zeile "GmbH").
   const showRechtsform =
