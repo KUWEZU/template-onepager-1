@@ -8,7 +8,7 @@ export function WhatsAppButton() {
   const number = (client.whatsapp as string).replace(/[^0-9]/g, "");
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 group">
+    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 group pointer-events-none">
       {/* Tooltip — hidden on touch devices, fades in on desktop hover */}
       <div
         aria-hidden="true"
@@ -43,7 +43,7 @@ export function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Per WhatsApp kontaktieren"
-        className="flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/50 shrink-0"
+        className="pointer-events-auto flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/50 shrink-0"
         style={{ backgroundColor: "#25D366" }}
       >
         {/* Official WhatsApp logo mark */}
