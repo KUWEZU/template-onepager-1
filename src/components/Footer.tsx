@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { client } from "@/data/client";
+import { publicEmail } from "@/lib/contact";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -112,14 +113,14 @@ export function Footer() {
                   </a>
                 </li>
               )}
-              {client.email && (
+              {publicEmail(client.email) && (
                 <li>
-                  <a href={`mailto:${client.email}`}
+                  <a href={`mailto:${publicEmail(client.email)}`}
                     className="flex items-center gap-3 text-base text-brand-muted hover:text-brand-text transition-colors group min-h-[44px]">
                     <div className="w-8 h-8 rounded-lg bg-safe-icon/10 flex items-center justify-center shrink-0 group-hover:bg-safe-icon/20 transition-colors">
                       <Mail className="w-4 h-4 text-safe-icon" aria-hidden="true" />
                     </div>
-                    {client.email}
+                    {publicEmail(client.email)}
                   </a>
                 </li>
               )}

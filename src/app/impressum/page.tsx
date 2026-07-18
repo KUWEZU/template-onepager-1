@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { client } from "@/data/client";
 import { LegalShell, LegalSection } from "@/components/LegalShell";
+import { publicEmail } from "@/lib/contact";
 
 export const metadata: Metadata = { title: `Impressum | ${client.name}`, robots: { index: false } };
 
@@ -10,12 +11,8 @@ export default function ImpressumPage() {
   const imp = (client as unknown as { impressum?: Record<string, string | undefined> }).impressum ?? {};
   const verantwortlicher = imp.verantwortlicher || `${client.name}, ${client.adresse}`;
   // Die Plattform-Adresse darf NIE als Werkstatt-Kontakt im Impressum stehen
-  // (§5 DDG verlangt die echten Kontaktdaten des Anbieters). Leaked-Fallback abfangen.
-  // client.email zu `string` weiten (manche generierte client.ts haben email: "" als
-  // Literaltyp → sonst narrowt "" && … den Zweig auf `never` und tsc bricht).
-  const clientEmail = String(client.email ?? "");
-  const kontaktEmail =
-    clientEmail && clientEmail.toLowerCase() !== "info@kuwezu.de" ? clientEmail : null;
+  // (§5 DDG verlangt die echten Kontaktdaten des Anbieters). Zentral in publicEmail().
+  const kontaktEmail = publicEmail(client.email);
   // Rechtsform NICHT doppelt ausgeben, wenn der Firmenname sie bereits enthält
   // (z.B. Name "… GmbH" + separate Rechtsform-Zeile "GmbH").
   const showRechtsform =

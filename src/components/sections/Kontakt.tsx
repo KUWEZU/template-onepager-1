@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, CalendarCheck } from "lucide-react";
 import { client } from "@/data/client";
+import { publicEmail } from "@/lib/contact";
 
 type FormState = { name: string; email: string; phone: string; message: string };
 
@@ -21,9 +22,11 @@ export function Kontakt() {
   // Adresse verlinkt aufs echte Google-Firmenprofil (client.maps_url, aus
   // Place-ID/GMB-Import). Fallback: kein Link. Öffnet im neuen Tab (external).
   const adressHref = (client as unknown as { maps_url?: string | null }).maps_url ?? null;
+  // Nie die Plattform-Adresse (info@kuwezu.de) als Werkstatt-Kontakt zeigen.
+  const kontaktEmail = publicEmail(client.email);
   const INFOS: { icon: typeof Phone; title: string; lines: readonly string[]; href: string | null; external?: boolean }[] = [
     { icon: Phone, title: "Telefon",        lines: [client.telefon], href: `tel:${client.telefon}` },
-    { icon: Mail,  title: "E-Mail",          lines: [client.email, "Antwort innerhalb 24h"],   href: `mailto:${client.email}` },
+    ...(kontaktEmail ? [{ icon: Mail, title: "E-Mail", lines: [kontaktEmail, "Antwort innerhalb 24h"], href: `mailto:${kontaktEmail}` }] : []),
     { icon: MapPin, title: "Adresse",        lines: [client.adresse], href: adressHref, external: true },
     { icon: Clock,  title: "Öffnungszeiten", lines: client.kontakt.oeffnungszeiten, href: null },
   ];
