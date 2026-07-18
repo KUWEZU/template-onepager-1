@@ -5,6 +5,7 @@ import { ArrowRight, Star, Calendar, Clock } from "lucide-react";
 import { useState, useEffect } from "react";
 import { client } from "@/data/client";
 import reviewsRaw from "@/data/reviews.json";
+import { nextTuevSlot, formatTuevSlot, type TuevSlot, type NextTuevSlot } from "@/lib/tuev";
 
 type ReviewsJson = { averageRating: number | null; totalCount: number };
 const reviewsData = reviewsRaw as ReviewsJson;
@@ -52,8 +53,22 @@ export function Hero() {
       ? `${String(rating).replace(".", ",")} ★ bei Google${ratingCnt ? ` (${ratingCnt})` : ""}`
       : null;
 
-  // TÜV Termine
+  // TÜV Termine — Badge zeigt den nächsten konkreten Slot und ist klickbar
+  // (Smooth-Scroll zum TÜV-Block im Kontaktbereich). Der konkrete Slot wird
+  // client-seitig relativ zu "jetzt" bestimmt (statischer Export → new Date() im
+  // Effect vermeidet Hydration-Mismatch + hält die Anzeige aktuell).
   const tuevTermine = (client as unknown as { tuev_termine?: boolean }).tuev_termine ?? false;
+  const tuevSlots = (client as unknown as { tuev_slots?: TuevSlot[] | null }).tuev_slots ?? null;
+  const [nextSlot, setNextSlot] = useState<NextTuevSlot | null>(null);
+  useEffect(() => {
+    setNextSlot(nextTuevSlot(tuevSlots, new Date()));
+  }, [tuevSlots]);
+
+  function scrollToTuev(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    const el = document.getElementById("tuev-termine") ?? document.getElementById("kontakt");
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   const HERO_OVERLAY_MIN = 0.55;
   const base = Math.max(overlayOpacity ?? HERO_OVERLAY_MIN, HERO_OVERLAY_MIN);
@@ -144,12 +159,21 @@ export function Hero() {
           role="list"
           aria-label="Vertrauensnachweise"
         >
-          {/* TÜV Termine — nur wenn aktiviert */}
+          {/* TÜV Termine — nur wenn aktiviert; klickbar → Scroll zum TÜV-Block.
+              Zeigt den nächsten konkreten Slot, sobald client-seitig bestimmt. */}
           {tuevTermine && (
-            <div className="flex items-center gap-2.5 text-white/80" role="listitem">
+            <a
+              href="#tuev-termine"
+              onClick={scrollToTuev}
+              role="listitem"
+              className="flex items-center gap-2.5 text-white/80 hover:text-white transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded-md"
+              aria-label={nextSlot ? `Nächster TÜV-Termin: ${formatTuevSlot(nextSlot)} — zum Terminbereich springen` : "TÜV-Termine — zum Terminbereich springen"}
+            >
               <Calendar className="w-5 h-5 text-white/70 shrink-0" aria-hidden="true" />
-              <span className="text-base font-medium">TÜV Termine verfügbar</span>
-            </div>
+              <span className="text-base font-medium">
+                {nextSlot ? `Nächster TÜV-Termin: ${formatTuevSlot(nextSlot)}` : "TÜV-Termine verfügbar"}
+              </span>
+            </a>
           )}
 
           {/* Google Bewertung — nur wenn Rating vorhanden */}

@@ -104,7 +104,8 @@ export function Kontakt() {
             {/* TÜV-/HU-Termine — nur bei aktivem Toggle UND hinterlegten Slots */}
             {tuevAktiv && tuevSlots.length > 0 && (
               <div
-                className="border border-brand-border rounded-2xl p-5 mb-6"
+                id="tuev-termine"
+                className="border border-brand-border rounded-2xl p-5 mb-6 scroll-mt-24"
                 style={{ backgroundColor: "var(--color-card-bg)", boxShadow: "var(--card-shadow)" }}
                 aria-label="TÜV- und HU-Termine"
               >
