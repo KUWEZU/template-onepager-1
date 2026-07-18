@@ -22,7 +22,10 @@ export const client = {
   // (kunde.maps_url oder Google-Maps-Suche aus der Adresse); null = kein Link.
   maps_url: "https://www.google.com/maps/search/?api=1&query=Bernhardstra%C3%9Fe%204c%2C%2048231%20Warendorf" as string | null,
   telefon: "0176 21575303",
-  email: "info@kuwezu.de",
+  // Platzhalter — wird beim Generieren durch die echten Werkstattdaten ersetzt.
+  // NIE die Plattform-Adresse (info@kuwezu.de) als Default: sie darf auf keiner
+  // Kundenseite (v.a. im Impressum) auftauchen.
+  email: "info@musterwerkstatt.de",
   website: "https://www.kuwezu.de",
   logo: null,
   standort_bild: null,

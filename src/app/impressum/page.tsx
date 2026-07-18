@@ -9,13 +9,21 @@ export const metadata: Metadata = { title: `Impressum | ${client.name}`, robots:
 export default function ImpressumPage() {
   const imp = (client as unknown as { impressum?: Record<string, string | undefined> }).impressum ?? {};
   const verantwortlicher = imp.verantwortlicher || `${client.name}, ${client.adresse}`;
+  // Die Plattform-Adresse darf NIE als Werkstatt-Kontakt im Impressum stehen
+  // (§5 DDG verlangt die echten Kontaktdaten des Anbieters). Leaked-Fallback abfangen.
+  const kontaktEmail =
+    client.email && client.email.toLowerCase() !== "info@kuwezu.de" ? client.email : null;
+  // Rechtsform NICHT doppelt ausgeben, wenn der Firmenname sie bereits enthält
+  // (z.B. Name "… GmbH" + separate Rechtsform-Zeile "GmbH").
+  const showRechtsform =
+    !!imp.rechtsform && !client.name.toLowerCase().includes(imp.rechtsform.toLowerCase());
 
   return (
     <LegalShell title="Impressum">
       <LegalSection heading="Angaben gemäß § 5 DDG">
         <p className="whitespace-pre-line">
           {client.name}
-          {imp.rechtsform ? `\n${imp.rechtsform}` : ""}
+          {showRechtsform ? `\n${imp.rechtsform}` : ""}
           {client.adresse ? `\n${client.adresse}` : ""}
         </p>
         {imp.inhaber && <p className="mt-2">Vertreten durch: {imp.inhaber}</p>}
@@ -24,17 +32,20 @@ export default function ImpressumPage() {
       <LegalSection heading="Kontakt">
         <p>
           {client.telefon && <>Telefon: {client.telefon}<br /></>}
-          {client.email && <>E-Mail: {client.email}</>}
+          {kontaktEmail && <>E-Mail: {kontaktEmail}</>}
         </p>
       </LegalSection>
 
-      {(imp.ust_id || imp.handelsregister || imp.aufsichtsbehoerde) && (
+      {(imp.ust_id || imp.w_idnr || imp.handelsregister || imp.aufsichtsbehoerde) && (
         <LegalSection heading="Weitere Angaben">
           {imp.handelsregister && (
             <p>Registereintrag: {imp.handelsregister}{imp.registergericht ? `, ${imp.registergericht}` : ""}</p>
           )}
           {imp.ust_id && (
             <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: {imp.ust_id}</p>
+          )}
+          {imp.w_idnr && (
+            <p>Wirtschafts-Identifikationsnummer gemäß § 139c AO: {imp.w_idnr}</p>
           )}
           {imp.aufsichtsbehoerde && <p>Zuständige Aufsichtsbehörde: {imp.aufsichtsbehoerde}</p>}
         </LegalSection>
@@ -44,14 +55,10 @@ export default function ImpressumPage() {
         <p className="whitespace-pre-line">{verantwortlicher}</p>
       </LegalSection>
 
-      <LegalSection heading="Streitschlichtung">
+      <LegalSection heading="Verbraucherstreitbeilegung">
         <p>
-          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{" "}
-          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer"
-            className="text-brand-primary hover:underline">https://ec.europa.eu/consumers/odr/</a>.
-          Unsere E-Mail-Adresse finden Sie oben im Impressum. Wir sind nicht bereit oder
-          verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
-          teilzunehmen.
+          Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+          Verbraucherschlichtungsstelle teilzunehmen.
         </p>
       </LegalSection>
 
