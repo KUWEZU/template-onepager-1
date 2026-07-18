@@ -293,13 +293,22 @@ export function AccessibilityWidget() {
         onClick={() => setOpen((o) => !o)}
         aria-label="Barrierefreiheits-Einstellungen öffnen"
         aria-expanded={open}
+        // Kontrast-adaptive Füllfarbe (WCAG Non-text ≥3:1 vs pageBg): Markenfarbe wenn
+        // sichtbar, sonst neutrales Schwarz/Weiß — verhindert Verschmelzen mit dem
+        // Seitenhintergrund (hell wie dunkel). Vars aus globals.css (buildGlobalsCss).
+        style={{
+          backgroundColor: "var(--color-a11y-trigger, var(--color-brand-primary))",
+          color: "var(--color-a11y-trigger-text, var(--color-on-primary))",
+        }}
         className={`relative w-11 h-11 rounded-full shadow-lg flex items-center justify-center transition-all
-          bg-brand-primary text-on-primary ring-1 ring-black/10 shadow-brand-primary/40
-          hover:brightness-110 ${open ? "brightness-110" : ""}`}
+          ring-1 ring-black/10 hover:brightness-110 ${open ? "brightness-110" : ""}`}
       >
         <WheelchairIcon className="w-5 h-5" />
         {isModified && !open && (
-          <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-white rounded-full border-2 border-brand-primary" />
+          <span
+            className="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-white rounded-full border-2"
+            style={{ borderColor: "var(--color-a11y-trigger, var(--color-brand-primary))" }}
+          />
         )}
       </button>
     </div>
