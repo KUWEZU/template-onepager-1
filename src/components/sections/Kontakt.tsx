@@ -1,12 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, CalendarCheck } from "lucide-react";
 import { client } from "@/data/client";
 import { publicEmail } from "@/lib/contact";
 
 type FormState = { name: string; email: string; phone: string; message: string };
+
+// ── Kontaktformular-Konfiguration (zentral, gleich für alle Seiten) ───────────
+// Endpoint leer = Formular deaktiviert → ehrlicher Fallback (Tel/E-Mail), NIE
+// mehr falsches „gesendet!". TURNSTILE_SITEKEY: Cloudflare Turnstile (cookiefrei).
+// HINWEIS: aktuell Turnstile-TEST-Sitekey (immer bestanden) — vor echtem
+// Kunden-Rollout durch den produktiven Sitekey ersetzen (Secret liegt im Handler).
+const CONTACT_ENDPOINT = "https://dashboard.kuwezu.de/api/contact";
+const TURNSTILE_SITEKEY = "1x00000000000000000000AA";
+
+declare global {
+  interface Window { turnstile?: { render: (el: HTMLElement, opts: Record<string, unknown>) => string; reset: (id?: string) => void } }
+}
 
 /** "di" → "Di" — Anzeige der wiederkehrenden TÜV-/HU-Slots. */
 const TUEV_DAY_LABELS: Record<string, string> = {
@@ -18,6 +30,35 @@ export function Kontakt() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [tsToken, setTsToken] = useState("");
+  const tsRef = useRef<HTMLDivElement>(null);
+  const tsRendered = useRef(false);
+
+  // Cloudflare Turnstile laden + rendern (cookiefrei → kein Consent-Banner nötig).
+  useEffect(() => {
+    if (!CONTACT_ENDPOINT || !TURNSTILE_SITEKEY) return;
+    const render = () => {
+      if (tsRendered.current || !tsRef.current || !window.turnstile) return;
+      tsRendered.current = true;
+      window.turnstile.render(tsRef.current, {
+        sitekey: TURNSTILE_SITEKEY,
+        callback: (t: string) => setTsToken(t),
+        "expired-callback": () => setTsToken(""),
+        "error-callback": () => setTsToken(""),
+      });
+    };
+    if (window.turnstile) { render(); return; }
+    const id = "cf-turnstile-script";
+    if (!document.getElementById(id)) {
+      const s = document.createElement("script");
+      s.id = id; s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"; s.async = true; s.defer = true;
+      s.onload = render;
+      document.head.appendChild(s);
+    } else {
+      const iv = setInterval(() => { if (window.turnstile) { clearInterval(iv); render(); } }, 200);
+      return () => clearInterval(iv);
+    }
+  }, []);
 
   // Adresse verlinkt aufs echte Google-Firmenprofil (client.maps_url, aus
   // Place-ID/GMB-Import). Fallback: kein Link. Öffnet im neuen Tab (external).
@@ -49,10 +90,36 @@ export function Kontakt() {
       setError("Bitte füllen Sie alle Pflichtfelder aus.");
       return;
     }
+    // Feature-Flag aus: KEIN falsches „gesendet" — ehrlicher Direktkontakt-Hinweis.
+    if (!CONTACT_ENDPOINT) {
+      setError(`Bitte kontaktieren Sie uns direkt: ${client.telefon}${kontaktEmail ? ` oder ${kontaktEmail}` : ""}.`);
+      return;
+    }
+    if (TURNSTILE_SITEKEY && !tsToken) {
+      setError("Bitte schließen Sie die Sicherheitsprüfung ab.");
+      return;
+    }
+    const honeypot = (e.currentTarget as HTMLFormElement).querySelector<HTMLInputElement>('input[name="company"]')?.value ?? "";
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1000));
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      const res = await fetch(CONTACT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, company: honeypot, turnstileToken: tsToken }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      if (res.ok && data.ok) {
+        setSubmitted(true);
+      } else {
+        setError(data.error || `Senden fehlgeschlagen. Bitte kontaktieren Sie uns direkt: ${client.telefon}.`);
+        window.turnstile?.reset(); setTsToken("");
+      }
+    } catch {
+      setError(`Senden fehlgeschlagen. Bitte kontaktieren Sie uns direkt: ${client.telefon}${kontaktEmail ? ` oder ${kontaktEmail}` : ""}.`);
+      window.turnstile?.reset(); setTsToken("");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -228,6 +295,15 @@ export function Kontakt() {
                       <span className="text-safe-primary">*</span>
                     </label>
                   </div>
+
+                  {/* Honeypot — für Menschen unsichtbar; ausgefüllt = Bot (Server verwirft). */}
+                  <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+                    <label htmlFor="company">Firma (nicht ausfüllen)</label>
+                    <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+                  </div>
+
+                  {/* Cloudflare Turnstile — cookiefrei, kein Consent-Banner. */}
+                  {TURNSTILE_SITEKEY && <div ref={tsRef} className="cf-turnstile" />}
 
                   <button type="submit" disabled={loading}
                     className="w-full flex items-center justify-center gap-2 py-4 bg-brand-primary text-on-primary
