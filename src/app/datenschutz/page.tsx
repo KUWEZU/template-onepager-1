@@ -65,6 +65,15 @@ export default function DatenschutzPage() {
           Diese Daten werden gelöscht, sobald sie für die Zweckerreichung nicht mehr erforderlich
           sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
         </p>
+        <p>
+          Über das Kontaktformular übermittelte Angaben (Name, E-Mail-Adresse, ggf. Telefonnummer
+          und Ihre Nachricht) speichern wir zur Bearbeitung und Nachverfolgung zusätzlich in unserem
+          Kunden- bzw. Kontaktverwaltungssystem (CRM). Rechtsgrundlage ist Art. 6 Abs. 1 lit. b bzw.
+          lit. f DSGVO (Bearbeitung Ihrer Anfrage bzw. berechtigtes Interesse an einer geordneten
+          Kundenkommunikation). Diese Daten löschen wir, sobald sie für die Zweckerreichung nicht mehr
+          erforderlich sind – regelmäßig spätestens nach Ablauf etwaiger gesetzlicher Aufbewahrungs-
+          fristen. Sie können jederzeit Auskunft, Berichtigung oder Löschung verlangen.
+        </p>
       </LegalSection>
 
       <LegalSection heading="6. Cookies & Einwilligung">
