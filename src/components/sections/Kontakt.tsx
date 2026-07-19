@@ -11,10 +11,10 @@ type FormState = { name: string; email: string; phone: string; message: string }
 // ── Kontaktformular-Konfiguration (zentral, gleich für alle Seiten) ───────────
 // Endpoint leer = Formular deaktiviert → ehrlicher Fallback (Tel/E-Mail), NIE
 // mehr falsches „gesendet!". TURNSTILE_SITEKEY: Cloudflare Turnstile (cookiefrei).
-// HINWEIS: aktuell Turnstile-TEST-Sitekey (immer bestanden) — vor echtem
-// Kunden-Rollout durch den produktiven Sitekey ersetzen (Secret liegt im Handler).
+// PRODUKTIV: echter Turnstile-Sitekey. Widget-Hostname kuwezu.de deckt alle
+// *.kuwezu.de (inkl. staging-Subdomains) ab. Secret (TURNSTILE_SECRET_KEY) im Handler.
 const CONTACT_ENDPOINT = "https://dashboard.kuwezu.de/api/contact";
-const TURNSTILE_SITEKEY = "1x00000000000000000000AA";
+const TURNSTILE_SITEKEY = "0x4AAAAAAD5KZ_BVSPnUNhbw";
 
 declare global {
   interface Window { turnstile?: { render: (el: HTMLElement, opts: Record<string, unknown>) => string; reset: (id?: string) => void } }
