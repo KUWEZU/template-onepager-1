@@ -18,7 +18,8 @@ export function Footer() {
 
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-5">
+            {/* A2/#7: Footer-Logo klickbar (→ Startseite/oben), analog zum Header-Logo. */}
+            <a href="/" aria-label="Zur Startseite" className="flex items-center gap-3 mb-5 group hover:opacity-80 transition-opacity">
               {client.logo ? (
                 <Image src={client.logo} alt={client.name} width={140} height={40}
                   className="h-10 w-auto object-contain" unoptimized />
@@ -30,7 +31,7 @@ export function Footer() {
                   <span className="text-brand-text font-bold text-lg">{client.name}</span>
                 </>
               )}
-            </div>
+            </a>
             <p className="text-base text-brand-muted leading-relaxed mb-6">
               Ihr {client.branche}-Betrieb in {client.ort}. Qualität, Transparenz
               und schneller Service.

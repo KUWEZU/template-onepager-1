@@ -75,7 +75,13 @@ export function UeberUns() {
     totalCount: number;
     reviews: { author: string; rating: number; text: string; date?: string }[];
   };
-  const hasRating  = reviews.averageRating !== null && reviews.averageRating > 0;
+  // #11 / A3: nur plausible, vollständige Werte anzeigen — nie Fehl-/Default-Werte.
+  // (Rating 1–5, Anzahl > 0, mind. ein Review-Text.) Verhindert „1,2 / 10 / 1 Stern".
+  const hasRating  =
+    typeof reviews.averageRating === "number" &&
+    reviews.averageRating >= 1 && reviews.averageRating <= 5 &&
+    reviews.totalCount > 0 &&
+    reviews.reviews.length > 0;
   const topReviews = reviews.reviews.slice(0, 3);
 
   return (

@@ -19,6 +19,9 @@ const NAV_ANCHORS = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // A1/#6: aktiver Menüpunkt. Onepager → Scroll-Spy (sichtbarer Abschnitt);
+  // "" = Home (oben). Auf Unterseiten via pathname markiert.
+  const [active, setActive] = useState<string>("");
   const pathname = usePathname();
 
   useEffect(() => {
@@ -26,6 +29,32 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // A1/#6: Scroll-Spy — markiert den gerade sichtbaren Abschnitt (nur Onepager).
+  useEffect(() => {
+    if (pathname !== "/") { setActive(""); return; }
+    const ids = NAV_ANCHORS.map((a) => a.anchor).filter(Boolean);
+    const els = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    );
+    els.forEach((el) => obs.observe(el));
+    // Ganz oben = Home
+    const onTop = () => { if (window.scrollY < 120) setActive(""); };
+    window.addEventListener("scroll", onTop, { passive: true });
+    onTop();
+    return () => { obs.disconnect(); window.removeEventListener("scroll", onTop); };
+  }, [pathname]);
+
+  const isAnchorActive = (anchor: string) => pathname === "/" && active === anchor;
 
   function navHref(anchor: string) {
     return pathname === "/" ? `#${anchor}` : `/#${anchor}`;
@@ -103,19 +132,29 @@ export function Navbar() {
 
         {/* Desktop nav links */}
         <ul className="hidden md:flex items-center gap-1" role="list">
-          {NAV_ANCHORS.map(({ label, anchor }) => (
+          {NAV_ANCHORS.map(({ label, anchor }) => {
+            const act = isAnchorActive(anchor);
+            return (
             <li key={anchor}>
               <a href={navHref(anchor)} onClick={(e) => handleNavClick(e, anchor)}
-                className="nav-link px-4 py-2.5 text-base font-medium rounded-lg transition-all min-h-[44px] inline-flex items-center">
+                aria-current={act ? "true" : undefined}
+                className={`nav-link relative px-4 py-2.5 text-base rounded-lg transition-all min-h-[44px] inline-flex items-center ${act ? "font-semibold" : "font-medium"}`}
+                style={act ? { color: scrolled ? "var(--color-safe-primary)" : "var(--nav-hero-text)" } : undefined}>
                 {label}
+                {act && <span className="absolute left-4 right-4 -bottom-0.5 h-0.5 rounded-full" aria-hidden="true"
+                  style={{ background: scrolled ? "var(--color-safe-primary)" : "var(--nav-hero-text)" }} />}
               </a>
             </li>
-          ))}
+          ); })}
           {client.newsEnabled && (
             <li>
               <Link href="/aktuelles"
-                className="nav-link px-4 py-2.5 text-base font-medium rounded-lg transition-all min-h-[44px] inline-flex items-center">
+                aria-current={pathname === "/aktuelles" ? "page" : undefined}
+                className={`nav-link relative px-4 py-2.5 text-base rounded-lg transition-all min-h-[44px] inline-flex items-center ${pathname === "/aktuelles" ? "font-semibold" : "font-medium"}`}
+                style={pathname === "/aktuelles" ? { color: scrolled ? "var(--color-safe-primary)" : "var(--nav-hero-text)" } : undefined}>
                 Aktuelles
+                {pathname === "/aktuelles" && <span className="absolute left-4 right-4 -bottom-0.5 h-0.5 rounded-full" aria-hidden="true"
+                  style={{ background: scrolled ? "var(--color-safe-primary)" : "var(--nav-hero-text)" }} />}
               </Link>
             </li>
           )}
@@ -162,20 +201,22 @@ export function Navbar() {
         <div id="mobile-menu" role="navigation" aria-label="Mobilmenü"
           className="md:hidden border-t px-4 pb-5 bg-[var(--color-footer-bg)] border-[var(--nav-scrolled-border)]">
           <ul className="space-y-1 pt-3" role="list">
-            {NAV_ANCHORS.map(({ label, anchor }) => (
+            {NAV_ANCHORS.map(({ label, anchor }) => {
+              const act = isAnchorActive(anchor);
+              return (
               <li key={anchor}>
                 <a href={navHref(anchor)} onClick={(e) => handleNavClick(e, anchor)}
-                  className="flex items-center px-4 py-3 text-base font-medium text-on-footer/70 hover:text-on-footer
-                             hover:bg-[var(--nav-scrolled-hover-bg)] rounded-lg transition-all min-h-[44px]">
+                  aria-current={act ? "true" : undefined}
+                  className={`flex items-center px-4 py-3 text-base rounded-lg transition-all min-h-[44px] hover:bg-[var(--nav-scrolled-hover-bg)] ${act ? "font-semibold text-on-footer border-l-2 border-[var(--color-safe-primary)]" : "font-medium text-on-footer/70 hover:text-on-footer"}`}>
                   {label}
                 </a>
               </li>
-            ))}
+            ); })}
             {client.newsEnabled && (
               <li>
                 <Link href="/aktuelles" onClick={() => setOpen(false)}
-                  className="flex items-center px-4 py-3 text-base font-medium text-on-footer/70 hover:text-on-footer
-                             hover:bg-[var(--nav-scrolled-hover-bg)] rounded-lg transition-all min-h-[44px]">
+                  aria-current={pathname === "/aktuelles" ? "page" : undefined}
+                  className={`flex items-center px-4 py-3 text-base rounded-lg transition-all min-h-[44px] hover:bg-[var(--nav-scrolled-hover-bg)] ${pathname === "/aktuelles" ? "font-semibold text-on-footer border-l-2 border-[var(--color-safe-primary)]" : "font-medium text-on-footer/70 hover:text-on-footer"}`}>
                   Aktuelles
                 </Link>
               </li>

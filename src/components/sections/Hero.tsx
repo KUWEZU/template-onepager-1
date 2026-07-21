@@ -45,13 +45,14 @@ export function Hero() {
   };
   const todaysHours = useTodaysHours(oz);
 
-  // Google-Bewertung
+  // Google-Bewertung — #11 / A3: nur plausible Werte (Rating 1–5, Anzahl > 0).
+  // Nie Fehl-/Default-Werte anzeigen.
   const rating    = reviewsData?.averageRating;
   const ratingCnt = reviewsData?.totalCount;
-  const googleText =
-    rating !== null && rating !== undefined
-      ? `${String(rating).replace(".", ",")} ★ bei Google${ratingCnt ? ` (${ratingCnt})` : ""}`
-      : null;
+  const ratingOk  = typeof rating === "number" && rating >= 1 && rating <= 5 && (ratingCnt ?? 0) > 0;
+  const googleText = ratingOk
+    ? `${String(rating).replace(".", ",")} ★ bei Google (${ratingCnt})`
+    : null;
 
   // TÜV Termine — Badge zeigt den nächsten konkreten Slot und ist klickbar
   // (Smooth-Scroll zum TÜV-Block im Kontaktbereich). Der konkrete Slot wird
