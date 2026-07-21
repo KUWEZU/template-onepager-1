@@ -37,6 +37,14 @@ export function Hero() {
   const { bild, ueberschrift, ueberschriftHighlight, untertext, ctaPrimary, ctaSecondary, overlayOpacity } =
     client.hero;
 
+  // Zeilenumbruch der Überschrift: bevorzugt die vom Generator bereits geparsten
+  // `ueberschriftLines` (aus dem Wizard-Markup **…**/|). Fällt auf das bisherige
+  // Verhalten zurück (Kopf + Highlight in zweiter Zeile), wenn das Feld fehlt.
+  const heroLines: string[] = [
+    ...((client.hero.ueberschriftLines as readonly string[] | undefined) ??
+      [ueberschrift.replace(ueberschriftHighlight, "").trim(), ueberschriftHighlight].filter(Boolean)),
+  ];
+
   // Öffnungszeiten aus client (mit Fallback falls Feld fehlt)
   const oz: OeffZeiten = (client as unknown as { oeffnungszeiten?: OeffZeiten }).oeffnungszeiten ?? {
     mo_fr: "",
@@ -121,11 +129,25 @@ export function Hero() {
 
         {/* Headline */}
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6 hero-title-shadow">
-          {ueberschrift.replace(ueberschriftHighlight, "").trim()}
-          <br />
-          <span className="text-brand-primary hero-highlight-shadow">
-            {ueberschriftHighlight}
-          </span>
+          {heroLines.map((line, i) => {
+            const idx = ueberschriftHighlight ? line.lastIndexOf(ueberschriftHighlight) : -1;
+            return (
+              <span key={i}>
+                {i > 0 && <br />}
+                {idx >= 0 ? (
+                  <>
+                    {line.slice(0, idx)}
+                    <span className="text-brand-primary hero-highlight-shadow">
+                      {ueberschriftHighlight}
+                    </span>
+                    {line.slice(idx + ueberschriftHighlight.length)}
+                  </>
+                ) : (
+                  line
+                )}
+              </span>
+            );
+          })}
         </h1>
 
         {/* Untertext */}

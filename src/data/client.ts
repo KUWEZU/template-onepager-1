@@ -50,6 +50,7 @@ export const client = {
     overlayOpacity: 0.55,
     ueberschrift: "Professionelle Kfz-Reparatur",
     ueberschriftHighlight: "die Sie verdienen",
+    ueberschriftLines: ["Professionelle Kfz-Reparatur", "die Sie verdienen"],
     untertext:
       "Von der Inspektion bis zur Unfallreparatur — wir kümmern uns um Ihr Fahrzeug mit modernster Technik und über 20 Jahren Erfahrung.",
     ctaPrimary: { text: "Termin vereinbaren", href: "#kontakt" },
