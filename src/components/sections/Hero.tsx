@@ -123,7 +123,7 @@ export function Hero() {
         {/* Badge */}
         <div className="inline-flex items-center px-5 py-2 rounded-full bg-white/10 border border-white/25 mb-8 backdrop-blur-sm">
           <span className="text-white text-base font-medium">
-            {client.branche ?? "Werkstatt"} in {client.ort}
+            {client.unternehmenszweck ?? client.branche ?? "Werkstatt"} in {client.ort}
           </span>
         </div>
 

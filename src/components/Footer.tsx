@@ -33,7 +33,7 @@ export function Footer() {
               )}
             </a>
             <p className="text-base text-brand-muted leading-relaxed mb-6">
-              Ihr {client.branche}-Betrieb in {client.ort}. Qualität, Transparenz
+              Ihr {client.unternehmenszweck ?? client.branche}-Betrieb in {client.ort}. Qualität, Transparenz
               und schneller Service.
             </p>
             {(client.social.facebook || client.social.instagram) && (

@@ -15,6 +15,9 @@ export const client = {
   // ── Allgemein ──────────────────────────────────────────────────────────────
   name: "KUWEZU",
   branche: "Kfz-Werkstatt" as string,
+  // #8 — optionaler Freitext-Unternehmenszweck; ersetzt kundenseitig die Branche
+  // in Hero-Badge/Footer/Aktuelles. null = Fallback auf branche.
+  unternehmenszweck: null as string | null,
   ort: "Warendorf" as string,
   slogan: "Professionelle Kfz-Werkstatt die Sie verdienen",
   adresse: "Bernhardstraße 4c, 48231 Warendorf",

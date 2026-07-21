@@ -58,7 +58,7 @@ export default function AktuellesPage() {
                 Neuigkeiten & Tipps
               </h1>
               <p className="text-brand-muted text-lg leading-relaxed max-w-2xl">
-                Aktuelles rund um {client.branche} in {client.ort} — Tipps, Termine und Neuigkeiten aus unserem Betrieb.
+                Aktuelles rund um {client.unternehmenszweck ?? client.branche} in {client.ort} — Tipps, Termine und Neuigkeiten aus unserem Betrieb.
               </p>
             </div>
 
